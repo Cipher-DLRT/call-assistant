@@ -82,7 +82,7 @@ if channels < 2 {
     print("NOTE: device presents only \(channels) channel(s) — no L/R split possible in this mode.")
 }
 
-let file: AVAudioFile
+var file: AVAudioFile?
 do { file = try AVAudioFile(forWriting: outURL, settings: format.settings) }
 catch {
     print("CAPTURE FAILED: cannot write \(outURL.path): \(error.localizedDescription)")
@@ -99,7 +99,7 @@ final class Meter {
 let meter = Meter(channels: channels)
 
 input.installTap(onBus: 0, bufferSize: 4096, format: format) { buffer, _ in
-    try? file.write(from: buffer)
+    try? file?.write(from: buffer)
     guard let data = buffer.floatChannelData else { return }
     let n = Int(buffer.frameLength)
     for ch in 0..<channels {
@@ -131,4 +131,5 @@ do { try engine.start() } catch {
 meter.done.wait()
 engine.stop()
 input.removeTap(onBus: 0)
+file = nil  // finalize the wav header before exiting
 print("done — wav written to \(outURL.path)")

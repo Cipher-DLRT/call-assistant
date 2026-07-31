@@ -6,3 +6,4 @@ spike/stt_bench/venv/
 spike/stt_bench/models/
 spike/stt_bench/bench_whispercpp
 spike/stt_bench/*.log
+spike/voiceprint/
