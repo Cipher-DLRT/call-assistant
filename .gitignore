@@ -7,3 +7,6 @@ spike/stt_bench/models/
 spike/stt_bench/bench_whispercpp
 spike/stt_bench/*.log
 spike/voiceprint/
+spike/leg_capture/leg-capture
+legs/smoke*/
+legs/**/*.json
