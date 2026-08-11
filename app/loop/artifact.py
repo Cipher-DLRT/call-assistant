@@ -89,7 +89,8 @@ class ArtifactWriter:
             "| # | shown | hint | facts | useful | on-time | wrong |",
             "|---|-------|------|-------|--------|---------|-------|",
         ]
-        for i, hint in enumerate(self.hints, 1):
+        shown = [h for h in self.hints if not h.get("suppressed")]
+        for i, hint in enumerate(shown, 1):
             text = _cell(hint["text"])
             facts = ",".join(str(fact_id) for fact_id in hint["fact_ids"])
             lines.append(

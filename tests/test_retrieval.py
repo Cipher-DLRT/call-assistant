@@ -108,3 +108,12 @@ def test_missing_manifest_raises(tmp_path):
     manifest_path.unlink()
     with pytest.raises(PackError):
         load_pack(pack_path, manifest_path)
+
+
+def test_should_suppress_duplicates():
+    from app.loop.orchestrator import should_suppress
+    recent = [(10.0, {236})]
+    assert should_suppress(recent, {236}, 15.0)          # same facts, soon after
+    assert not should_suppress(recent, {236, 33, 28}, 15.0)  # adds new facts
+    assert not should_suppress(recent, {236}, 200.0)     # window expired
+    assert not should_suppress([], {236}, 15.0)          # nothing shown yet

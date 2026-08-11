@@ -35,6 +35,16 @@ CALLS = REPO / "calls"
 STALE_DAYS = 90
 TOP_K = 6
 WINDOW_UTTS = 6
+DUP_WINDOW_S = 90   # suppress a hint whose facts were all shown this recently
+
+
+def should_suppress(recent_hints, fact_ids, now, window=DUP_WINDOW_S):
+    """recent_hints: list of (shown_at, fact_id_set). True when every cited
+    fact already appeared on a card within the window (operator ruling
+    2026-08-11: the same answer must not stack twice)."""
+    live = [s for t, s in recent_hints if now - t < window]
+    shown = set().union(*live) if live else set()
+    return bool(fact_ids) and fact_ids <= shown
 
 
 def log(msg):
@@ -69,6 +79,7 @@ class Call:
         self.attributor = Attributor()
         self.segmenters = {}
         self.utterances = []      # rolling transcript (all streams, by end time)
+        self.recent_hints = []    # (shown_at, fact_id_set) for dup suppression
         self.utt_i = 0
         self.ceiling_notified = False
         self.stopping = False     # set on SIGINT: flush transcript, skip hints
@@ -165,6 +176,18 @@ class Call:
             used = [f for f in facts if f["id"] in set(hint["fact_ids"])]
             if not hint["hint"] or not used:
                 return
+            ids = set(hint["fact_ids"])
+            if should_suppress(self.recent_hints, ids, record["end"]):
+                self.artifact.add_hint({"utterance_i": record["i"],
+                                        "text": hint["hint"],
+                                        "fact_ids": hint["fact_ids"],
+                                        "suppressed": True,
+                                        "shown_at": record["end"],
+                                        "latency_ms": ms, "usage": usage,
+                                        "cost_usd": round(cost, 6)})
+                log(f"hint suppressed (duplicate facts {sorted(ids)})")
+                return
+            self.recent_hints.append((record["end"], ids))
             locked = any(f["shareability"] != "shareable" for f in used)
             stale = any(self._age_days(f["verified_at"]) > STALE_DAYS for f in used)
             # when stale, show the OLDEST cited date (the fact causing the ⏳)
