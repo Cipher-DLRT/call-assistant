@@ -119,3 +119,11 @@ def test_should_suppress_duplicates():
     assert not should_suppress([], {236}, "any", 15.0)                 # none shown
     # near-identical text with DIFFERENT facts is still a duplicate (UAE case)
     assert should_suppress(recent, {999}, "yes sso via okta and saml", 15.0)
+
+
+def test_should_suppress_punctuation_insensitive():
+    from app.loop.orchestrator import should_suppress, _words
+    # the exact live pair (2026-08-11): re-asked question, same answer
+    a = "We support SaaS, VPC, on-premise, hybrid, and even air-gapped deployments - fully flexible."
+    b = "We support both: SaaS, VPC, on-premise, hybrid, even air-gapped deployments. Fully flexible based on needs."
+    assert should_suppress([(10.0, {50}, _words(a))], {51}, b, 20.0)

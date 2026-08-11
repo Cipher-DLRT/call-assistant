@@ -38,12 +38,20 @@ WINDOW_UTTS = 6
 DUP_WINDOW_S = 90   # suppress a hint whose facts were all shown this recently
 
 
+import re as _re
+
+
+def _words(text):
+    # punctuation-insensitive ("deployments." == "deployments" — live find)
+    return set(_re.findall(r"[a-z0-9]+", text.lower()))
+
+
 def should_suppress(recent_hints, fact_ids, text, now, window=DUP_WINDOW_S):
     """recent_hints: list of (shown_at, fact_id_set, word_set). Suppress when
     every cited fact already appeared on a card within the window, OR the text
     is a near-rephrasing of a shown card (operator ruling 2026-08-11: the same
     answer must not stack twice — varying citations don't make it new)."""
-    words = set(text.lower().split())
+    words = _words(text)
     live = [(s, w) for t, s, w in recent_hints if now - t < window]
     if not live:
         return False
@@ -197,8 +205,7 @@ class Call:
                                         "cost_usd": round(cost, 6)})
                 log(f"hint suppressed (duplicate facts {sorted(ids)})")
                 return
-            self.recent_hints.append(
-                (record["end"], ids, set(hint["hint"].lower().split())))
+            self.recent_hints.append((record["end"], ids, _words(hint["hint"])))
             locked = any(f["shareability"] != "shareable" for f in used)
             stale = any(self._age_days(f["verified_at"]) > STALE_DAYS for f in used)
             # when stale, show the OLDEST cited date (the fact causing the ⏳)
