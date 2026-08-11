@@ -1,9 +1,19 @@
 # Utterance segmentation over stt-stream hop events (design: utterance-end =
-# non-empty text + one hop below SILENCE_DB, ~1 s of silence at HOP=1.0).
-# Whisper re-transcribes a sliding 10 s window, so consecutive windows overlap;
-# v0 dedup strips the common word-prefix against the previous utterance.
+# non-empty text + one silence hop, ~1 s at HOP=1.0). Whisper re-transcribes
+# a sliding 10 s window, so consecutive windows overlap; v0 dedup strips the
+# common word-prefix against the previous utterance.
+#
+# The silence threshold is ADAPTIVE (operator's first real call, 2026-08-11:
+# room floor sat above the fixed -45 dBFS, no boundary ever fired, the whole
+# call became one flushed utterance with zero gates). A hop is silence when
+# it is below noise_floor + MARGIN_DB, where noise_floor tracks the 10th
+# percentile of recent hop levels; -45 remains the QUIET-room lower bound and
+# CEIL_DB caps runaway floors in loud rooms.
 
-SILENCE_DB = -45.0
+SILENCE_DB = -45.0     # absolute floor for quiet rooms
+MARGIN_DB = 6.0        # silence = below noise floor + margin
+CEIL_DB = -33.0        # never call a hop this loud "silence" (speech ~ -30)
+FLOOR_WINDOW = 120     # hops (~2 min) for the rolling noise-floor estimate
 
 
 def _strip_common_prefix(prev_words, words):
@@ -20,12 +30,20 @@ class Segmenter:
         self.voiced_start = None
         self.last_voiced_t = None
         self.last_emitted_words = []
+        self.recent_dbs = []
+
+    def _threshold(self, db):
+        self.recent_dbs.append(db)
+        if len(self.recent_dbs) > FLOOR_WINDOW:
+            self.recent_dbs.pop(0)
+        floor = sorted(self.recent_dbs)[max(0, len(self.recent_dbs) // 10 - 1)]
+        return min(max(self.silence_db, floor + MARGIN_DB), CEIL_DB)
 
     def feed(self, event):
         """One stt hop event {'t','rms_db','text'}. Returns an utterance dict
         {'start','end','text'} on utterance-end, else None."""
         t, db, text = event["t"], event["rms_db"], event["text"].strip()
-        voiced = db >= self.silence_db
+        voiced = db >= self._threshold(db)
         if voiced:
             if self.voiced_start is None:
                 self.voiced_start = t - 1.0
