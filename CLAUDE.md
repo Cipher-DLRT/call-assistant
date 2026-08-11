@@ -128,10 +128,12 @@ the query.
 
 Exact container/user/db names come from the work-automation .env at run time —
 names only in docs, values never in chat. Expected output: one JSON array, row
-count = ACTIVE canon (261 at record time), NOT total (265). A count matching
-total canon is a failure signature: the status filter is missing — STOP, do not
-build a pack from it. Script lands in scripts/ with the expected-output line,
-per the operator profile.
+count = ACTIVE canon, strictly BELOW total. The absolute number moves as the
+operator retires facts (261 at record time; 223 on the first real export,
+2026-08-11, after the operator worked the pending retire queue), so the check
+is the comparison, not the number: active == total is the failure signature
+meaning the status filter is missing — STOP, do not build a pack from it.
+scripts/export-canon.sh runs the export and enforces this check.
 
 Suite pin (lands with the P1 retrieval code, mirror of the seed reader-law pin
 in the dossier repo): any SQL touching pkms_canon without the status filter

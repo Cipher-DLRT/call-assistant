@@ -1,7 +1,7 @@
 # STATUS — call-assistant
 
 **Phase:** P0 CLOSED (operator ruling 2026-08-11) → P1 — hint loop, awaiting build session
-**Now:** attribution bars (98 online / 90 in-person) moved to P1 exit — the first real shadow calls ARE legs 1 and 2; canon export script in progress (Claude Code)
+**Now:** attribution bars (98 online / 90 in-person) moved to P1 exit — the first real shadow calls ARE legs 1 and 2; canon export DONE (scripts/export-canon.sh, first run good: 223 active)
 **Next:** P1 build session (overlay + Haiku gate + pack retrieval + Sonnet hints + per-call artifact with auto-generated grading sheets + cost ceiling), smoke on fake audio, then first shadow calls
 
 ## Log
@@ -17,3 +17,5 @@
 - 2026-08-11 · **leg 3 RUN — cross-mic voiceprint transfer 100.0%** (23/23, sims 0.63–0.80 vs 0.55 threshold; no bar, informational; sheet legs/leg3-2026-08-11/sheet.md, score docs/leg-3-score.md). This line was first committed with an unfilled XX.X% placeholder — corrected in this commit; the number matches docs/leg-3-score.md
 - 2026-08-11 · **leg-2 STAGED DRY RUN (not pass evidence)** — built-in mic, real second voice, 21 utterances end-to-end through capture→sheet→grade: ME sims 0.59–0.71, THEM 0.01–0.13, one near-threshold THEM at 0.42 (recorded failure surface for P1 grading); operator graded all 21 labels correct. Sheet initially mangled by a markdown editor (\[ x] variants) — repaired via sed; grade in a plain editor next time. Mic-gain note: raise input so operator speech sits ~−30 dBFS (done)
 - 2026-08-11 · **P0 CLOSED (operator ruling: "I want this live the first time I use it")** — the two live attribution bars (channel-split ≥98% online, voiceprint ≥90% in-person) move to P1 EXIT, graded on the first real shadow calls (which are legs 1 and 2; sheets auto-generate from the per-call artifact). Companion ruling: primary in-person rig = built-in MacBook mic; Lark = enhancement when worn. Risk accepted: live attribution measured after P1 is built, bounded by leg 3 (100%) and the dry run. CLAUDE.md v1.2 amended in this commit (law 8, P0/P1 phase text, verify-list closures)
+- 2026-08-11 · **canon export script LANDED** — scripts/export-canon.sh: names from work-automation .env (never printed), ssh→docker→psql loopback, status='active' per reader law, active-vs-total filter check (equal = STOP failure signature); pack/ gitignored (canon text incl. 🔒 stays on the Mac)
+- 2026-08-11 · **first real canon export RUN — GOOD** — 223 active / 265 total, filter check OK. Initial 223-vs-261 mismatch stopped per protocol and resolved at source: DB breakdown active|223 retired|42, operator confirmed retiring the pending queue after the record was written (record itself froze 261+4 with 35 proposals pending, §5). CLAUDE.md expected-output reworded: the check is active < total, not a pinned number
