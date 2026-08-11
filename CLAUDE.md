@@ -1,4 +1,4 @@
-# call-assistant — CLAUDE.md (seed v1, 2026-07-31)
+# call-assistant — CLAUDE.md (seed v1.2, 2026-08-11)
 
 Live sales-call copilot for Rami (Solution Consultant, UnifyApps). Listens to calls
 LOCALLY on the Mac, shows short answers + sales cues in an overlay while the call
@@ -36,10 +36,13 @@ Repo: private under Cipher-DLRT. Mac-resident through P1 — nothing here runs o
    wrongly mark valid facts expired mid-call. Flip this law only on the upstream
    fix's committed evidence.
 8. **me/them attribution: deterministic first, learned second.** Online calls:
-   channel split — Lark M2 receiver = operator, system audio = far side; the
-   voiceprint is backup. In-person: voiceprint is primary (one room, one stream).
-   Voiceprint: one-time ~60 s enrollment, pyannote-class model, local, stored on
-   the Mac only.
+   channel split — mic input = operator, system audio = far side; the voiceprint
+   is backup. **Primary rig = the built-in MacBook mic (operator ruling
+   2026-08-11); the Lark M2 is an enhancement when worn, not an assumption.**
+   In-person: voiceprint is primary (one room, one stream); leg 3 proved the
+   Lark-enrolled print transfers to the built-in mic (100%, sims 0.63–0.80 vs
+   0.55 threshold). Voiceprint: one-time ~60 s enrollment, ECAPA-class model,
+   local, stored on the Mac only.
 9. **Secrets.** Anthropic key in local env (0600) or keychain; no spine credentials
    on the Mac beyond the operator's existing ssh path. Nothing transits chat.
 10. **House working agreements apply verbatim:** evidence before theory · verify at
@@ -50,10 +53,10 @@ Repo: private under Cipher-DLRT. Mac-resident through P1 — nothing here runs o
 
 ## Architecture — three loops
 
-- **Pre-call (pack).** v0: the FULL canon snapshot is the pack — 265 rows travels as
-  one small local file; refresh it before call days via the export below. P2 adds
-  the per-account dossier md and a calendar-triggered pack build on the reflex
-  plane.
+- **Pre-call (pack).** v0: the FULL canon snapshot is the pack — active canon
+  travels as one small local file; refresh it before call days via the export
+  below. P2 adds the per-account dossier md and a calendar-triggered pack build
+  on the reflex plane.
 - **In-call (the build).** Local capture → rolling transcript with me/them labels →
   utterance-end Haiku gate ("askable moment? cue moment?") → LOCAL retrieval over
   the pack (FTS-ish scoring; no index per the standing retrieval ruling) → Sonnet
@@ -65,17 +68,25 @@ Repo: private under Cipher-DLRT. Mac-resident through P1 — nothing here runs o
 
 ## Phases and gates
 
-- **P0 — capture spike.** Pass conditions, all evidenced in a committed latency
-  ledger: (a) streaming partials, p50 < 2 s on the M5 (measure faster-whisper vs
-  whisper.cpp, pick by numbers, not preference); (b) a real ONLINE meeting with
-  channel-split attribution ≥ 98% on a graded sample; (c) a real in-person 1-2-1
-  with voiceprint attribution graded — proposed proceed bar ≥ 90%. Includes
-  voiceprint enrollment. No hint logic in P0.
+- **P0 — capture spike. CLOSED 2026-08-11 (operator ruling: "first use is live").**
+  Closed on: verify checks a/b/c (Granola coexistence PASS; Lark = mono mix, no
+  TX split; whisper.cpp p50 0.313 s) · enrollment (same-speaker 0.9249, impostor
+  0.1828) · leg 3 cross-mic transfer 100% (23/23, sims 0.63–0.80) · a staged
+  end-to-end dry run with a real second voice (ME sims 0.59–0.71, THEM 0.01–0.13;
+  one near-threshold THEM at 0.42 — recorded failure surface for P1 grading).
+  **The two live attribution bars did NOT close in P0 — moved to P1 exit by the
+  same ruling.** Risk accepted and stated: if live attribution disappoints, P1 is
+  already built; bounded by the two measured passes above.
 - **P1 — hint loop, silent shadow.** Internal calls only (1-2-1s, SC enablement).
   Overlay live; every hint graded Phase-0 style: useful / on-time / wrong, plus
   cost per call vs ceiling. Scope per settled R3: answers + sales cues/objection
-  counters. Exit: an operator-set precision bar over a graded call sample, cost
-  inside ceiling. External-call use does NOT begin in P1.
+  counters. **Exit: an operator-set precision bar over a graded call sample, cost
+  inside ceiling, PLUS the P0-inherited attribution bars measured on the first
+  real shadow calls — channel-split ≥ 98% (online; headset REQUIRED, speakers
+  bleed at gradable levels per the smoke evidence) and voiceprint ≥ 90%
+  (in-person; built-in mic = primary rig). Grading sheets auto-generate from the
+  per-call artifact — the first shadow calls ARE legs 1 and 2.** External-call
+  use does NOT begin in P1.
 - **P2 — pack automation + dossier join.** GATED on dossier v1's rendered
   per-account md (D4) — per the gate announcement, not this repo's call. Adds:
   calendar-triggered pack builds (reflex plane), dossier slice in the pack,
@@ -90,12 +101,13 @@ Repo: private under Cipher-DLRT. Mac-resident through P1 — nothing here runs o
 - ScreenCaptureKit system-audio tap on the INSTALLED macOS: works alongside
   Zoom/Meet/Teams, and — the real risk — alongside **Granola capturing
   simultaneously** during in-person meetings. Two taps on one Mac is TBV, not
-  assumed compatible.
+  assumed compatible. [CLOSED: check (a) PASS]
 - Lark M2 USB-C receiver presents as standard USB Audio Class @48 kHz on THIS Mac
-  (re-verify on hardware, not memory).
+  (re-verify on hardware, not memory). [CLOSED: check (b) — mono mix, no TX split]
 - faster-whisper vs whisper.cpp streaming latency/throughput on the M5 — measured,
-  P0 picks the winner.
-- pyannote-class voiceprint model: local runtime + license check.
+  P0 picks the winner. [CLOSED: check (c) — whisper.cpp]
+- pyannote-class voiceprint model: local runtime + license check. [CLOSED:
+  ECAPA, Apache-2.0, local]
 - Canon export path (below) returns the expected row shape against live 019 schema.
 - (P3 only) G2 SDK: text-push path, phone-companion vs BLE-direct.
 
