@@ -1,8 +1,8 @@
 # STATUS — call-assistant
 
 **Phase:** P0 — capture spike (started 2026-07-31)
-**Now:** live-leg tooling READY and smoke-tested — legs await the operator's scheduled calls
-**Next:** run leg 1 (online, ≥98%, docs/leg-1-online.md) and leg 2 (in-person, ≥90%, docs/leg-2-inperson.md; optional leg 3 cross-mic section) on real internal meetings. No hint logic, no EQ14, no new network surface until then.
+**Now:** legs 2 + 3 PASSED (2026-08-11) — leg 1 (online) awaits a scheduled call
+**Next:** run leg 1 (online, ≥98%, docs/leg-1-online.md) on a real internal meeting. No hint logic until P0 closes.
 
 ## Log
 - 2026-07-31 · repo skeleton created (spike/ prompts/ scripts/ docs/); P0 session rulings recorded in docs/p0-session-rulings.md
@@ -14,6 +14,5 @@
 - 2026-07-31 · **enrollment DONE — USABLE** — ECAPA (Apache-2.0, local) on 60 s Lark speech: same-speaker 0.9249, other-speaker 0.1828, margin 0.7421. Stored Mac-only in gitignored spike/voiceprint/. Lark tap wav-header bug found, take salvaged losslessly, fix verified. Evidence in docs/p0-enrollment-result.md. **P0 session portion COMPLETE — STOPPED per ruling 6**
 - 2026-07-31 · **live-leg tooling BUILT + SMOKE-TESTED** — leg-capture (online dual Lark+system / single device; 5 s level lines; Ctrl-C and auto-stop both finalize headers — verified), grade_leg.py (whisper.cpp transcription; leg1 channel labels, leg2/3 voiceprint labels with sim + dB columns; ~60-row checkbox sheets), score_leg.py (marks → % vs bar; leg3 auto). Smoke on 30 s fake capture: dual capture ✓, sheet ✓, scorer math ✓ (10/12=83.3% FAIL vs 98 as constructed), voiceprint path ✓ (other speaker sims 0.09–0.17 → THEM), leg3 auto-score ✓ (0% on other-speaker audio), SIGINT ✓ (19.2 s header exact). Smoke even reproduced the far-side-bleed failure mode (headphones were unplugged, so the fake far-side audio played through the speakers and reached the Lark TX acoustically → ME rows at −57 dB — the exact speakers-only risk the leg-1 runbook warns about). Runbooks: docs/leg-1-online.md, docs/leg-2-inperson.md. Raw audio/transcripts gitignored; sheets + scores commit. Real legs NOT run — awaiting scheduled calls
 - 2026-08-11 · **reader-law amendment** (from dashboard-retire-record.md §3, dossier repo) — canon export's status='active' filter promoted to LAW in CLAUDE.md; expected row count is now ACTIVE canon (261 at record time), count == total (265) = missing-filter failure signature; suite pin noted for P1 retrieval code (SQL on pkms_canon without status filter fails the build)
-
-
-- 2026-08-11 · **leg 3 RUN** — cross-mic voiceprint transfer XX.X% (no bar, informational)
+- 2026-08-11 · **leg 3 RUN** — cross-mic voiceprint transfer 100% (no bar, informational)
+- 2026-08-11 · **leg 2 RUN** — in-person voiceprint attribution 100 % vs 90% bar → PASS (built-in mic — primary in-person rig)
