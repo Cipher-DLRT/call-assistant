@@ -30,21 +30,34 @@ class CallAssistant(rumps.App):
         self.proc = None
         self.status_item = rumps.MenuItem("○ stopped")
         self.status_item.set_callback(None)
+        self.item_online = rumps.MenuItem("Start Shadow (online)",
+                                          callback=self.start_online)
+        self.item_inperson = rumps.MenuItem("Start Shadow (in-person)",
+                                            callback=self.start_inperson)
+        self.item_stop = rumps.MenuItem("Stop", callback=self.stop)
         self.menu = [
             self.status_item,
             None,
-            rumps.MenuItem("Start Shadow (online)", callback=self.start_online),
-            rumps.MenuItem("Start Shadow (in-person)", callback=self.start_inperson),
-            rumps.MenuItem("Stop", callback=self.stop),
+            self.item_online,
+            self.item_inperson,
+            self.item_stop,
             None,
             rumps.MenuItem("Open Last Call", callback=self.open_last),
         ]
         rumps.Timer(self.refresh, 2).start()
 
+    @staticmethod
+    def _any_call_running():
+        """True if ANY orchestrator runs on this Mac — including calls not
+        started by this menubar instance (double-capture guard)."""
+        r = subprocess.run(["pgrep", "-f", "app.loop.orchestrator"],
+                           capture_output=True)
+        return r.returncode == 0
+
     # -- actions ------------------------------------------------------------
     def _start(self, mode):
-        if self.proc and self.proc.poll() is None:
-            return
+        if self._any_call_running():
+            return  # never start a second capture (double-overlay guard)
         # own session so a menubar crash never takes the loop down
         self.proc = subprocess.Popen([str(RUN_CALL), mode],
                                      cwd=str(REPO), start_new_session=True,
@@ -62,8 +75,13 @@ class CallAssistant(rumps.App):
             # SIGINT to the group = run_call.sh trap = orchestrator finalize
             try:
                 os.killpg(os.getpgid(self.proc.pid), signal.SIGINT)
+                return
             except (ProcessLookupError, PermissionError):
                 pass  # already gone / reaped between poll() and killpg()
+        # calls this instance didn't start: SIGINT the orchestrator directly
+        # (its handler finalizes artifact + sheets)
+        subprocess.run(["pkill", "-INT", "-f", "app.loop.orchestrator"],
+                       capture_output=True)
 
     def open_last(self, _):
         d = newest_call_dir()
@@ -72,7 +90,11 @@ class CallAssistant(rumps.App):
 
     # -- status line --------------------------------------------------------
     def refresh(self, _timer):
-        running = self.proc is not None and self.proc.poll() is None
+        running = self._any_call_running()
+        # grey Start while ANY call runs; Stop only lit while one does
+        self.item_online.set_callback(None if running else self.start_online)
+        self.item_inperson.set_callback(None if running else self.start_inperson)
+        self.item_stop.set_callback(self.stop if running else None)
         d = newest_call_dir()
         hints = 0
         cost = None
