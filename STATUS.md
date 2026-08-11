@@ -16,3 +16,4 @@
 - 2026-08-11 · **reader-law amendment** (from dashboard-retire-record.md §3, dossier repo) — canon export's status='active' filter promoted to LAW in CLAUDE.md; expected row count is now ACTIVE canon (261 at record time), count == total (265) = missing-filter failure signature; suite pin noted for P1 retrieval code (SQL on pkms_canon without status filter fails the build)
 - 2026-08-11 · **leg 3 RUN** — cross-mic voiceprint transfer 100% (no bar, informational)
 - 2026-08-11 · **leg 2 RUN** — in-person voiceprint attribution 100 % vs 90% bar → PASS (built-in mic — primary in-person rig)
+- 2026-08-11 · **canon export script LANDED** — scripts/export-canon.sh: names from work-automation .env (never printed), ssh→docker→psql loopback, status='active' per reader law, active-vs-total filter check (equal = STOP failure signature); pack/ gitignored (canon text incl. 🔒 stays on the Mac). Not yet run against EQ14

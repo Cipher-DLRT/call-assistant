@@ -10,3 +10,4 @@ spike/voiceprint/
 spike/leg_capture/leg-capture
 legs/smoke*/
 legs/**/*.json
+pack/
