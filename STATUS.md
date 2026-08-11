@@ -5,6 +5,7 @@
 **Next:** first real shadow calls (internal only; online = headset REQUIRED) — they ARE legs 1 and 2 for the P1-exit attribution bars (98/90) + hint grading toward the operator precision bar
 
 ## Log
+- 2026-08-11 · **menubar launcher DEPLOYED (LaunchAgent installed + loaded)** — `○ CA` item verified registered via Accessibility but landed UNDER THE NOTCH (x≈706) on the crowded bar: macOS places new status items in the leftmost free slot including the notch dead zone. Runbook §3 now documents the fix (Ice: drag `○ CA` to the shown section). Diagnosis en route ruled out: process not running (it wasn't started — started + LaunchAgent'd), Ice hiding (bar identical with Ice quit), launch domain (same result via LaunchAgent)
 - 2026-07-31 · repo skeleton created (spike/ prompts/ scripts/ docs/); P0 session rulings recorded in docs/p0-session-rulings.md
 - 2026-07-31 · granola-coexist spike built, compiles clean, 3 s smoke run captured real system audio (48 kHz/2 ch, Terminal permission granted); runbook written; check itself NOT yet run — audio (*.wav) globally gitignored per law 1
 - 2026-07-31 · **check (a) PASS** — SCK tap + Granola recorded the same 60 s fake meeting simultaneously, headphone discriminator in effect; evidence in docs/p0a-granola-coexist-result.md

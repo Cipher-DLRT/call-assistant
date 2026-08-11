@@ -64,6 +64,14 @@ cd ~/dev/call-assistant && nohup ./spike/stt_bench/venv/bin/python -m app.menuba
 
 Expect: a `○ CA` item appears in the menu bar.
 
+**Notch gotcha (hit live 2026-08-11):** on a crowded menu bar, macOS places the
+new item in the leftmost free slot — which can be UNDER THE NOTCH, where it is
+invisible (verified via Accessibility: item existed at x≈706, the notch zone).
+Fix: this Mac runs Ice — open Ice's settings and drag `○ CA` from the
+hidden/overflow section into the shown section (or Cmd-drag items in the bar
+to reorder once visible). Without Ice: quit a few other menu-bar apps and
+restart the launcher so it lands in a visible slot.
+
 Optional login item (default OFF — the plist is a repo file, not a paste).
 Run only if you want it at login, one command at a time:
 
