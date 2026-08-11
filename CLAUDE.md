@@ -109,10 +109,21 @@ json_agg(t) FROM (SELECT id, fact_text, structured_value, tier, volatility_class
 shareability, verified_at FROM pkms_canon WHERE status='active') t\"" >
 pack/canon.json`
 
+**Reader law: every canon read in this repo filters status='active'; retired
+facts must never reach a pack or a hint. Origin: dashboard-retire-record.md §3.**
+The `WHERE status='active'` in the export above is this law, not an incident of
+the query.
+
 Exact container/user/db names come from the work-automation .env at run time —
 names only in docs, values never in chat. Expected output: one JSON array, row
-count = live active canon (265 at gate time). Script lands in scripts/ with the
-expected-output line, per the operator profile.
+count = ACTIVE canon (261 at record time), NOT total (265). A count matching
+total canon is a failure signature: the status filter is missing — STOP, do not
+build a pack from it. Script lands in scripts/ with the expected-output line,
+per the operator profile.
+
+Suite pin (lands with the P1 retrieval code, mirror of the seed reader-law pin
+in the dossier repo): any SQL touching pkms_canon without the status filter
+fails the build.
 
 ## Repo conventions
 
