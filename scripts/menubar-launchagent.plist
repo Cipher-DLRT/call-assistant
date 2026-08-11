@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+  <key>Label</key><string>com.rami.call-assistant.menubar</string>
+  <key>ProgramArguments</key><array>
+    <string>/Users/rami/dev/call-assistant/spike/stt_bench/venv/bin/python</string>
+    <string>-m</string><string>app.menubar.menubar</string>
+  </array>
+  <key>WorkingDirectory</key><string>/Users/rami/dev/call-assistant</string>
+  <key>RunAtLoad</key><true/>
+</dict></plist>

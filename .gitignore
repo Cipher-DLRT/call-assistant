@@ -11,3 +11,8 @@ spike/leg_capture/leg-capture
 legs/smoke*/
 legs/**/*.json
 pack/
+calls/
+app/bin/
+app/stt/stt-stream
+__pycache__/
+*.pyc

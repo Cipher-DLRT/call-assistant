@@ -130,10 +130,18 @@ Exact container/user/db names come from the work-automation .env at run time —
 names only in docs, values never in chat. Expected output: one JSON array, row
 count = ACTIVE canon, strictly BELOW total. The absolute number moves as the
 operator retires facts (261 at record time; 223 on the first real export,
-2026-08-11, after the operator worked the pending retire queue), so the check
-is the comparison, not the number: active == total is the failure signature
-meaning the status filter is missing — STOP, do not build a pack from it.
+2026-08-11, after the operator worked the pending retire queue — confirmed
+post-dedup active canon, operator cleanup mini-sitting), so the check is the
+comparison, not the number: active == total is the failure signature meaning
+the status filter is missing — STOP, do not build a pack from it.
 scripts/export-canon.sh runs the export and enforces this check.
+
+**Manifest (amendment A1, 2026-08-11): filter verification lives at export
+time, where DB truth is queryable.** The export script compares the JSON
+length against the DB's own active count (same session), refuses on mismatch,
+and writes `pack/manifest.json` `{exported_at, active_count, total_count,
+sha256}`. The in-call loop loader verifies pack length == manifest.active_count
+and sha256 match, and refuses to start otherwise. No pinned row count anywhere.
 
 Suite pin (lands with the P1 retrieval code, mirror of the seed reader-law pin
 in the dossier repo): any SQL touching pkms_canon without the status filter
