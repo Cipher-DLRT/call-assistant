@@ -1,5 +1,6 @@
 import json
 import sys
+import time
 from pathlib import Path
 
 
@@ -18,6 +19,7 @@ ACCENT_LOCK = "#c98a2b"    # internal — matches the 🔒
 NOTICE_BG = "#5c3a10"
 FONT_HINT = ("TkDefaultFont", 13)
 FONT_META = ("TkDefaultFont", 10)
+CARD_TTL_S = 120   # cards auto-expire; click a card to dismiss it early
 
 
 class Overlay:
@@ -94,11 +96,22 @@ class Overlay:
                 self.notice = item["text"]
                 changed = True
             elif item.get("type") == "hint" and isinstance(item.get("text"), str):
+                item["_arrived"] = time.monotonic()
                 self.hints.insert(0, item)
                 self.hints = self.hints[:4]
                 changed = True
+        # auto-expire old cards even when nothing new arrives
+        now = time.monotonic()
+        fresh = [h for h in self.hints if now - h["_arrived"] < CARD_TTL_S]
+        if len(fresh) != len(self.hints):
+            self.hints = fresh
+            changed = True
         if changed:
             self._render()
+
+    def _dismiss(self, hint):
+        self.hints = [h for h in self.hints if h is not hint]
+        self._render()
 
     def _render(self):
         for child in self.body.winfo_children():
@@ -129,6 +142,10 @@ class Overlay:
                     inner, text=f"⏳ verified {date}", bg=CARD, fg=MUTED,
                     font=FONT_META, anchor="w",
                 ).pack(fill="x", pady=(2, 0))
+            # click anywhere on the card to dismiss it
+            for widget in (card, inner, *inner.winfo_children()):
+                widget.bind("<Button-1>",
+                            lambda _e, h=hint: self._dismiss(h))
         self.root.update_idletasks()
         height = max(1, self.body.winfo_reqheight())
         x = max(0, self.root.winfo_screenwidth() - WIDTH - 16)

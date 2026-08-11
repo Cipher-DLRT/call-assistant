@@ -112,8 +112,10 @@ def test_missing_manifest_raises(tmp_path):
 
 def test_should_suppress_duplicates():
     from app.loop.orchestrator import should_suppress
-    recent = [(10.0, {236})]
-    assert should_suppress(recent, {236}, 15.0)          # same facts, soon after
-    assert not should_suppress(recent, {236, 33, 28}, 15.0)  # adds new facts
-    assert not should_suppress(recent, {236}, 200.0)     # window expired
-    assert not should_suppress([], {236}, 15.0)          # nothing shown yet
+    recent = [(10.0, {236}, {"yes", "sso", "via", "okta", "and", "saml"})]
+    assert should_suppress(recent, {236}, "totally new words", 15.0)   # same facts
+    assert not should_suppress(recent, {236, 33, 28}, "new facts here", 15.0)
+    assert not should_suppress(recent, {236}, "any", 200.0)            # expired
+    assert not should_suppress([], {236}, "any", 15.0)                 # none shown
+    # near-identical text with DIFFERENT facts is still a duplicate (UAE case)
+    assert should_suppress(recent, {999}, "yes sso via okta and saml", 15.0)

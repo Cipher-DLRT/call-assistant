@@ -38,13 +38,23 @@ WINDOW_UTTS = 6
 DUP_WINDOW_S = 90   # suppress a hint whose facts were all shown this recently
 
 
-def should_suppress(recent_hints, fact_ids, now, window=DUP_WINDOW_S):
-    """recent_hints: list of (shown_at, fact_id_set). True when every cited
-    fact already appeared on a card within the window (operator ruling
-    2026-08-11: the same answer must not stack twice)."""
-    live = [s for t, s in recent_hints if now - t < window]
-    shown = set().union(*live) if live else set()
-    return bool(fact_ids) and fact_ids <= shown
+def should_suppress(recent_hints, fact_ids, text, now, window=DUP_WINDOW_S):
+    """recent_hints: list of (shown_at, fact_id_set, word_set). Suppress when
+    every cited fact already appeared on a card within the window, OR the text
+    is a near-rephrasing of a shown card (operator ruling 2026-08-11: the same
+    answer must not stack twice — varying citations don't make it new)."""
+    words = set(text.lower().split())
+    live = [(s, w) for t, s, w in recent_hints if now - t < window]
+    if not live:
+        return False
+    shown = set().union(*[s for s, _ in live])
+    if fact_ids and fact_ids <= shown:
+        return True
+    for _, w in live:
+        union = words | w
+        if union and len(words & w) / len(union) >= 0.6:
+            return True
+    return False
 
 
 def log(msg):
@@ -177,7 +187,7 @@ class Call:
             if not hint["hint"] or not used:
                 return
             ids = set(hint["fact_ids"])
-            if should_suppress(self.recent_hints, ids, record["end"]):
+            if should_suppress(self.recent_hints, ids, hint["hint"], record["end"]):
                 self.artifact.add_hint({"utterance_i": record["i"],
                                         "text": hint["hint"],
                                         "fact_ids": hint["fact_ids"],
@@ -187,7 +197,8 @@ class Call:
                                         "cost_usd": round(cost, 6)})
                 log(f"hint suppressed (duplicate facts {sorted(ids)})")
                 return
-            self.recent_hints.append((record["end"], ids))
+            self.recent_hints.append(
+                (record["end"], ids, set(hint["hint"].lower().split())))
             locked = any(f["shareability"] != "shareable" for f in used)
             stale = any(self._age_days(f["verified_at"]) > STALE_DAYS for f in used)
             # when stale, show the OLDEST cited date (the fact causing the ⏳)
