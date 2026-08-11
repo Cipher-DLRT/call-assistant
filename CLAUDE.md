@@ -37,7 +37,11 @@ Repo: private under Cipher-DLRT. Mac-resident through P1 — nothing here runs o
    fix's committed evidence.
 8. **me/them attribution: deterministic first, learned second.** Online calls:
    channel split — mic input = operator, system audio = far side; the voiceprint
-   is backup. **Primary rig = the built-in MacBook mic (operator ruling
+   is backup — and since the speakerless ruling (2026-08-11, "no headphones is
+   very important") it actively guards the mic stream: a mic utterance that
+   fails the print (< threshold) is far-side speaker bleed and is CUT —
+   excluded from transcript and gating; the system-audio copy remains the
+   canonical THEM record. Headset recommended, no longer required. **Primary rig = the built-in MacBook mic (operator ruling
    2026-08-11); the Lark M2 is an enhancement when worn, not an assumption.**
    In-person: voiceprint is primary (one room, one stream); leg 3 proved the
    Lark-enrolled print transfers to the built-in mic (100%, sims 0.63–0.80 vs
@@ -82,8 +86,9 @@ Repo: private under Cipher-DLRT. Mac-resident through P1 — nothing here runs o
   cost per call vs ceiling. Scope per settled R3: answers + sales cues/objection
   counters. **Exit: an operator-set precision bar over a graded call sample, cost
   inside ceiling, PLUS the P0-inherited attribution bars measured on the first
-  real shadow calls — channel-split ≥ 98% (online; headset REQUIRED, speakers
-  bleed at gradable levels per the smoke evidence) and voiceprint ≥ 90%
+  real shadow calls — channel-split ≥ 98% (online; headset recommended —
+  speakerless calls supported per the 2026-08-11 ruling via the voiceprint
+  bleed guard, CUT rows graded on the same sheet) and voiceprint ≥ 90%
   (in-person; built-in mic = primary rig). Grading sheets auto-generate from the
   per-call artifact — the first shadow calls ARE legs 1 and 2.** External-call
   use does NOT begin in P1.

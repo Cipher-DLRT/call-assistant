@@ -136,6 +136,12 @@ class Call:
                     sim = self.attributor.sim(pcm)  # backup print, always logged
                 except Exception:
                     sim = None  # backup must never break deterministic labels
+                # Bleed guard (operator ruling 2026-08-11: speakerless online
+                # calls must work): mic audio that is NOT the operator is the
+                # far side arriving via the speakers. CUT it — the system-audio
+                # stream already carries the canonical THEM copy.
+                if sim is not None and sim < self.attributor.threshold:
+                    speaker = "CUT"
         import math
         n = len(pcm)
         rms = math.sqrt(float((pcm.astype("float64") ** 2).mean())) if n else 0.0
@@ -145,7 +151,8 @@ class Call:
                   "end": round(utt["end"], 2), "speaker": speaker,
                   "sim": round(sim, 4) if sim is not None else None,
                   "db": db, "text": utt["text"]}
-        self.utterances.append(record)
+        if speaker != "CUT":  # CUT rows: artifact/sheet only, never context
+            self.utterances.append(record)
         self.artifact.add_utterance(record)
         log(f"[{record['start']:7.1f}] {speaker} "
             f"(sim {record['sim']}) {utt['text']}")

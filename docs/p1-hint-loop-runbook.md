@@ -109,8 +109,12 @@ Privacy & Security → Microphone / Screen Recording.
 ## Daily use (clicks)
 
 1. Menu bar → `○ CA` → **Start Shadow (online)** or **Start Shadow (in-person)**.
-   - **Online: headset REQUIRED (A4).** Speakers bleed into the mic at
-     gradable levels (smoke evidence) and would corrupt the leg-1 bar.
+   - **Online: headset recommended, no longer required** (speakerless ruling
+     2026-08-11 supersedes A4). Without a headset the voiceprint bleed guard
+     CUTs far-side speech that reaches the mic via the speakers (verified
+     live: operator voice through speakers kept as ME at sim 0.56, TTS far
+     side CUT at 0.06). CUT rows appear on the attribution sheet — grade
+     them: correct if that row was NOT you speaking alone.
    - In-person: built-in MacBook mic is the primary rig (law 8); the Lark is
      an enhancement when worn, and is auto-preferred when its receiver is in.
 2. The overlay appears top-right. 🔒 on a hint = drawn from internal canon —
