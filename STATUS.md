@@ -1,8 +1,8 @@
 # STATUS — call-assistant
 
-**Phase:** P1 BUILT + SMOKED (2026-08-11) — hint loop live-ready, shadow calls unblocked
-**Now:** full in-call loop built and smoke-passed on fake audio both modes (capture→stt→me/them→Haiku gate→pack retrieval→Sonnet hint→overlay→artifact+sheets); ceiling stop verified; menu-bar launcher (P1.5) in place
-**Next:** first real shadow calls (internal only; online = headset REQUIRED) — they ARE legs 1 and 2 for the P1-exit attribution bars (98/90) + hint grading toward the operator precision bar
+**Phase:** P1 LIVE — built, smoked, and shaken down on real operator test calls (2026-08-11, one session)
+**Now:** loop proven live: spoken questions → attribution (channel split + bleed guard online / voiceprint in-person, adaptive segmentation) → gate → canon-grounded 🔒 hints on a dismissable overlay; 8 live findings same-evening fixed (noise floor, 3-layer dedup, hint-v2 latest-utterance scope, no-absence-from-silence, card dismiss/TTL/hide, double-start guard, speakerless bleed guard); menu bar `○ CA` visible (Thaw manages the bar)
+**Next:** (1) OPERATOR: retire the ISO-27001 dup facts (25/27/28/30/32; check 182) on the dashboard, then re-run scripts/export-canon.sh — the pack does NOT auto-update (P2 adds calendar-triggered builds); (2) real shadow calls on internal 1-2-1s — sheets accumulate toward the P1-exit bars (channel-split 98 w/ CUT rows graded, voiceprint 90, operator precision bar); (3) canon-gap list from misses so far: pricing model, banking customer counts
 
 ## Log
 - 2026-08-11 · **hint-v2 + overlay polish (operator live findings, round 3)** — (1) hint prompt v2: answer ONLY the latest THEM utterance (v1 re-answered older window questions — the VPC repeat / merged-answers cards), sees the already-shown cards and must not repeat them, and never asserts absence from silence (the "No SOC2" card: retrieval's top-6 filled with ISO-27001 dupes, fact 34 never reached the model, v1 inferred a denial). (2) Overlay hides entirely when the last card is dismissed/expired (no black bar) and stays hidden until the first card. **Canon retire-queue candidates handed to operator: ids 25/27/28/30/32 are five wordings of the same ISO 27001 cert (one internal), crowding retrieval; fact 34 (SOC 2) exists and was masked by them**
