@@ -52,7 +52,7 @@ def should_suppress(recent_hints, fact_ids, text, now, window=DUP_WINDOW_S):
     is a near-rephrasing of a shown card (operator ruling 2026-08-11: the same
     answer must not stack twice — varying citations don't make it new)."""
     words = _words(text)
-    live = [(s, w) for t, s, w in recent_hints if now - t < window]
+    live = [(s, w) for t, s, w, _txt in recent_hints if now - t < window]
     if not live:
         return False
     shown = set().union(*[s for s, _ in live])
@@ -195,7 +195,9 @@ class Call:
                 return
             if not self.check_ceiling():
                 return
-            hint, usage, ms = self.llm.hint(window, gate["verdict"], facts)
+            shown = [txt for t, _ids, _w, txt in self.recent_hints
+                     if record["end"] - t < DUP_WINDOW_S]
+            hint, usage, ms = self.llm.hint(window, gate["verdict"], facts, shown)
             cost = self.cost.add("hint", HINT_MODEL, usage["in"], usage["out"],
                                  usage["cache_w"], usage["cache_r"])
             used = [f for f in facts if f["id"] in set(hint["fact_ids"])]
@@ -212,7 +214,8 @@ class Call:
                                         "cost_usd": round(cost, 6)})
                 log(f"hint suppressed (duplicate facts {sorted(ids)})")
                 return
-            self.recent_hints.append((record["end"], ids, _words(hint["hint"])))
+            self.recent_hints.append(
+                (record["end"], ids, _words(hint["hint"]), hint["hint"]))
             locked = any(f["shareability"] != "shareable" for f in used)
             stale = any(self._age_days(f["verified_at"]) > STALE_DAYS for f in used)
             # when stale, show the OLDEST cited date (the fact causing the ⏳)

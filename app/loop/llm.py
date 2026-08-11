@@ -14,7 +14,7 @@ REPO = Path(__file__).resolve().parent.parent.parent
 GATE_MODEL = "claude-haiku-4-5"   # resolved per A3 (scripts/verify_models.py)
 HINT_MODEL = "claude-sonnet-5"    # resolved per A3
 GATE_PROMPT_FILE = REPO / "prompts/gate-v1.md"
-HINT_PROMPT_FILE = REPO / "prompts/hint-v1.md"
+HINT_PROMPT_FILE = REPO / "prompts/hint-v2.md"
 
 GATE_SCHEMA = {
     "type": "object",
@@ -72,9 +72,13 @@ class Llm:
         return self._call(GATE_MODEL, self.gate_system, transcript_window,
                           GATE_SCHEMA, max_tokens=200)
 
-    def hint(self, transcript_window: str, verdict: str, facts: list):
+    def hint(self, transcript_window: str, verdict: str, facts: list,
+             shown_hints: list = ()):
         lines = [f"Gate verdict: {verdict}", "", "Transcript:", transcript_window,
-                 "", "Candidate facts:"]
+                 "", "Already shown on screen:"]
+        lines += [f"- {t}" for t in shown_hints] if shown_hints else ["(none)"]
+        lines.append("")
+        lines.append("Candidate facts:")
         for f in facts:
             lines.append(f"- id={f['id']} shareability={f['shareability']} "
                          f"verified_at={f['verified_at']}: {f['fact_text']}")

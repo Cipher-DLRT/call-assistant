@@ -49,6 +49,7 @@ class Overlay:
         root.update_idletasks()
         x = max(0, root.winfo_screenwidth() - WIDTH - 16)
         root.geometry(f"{WIDTH}x1+{x}+16")
+        root.withdraw()   # hidden until the first card arrives
         self._schedule()
 
     def _safe_poll(self):
@@ -116,6 +117,11 @@ class Overlay:
     def _render(self):
         for child in self.body.winfo_children():
             child.destroy()
+        if not self.hints and self.notice is None:
+            self.root.withdraw()   # no black bar when the last card goes
+            return
+        self.root.deiconify()
+        self.root.attributes("-topmost", True)
         if self.notice is not None:
             self.tk.Label(
                 self.body, text=self.notice, bg=NOTICE_BG, fg=FOREGROUND,

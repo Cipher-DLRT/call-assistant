@@ -112,7 +112,7 @@ def test_missing_manifest_raises(tmp_path):
 
 def test_should_suppress_duplicates():
     from app.loop.orchestrator import should_suppress
-    recent = [(10.0, {236}, {"yes", "sso", "via", "okta", "and", "saml"})]
+    recent = [(10.0, {236}, {"yes", "sso", "via", "okta", "and", "saml"}, "yes sso via okta and saml")]
     assert should_suppress(recent, {236}, "totally new words", 15.0)   # same facts
     assert not should_suppress(recent, {236, 33, 28}, "new facts here", 15.0)
     assert not should_suppress(recent, {236}, "any", 200.0)            # expired
@@ -126,4 +126,4 @@ def test_should_suppress_punctuation_insensitive():
     # the exact live pair (2026-08-11): re-asked question, same answer
     a = "We support SaaS, VPC, on-premise, hybrid, and even air-gapped deployments - fully flexible."
     b = "We support both: SaaS, VPC, on-premise, hybrid, even air-gapped deployments. Fully flexible based on needs."
-    assert should_suppress([(10.0, {50}, _words(a))], {51}, b, 20.0)
+    assert should_suppress([(10.0, {50}, _words(a), a)], {51}, b, 20.0)
