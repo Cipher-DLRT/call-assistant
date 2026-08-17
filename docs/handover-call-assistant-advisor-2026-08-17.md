@@ -1,5 +1,67 @@
 # Handover — call-assistant advisor — 2026-08-17
 
+> **Read §0 first.** §0 is the boot verification by the Orca advisor session
+> ('call-advisor', Claude Code, Fable 5, effort high) at 2026-08-17 19:40–19:50 +04
+> against artifacts. Where §0 contradicts §1–§10, §0 wins; the wrong text below is
+> struck, not deleted.
+
+## 0. Boot verification 2026-08-17 (call-advisor) — what the artifacts say
+
+Session identity (resurrection):
+- Advisor session id: `a64314dd-04e8-4caf-b2ec-a6435f65cbfd` · worktree
+  /Users/rami/orca/workspaces/call-assistant/call-advisor · branch
+  `Cipher-DLRT/call-advisor` (fast-forwards main; no PRs).
+- Warm route: `cd /Users/rami/orca/workspaces/call-assistant/call-advisor && claude --resume a64314dd-04e8-4caf-b2ec-a6435f65cbfd`
+- Cold route (zero history): `scripts/launch-call-advisor.sh` from the same
+  worktree (launches `claude --model claude-fable-5` with the boot prompt;
+  `~/.claude/settings.json` carries `effortLevel: high` [verified]).
+- MODEL RULING (operator, 2026-08-17): advisor sessions = Fable 5 (claude-fable-5)
+  at HIGH effort; build sessions launched by the advisor = Opus 4.8 1M
+  (`claude-opus-4-8[1m]`) or codex — never Fable unless the operator says so per
+  instance. Operator-only tier, never delegated: spend, external sends,
+  credentials, box provisioning, deletion.
+
+Verified this boot [verified-this-session, commands in §7]:
+- Git: origin/main == local main == 994af63 (this handover's commit); the
+  eleven P1 commits 6497d3e→48ad45a EXIST and are on main (were [reported] in
+  §2 — now verified). P2 plan IS committed: ea75aa8 (2026-08-17 19:32 +04,
+  docs/p2-pack-automation-plan.md) + STATUS line b5d478e — §4's "landing
+  unverified" is resolved. Handover uniqueness holds (one docs/handover-* file).
+  Fetch/push to GitHub work again (outage over at boot time).
+- **Pack is STALE against the live DB.** pack/manifest.json (operator checkout
+  ~/dev/call-assistant, gitignored) = {active 223, total 265, sha a2a755…},
+  file mtime 2026-08-11 19:15 +04, canon.json length 223 (matches manifest).
+  Live EQ14 count same evening (read-only, names from work-automation .env,
+  never printed): **active 292 / total 380**. The pack predates the ISO-dup
+  retire request (named at 22:13 +04, commit 1e97f1d) and misses 69 facts
+  added since. **STATUS's 2026-08-12 line "Pack re-export after ISO dedup:
+  done" is FALSE by artifact** — struck in STATUS this commit. Nobody should
+  shadow-call on this pack until `scripts/export-canon.sh` is re-run.
+- ISO-27001 dedup on the DB: ids 25/27/28/30 = retired; **32 = still active**
+  (kept — one ISO 27001 wording remains, which is the sane end state; the Code
+  session's "keep 182" was a mis-pick: 182 is the infosec-policy fact, not an
+  ISO cert). Fact 34 (SOC 2) active. So the retire is 4/5 by the request's
+  letter and complete by intent — treated as DONE, no action.
+- Shadow calls: ZERO real ones. calls/ holds 18 dirs, all 2026-08-11 19:42–22:09
+  +04 (the shakedown evening); no sheet carries a single grade mark. Precision
+  bar still unset.
+- Menu bar: `app.menubar.menubar` running (LaunchAgent
+  com.rami.call-assistant.menubar loaded, pid at boot 84366); no orchestrator
+  running.
+- Unknown untracked file in the operator's checkout: docs/evals/
+  fluidaudio-role-eval.md (2026-08-15 11:48, ~18 KB, "repo-grounded" eval of a
+  FluidAudio SDK role). Origin unknown to me; it asserts "no Swift in the
+  project at all", which is false (app/capture/main.swift + 3 spike swifts) —
+  its premise came from a task brief that does not match this repo. FLAGGED,
+  NOT COMMITTED. Operator to say keep/delete/where it came from.
+- Roster at boot: no call-assistant build session live (peers: advisor,
+  relmem-advisor and their builds — other estates). Tree clean in both
+  checkouts except the file above.
+- Codebase shape (for future briefs): app/capture (Swift), app/stt (C,
+  whisper.cpp), app/loop/*.py, app/overlay, app/menubar; tests/ has 4 files
+  (artifact, cost, reader_law, retrieval); prompts/ versioned; export script at
+  scripts/export-canon.sh (A1 manifest logic verified by reading it).
+
 Claim classes per the handoff skill, applied throughout: [op-observed] = operator
 stated it in-conversation · [verified-this-session] = tool/file/command output seen
 in this conversation · [reported: source] = named source reported it, unchecked ·
@@ -30,8 +92,8 @@ Repos and branches:
   [verified-this-session — push_files result]. Later: eleven commits 6497d3e →
   48ad45a delivering the full P1 loop (Swift capture → whisper.cpp STT →
   orchestrator → overlay → menu bar), 13 tests green, shakedown fixes, clean tree
-  [reported: operator-pasted Claude Code session summary — NOT verified by me; the
-  GitHub MCP dropped before I could read them].
+  [commits verified on main at boot 2026-08-17 (§0); "13 tests green" still
+  reported: session summary — not re-run].
 - Cipher-DLRT/work-automation, private, unreadable from here (anonymous clone
   refused + robots-blocked fetch [verified-this-session]). All its documents in
   this conversation arrived as operator uploads: gate-ca-p1-green.md,
@@ -55,10 +117,11 @@ Deployed vs committed vs on-box:
 - Canon: 223 active rows post the 35-proposal sitting [op-observed: "223 is due to
   dedup work I did"]. A further 5 ISO-27001 retires (rows 25/27/28/30/32, keep 182)
   were requested by the Code session; operator later said "I already Dedupped" —
-  AMBIGUOUS which dedup that refers to (see §10). **Whether
-  scripts/export-canon.sh was re-run after the ISO retires is UNKNOWN — the pack
-  may still carry retired duplicates; the SOC 2 answer was named as wrong until
-  re-export [reported: session summary].**
+  AMBIGUOUS which dedup that refers to (see §10). **~~Whether
+  scripts/export-canon.sh was re-run after the ISO retires is UNKNOWN~~ RESOLVED
+  at boot (§0): it was NOT re-run — manifest still 223/265 (mtime 2026-08-11
+  19:15), live DB 292/380; the pack still carries retired ISO dups 25/27/28/30
+  and misses 69 newer facts. Re-export is the first operator action.**
 - pack/manifest.json law: loader trusts manifest active_count, no pinned numbers
   [reported: approved build plan, amendment A1].
 - Dashboard live on EQ14 serving canon; sweep run 1 → 35 proposals; retire surface
@@ -68,8 +131,10 @@ Deployed vs committed vs on-box:
   operator-graded all-correct, ME 0.59–0.71 / THEM 0.01–0.13, one 0.42
   near-threshold) — explicitly NOT pass evidence [verified-this-session: sheet
   uploaded + logged in 84c3642].
-- P2 plan draft delivered to operator's Downloads; commit commands given; landing
-  UNVERIFIED. Target: docs/p2-pack-automation-plan.md.
+- ~~P2 plan draft delivered to operator's Downloads; commit commands given; landing
+  UNVERIFIED.~~ VERIFIED at boot: committed as ea75aa8 at
+  docs/p2-pack-automation-plan.md; STATUS line b5d478e. Copy to the dossier
+  chat for the EQ14-half review: still unverified.
 - GitHub MCP: functioned earlier this session (reads + one push), then its tools
   stopped loading (two tool_search attempts returned unrelated connectors)
   [verified-this-session]. Cause unknown; assume unavailable until re-proven.
@@ -106,17 +171,29 @@ Deployed vs committed vs on-box:
   op-confirmed · STATUS via Code [reported].
 - 2026-08-17 · Handover format: exact headings, dated filename · operator
   instruction this session · this file (conflicts with handoff skill — §10).
+- 2026-08-17 · MODEL RULING: advisor sessions Fable 5 at high effort; build
+  sessions Opus 4.8 1M or codex, never Fable unless said per instance;
+  operator-only tier never delegated (spend, external sends, credentials, box
+  provisioning, deletion) · operator, call-advisor launch prompt · §0.
+- 2026-08-17 · Advisor moved from the claude.ai chat into an Orca Claude Code
+  session ('call-advisor') with its own worktree; the chat's stand-off from
+  building stays, but the advisor now verifies at source itself (git, files,
+  ssh count) instead of via operator paste · operator · §0.
 - PROPOSED, NEVER RULED: P1 exit = 3 graded calls (≥1 online, ≥1 in-person) with
   precision bar set BEFORE call 1 (suggested ≥70% useful, zero wrong on
   🔒/staleness) · recorded nowhere yet — chat proposal only.
 
 ## 4. Open items
 
-- Canon re-export after ISO dedup — owner: operator; state: UNKNOWN; done =
-  export run, manifest active_count reflects retires, honest STATUS line.
-- P2 plan committed — owner: operator; state: commands given, landing unverified;
-  done = docs/p2-pack-automation-plan.md in repo + STATUS line + copy to dossier
-  chat for EQ14-half review.
+- Canon re-export — owner: operator (or advisor on his word); state: NOT DONE
+  (§0: pack 223 vs live 292); done = `scripts/export-canon.sh` run in
+  ~/dev/call-assistant, manifest active_count == live count that minute, STATUS
+  line corrected. ~~state: UNKNOWN~~
+- P2 plan committed — ~~owner: operator; state: commands given, landing
+  unverified~~ DONE (ea75aa8). Remaining: copy to dossier chat for the
+  EQ14-half review — owner: operator; state: unverified.
+- docs/evals/fluidaudio-role-eval.md (untracked, unknown origin) — owner:
+  operator; done = keep (then commit with a provenance line) or delete.
 - Precision bar — owner: operator; state: unset; done = one number stated and
   recorded BEFORE grading shadow call 1.
 - Shadow calls 1–3 (internal only) — owner: operator; state: zero run; done =
@@ -180,8 +257,27 @@ Deployed vs committed vs on-box:
 
 ## 7. Live verification commands
 
+From the call-advisor worktree (Orca session — these were run at boot 2026-08-17
+and are the standard set; run them ALL before briefing):
+- `git fetch --all && git status -sb && git log --oneline -5 && git branch -a -vv`
+  → expect branch Cipher-DLRT/call-advisor; origin/main tip == local main tip
+  (checked out at /Users/rami/dev/call-assistant).
+- `git -C /Users/rami/dev/call-assistant status -sb` → expect clean; any `??`
+  file is flagged in the brief, never committed.
+- `cat /Users/rami/dev/call-assistant/pack/manifest.json; python3 -c "import json;print(len(json.load(open('/Users/rami/dev/call-assistant/pack/canon.json'))))"`
+  → active_count == length; note exported_at/mtime.
+- Live count (read-only; names from ~/dev/work-automation/.env, never printed):
+  `ENV=~/dev/work-automation/.env; C=$(grep '^PG_CONTAINER=' $ENV|cut -d= -f2-); U=$(grep '^PG_USER=' $ENV|cut -d= -f2-); D=$(grep '^PG_DB=' $ENV|cut -d= -f2-); ssh -o BatchMode=yes eq14 "docker exec $C psql -U $U -d $D -Atc \"SELECT count(*) FILTER (WHERE status='active'), count(*) FROM pkms_canon\""`
+  → MUST equal manifest active_count; mismatch = stale pack, say so first.
+- `ls /Users/rami/dev/call-assistant/calls/ | tail; grep -l '\[x\]' /Users/rami/dev/call-assistant/calls/*/*.md`
+  → new call dirs since last boot = calls happened; grep hits = graded sheets.
+- `pgrep -fl app.menubar; pgrep -fl app.loop.orchestrator; launchctl list | grep call-assistant`
+  → menu bar running; orchestrator only during a call.
+- `ls docs/handover-*` → exactly one file.
+- ListAgents → any call-assistant build session live? (none at boot.)
+
 From chat, if the GitHub MCP is restored (else the operator runs the git/Mac
-lines and pastes):
+lines and pastes) [legacy — the chat-era set]:
 - Read Cipher-DLRT/call-assistant STATUS.md → expect: P0-closed header, log
   through P1-build and P2-draft lines; no unfilled placeholders.
 - Read pack/manifest.json IF committed (may be gitignored with pack/) → expect
@@ -212,20 +308,34 @@ Operator on EQ14 (names from work-automation .env, never in chat):
 - Codex: used inside Code's sessions for separable modules + adversarial review;
   not managed from here.
 - Nothing in call-assistant is known half-done by another session; the working
-  tree was reported clean at session close [reported].
+  tree was reported clean at session close [reported] — and verified clean at
+  the 2026-08-17 boot except the untracked docs/evals file (§0).
+- call-advisor (this Orca session, Fable 5): owns advising/verifying/records
+  for call-assistant; launches build sessions only on operator ask, in their
+  own Orca worktrees (repo id 5dbdd45c-43eb-4fe5-953e-b76823bccef2), model per
+  the ruling in §3; watch pattern = ~20-min tick, dated watch doc, cron
+  deleted at stop. Sibling advisors: 'advisor' (work-automation), 'relmem-
+  advisor' (relationship-memory) — nobody crosses repos; coordinate via
+  operator or SendMessage.
 
-## 9. Next actions
+## 9. Next actions (rewritten at boot 2026-08-17)
 
-1. Operator: restore the GitHub MCP connector — blocks all chat-side
-   verification (everything below is checkable without it, via paste).
-2. Operator, Mac: `./scripts/export-canon.sh && cat pack/manifest.json` —
-   blocks trusting any shadow call; resolves the §2 unknown.
-3. Operator: confirm P2 plan committed (docs/p2-pack-automation-plan.md) and
-   copy handed to the dossier chat — blocks their EQ14-half review.
-4. Operator: state the hint precision bar (one number; ≥70% was proposed,
-   never ruled) — blocks honest grading of call 1.
-5. Operator: shadow call 1 (internal, menu bar → Start Shadow), grade both
-   sheets same day, push, notify — the next session's first review input.
+1. Re-export the pack — `cd ~/dev/call-assistant && ./scripts/export-canon.sh
+   && cat pack/manifest.json` — expect active ~292 / total ~380 (whatever the
+   DB says that minute), filter check OK, manifest written. Operator runs it,
+   or tells the advisor "export" and the advisor runs it and reports the
+   numbers. Blocks every shadow call.
+2. Operator: state the hint precision bar (one number; ≥70% useful, zero
+   wrong on 🔒/staleness was proposed, never ruled) — recorded in §3 the same
+   sitting; blocks honest grading of call 1.
+3. Operator: shadow call 1 (internal 1-2-1, menu bar → Start Shadow), grade
+   both sheets same day in a plain editor, tell the advisor — the advisor
+   scores the attribution sheet and records the numbers.
+4. Operator: confirm the P2 plan copy reached the dossier chat (their EQ14-half
+   review) — one word.
+5. Operator: docs/evals/fluidaudio-role-eval.md — keep or delete.
+6. ~~Restore the GitHub MCP connector~~ — no longer blocking: the advisor runs
+   in Claude Code on the Mac and reads git/files/DB directly.
 
 ## 10. Contradictions you know of
 
@@ -239,10 +349,13 @@ Operator on EQ14 (names from work-automation .env, never in chat):
   bar is materially harder without a headset and that CUT-row grading now
   carries the burden of proof. If the bar fails on bleed rows, the ruling is the
   first suspect.
-- "I already Dedupped" is ambiguous between the 35-proposal sitting (which
+- ~~"I already Dedupped" is ambiguous between the 35-proposal sitting (which
   explains 261→223) and the ISO-5 retires; and whether the export ran afterward
-  is unknown. My last statement to the operator required the STATUS line to say
-  done/pending honestly; I never saw the answer.
+  is unknown.~~ RESOLVED by artifact at boot (§0): the ISO retires happened on
+  the DB (4/5, 32 kept), the export did NOT run afterward, and STATUS said
+  "done" anyway — that STATUS line is struck this commit. Lesson re-confirmed:
+  a STATUS line written from an operator "done" without the artifact is the
+  XX.X% incident in another shape.
 - D4 "done" is operator-reported only; the P2 plan's own header requires
   verifying the rendered md at build start rather than trusting the claim.
 - The P1 exit criteria in circulation (3 calls / ≥70%) are a chat proposal that
