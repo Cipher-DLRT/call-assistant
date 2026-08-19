@@ -67,6 +67,17 @@ stated it in-conversation · [verified-this-session] = tool/file/command output 
 in this conversation · [reported: source] = named source reported it, unchecked ·
 [inherited] = carried from documents/memory, verify before acting.
 
+
+**Addendum 2026-08-19 (call-advisor sitting, operator present):** UnifyApps
+Knowledge-as-endpoint probed — record in
+`docs/ua-knowledge-endpoint-probe-2026-08-19.md` (read it before touching pack
+sources). Verdict: a working retrieval endpoint exists (FDE gateway wrapping
+`ReferFromKnowledge`, unauthenticated, p50 ~10 s, tail ≥ 54 s, degrades under
+concurrency; corpus = UA internal product docs/config, no pricing/competitive);
+usable as a PRE-CALL pack slice, not on the mid-call hint path; an
+operator-triggered lookup lane is a P1.5 candidate gated on an authed own clone +
+data-processor ruling. Operator is taking this to the advisor chat to work it.
+
 ## 1. Role and scope
 
 Responsible for: drawing board, gatekeeper, and review layer for the call-assistant
@@ -209,6 +220,12 @@ Deployed vs committed vs on-box:
   after my E1–E6 review [inherited]; staleness-amendment-1 committed text (was
   owed); valid_until seed-bug verification → only its committed evidence flips
   CLAUDE.md law 7.
+- UnifyApps knowledge endpoint (2026-08-19, docs/ua-knowledge-endpoint-probe-2026-08-19.md)
+  — owner: operator; state: probed, design read given; done = (a) Knowledge Set
+  chosen + authed clone stood up, (b) five timed-out probes (pricing, deploy,
+  security, SLA) re-run one at a time, (c) data-processor ruling for query text
+  leaving the Mac to UA, (d) FDE told the gateway has no auth. Then advisor builds
+  `scripts/ua-knowledge-query.py` + pack-slice merge.
 - pgvector tripwire — owner: next session; passive; done = trigger check per
   graded call (vocabulary-mismatch misses >10–15% of askable moments → shadow
   pgvector audition).
@@ -336,6 +353,9 @@ Operator on EQ14 (names from work-automation .env, never in chat):
 5. Operator: docs/evals/fluidaudio-role-eval.md — keep or delete.
 6. ~~Restore the GitHub MCP connector~~ — no longer blocking: the advisor runs
    in Claude Code on the Mac and reads git/files/DB directly.
+
+7. UnifyApps knowledge endpoint — operator works the four sub-items in §4 with
+   the advisor chat; nothing builds on the unauthenticated FDE gateway.
 
 ## 10. Contradictions you know of
 
