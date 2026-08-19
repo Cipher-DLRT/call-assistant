@@ -194,6 +194,15 @@ Deployed vs committed vs on-box:
   precision bar set BEFORE call 1 (suggested ≥70% useful, zero wrong on
   🔒/staleness) · recorded nowhere yet — chat proposal only.
 
+- 2026-08-19 (operator, via work-automation advisor; source work-automation
+  docs/operator-pending.md c3c737c): UA Knowledge (GitHub docs corpus) =
+  AUTHORITATIVE BACKUP grounding, internal-only class. Unpark for ANY build, both
+  tracks: an AUTHENTICATED operator-controlled retrieval endpoint bound to the
+  GitHub Knowledge Set; nothing calls the open FDE gateway meanwhile. Then ONE
+  shared `knowledge_ask` client (pre-call pack slice here + Brain-fallback there),
+  built once together. FDE auth report = operator-only. Law-1 relaxation for the
+  in-call lookup lane NOT decided. Record: docs/ua-knowledge-endpoint-probe-2026-08-19.md §8.
+
 ## 4. Open items
 
 - Canon re-export — owner: operator (or advisor on his word); state: NOT DONE
@@ -221,7 +230,7 @@ Deployed vs committed vs on-box:
   owed); valid_until seed-bug verification → only its committed evidence flips
   CLAUDE.md law 7.
 - UnifyApps knowledge endpoint (2026-08-19, docs/ua-knowledge-endpoint-probe-2026-08-19.md)
-  — owner: operator; state: probed, design read given; done = (a) Knowledge Set
+  — owner: operator; state: **PARKED by ruling (§3, 2026-08-19) until an authed operator-controlled endpoint exists; build = one shared `knowledge_ask` client with work-automation**; previously: probed, design read given; done = (a) Knowledge Set
   chosen + authed clone stood up, (b) five timed-out probes (pricing, deploy,
   security, SLA) re-run one at a time, (c) data-processor ruling for query text
   leaving the Mac to UA, (d) FDE told the gateway has no auth. Then advisor builds
@@ -354,8 +363,10 @@ Operator on EQ14 (names from work-automation .env, never in chat):
 6. ~~Restore the GitHub MCP connector~~ — no longer blocking: the advisor runs
    in Claude Code on the Mac and reads git/files/DB directly.
 
-7. UnifyApps knowledge endpoint — operator works the four sub-items in §4 with
-   the advisor chat; nothing builds on the unauthenticated FDE gateway.
+7. UnifyApps knowledge endpoint — PARKED (ruling 2026-08-19): unpark = authed
+   operator-controlled endpoint on the GitHub Knowledge Set; then one shared
+   `knowledge_ask` client built with work-automation. Meanwhile nothing calls the
+   open gateway; operator owns the FDE auth report and the law-1 question.
 
 ## 10. Contradictions you know of
 

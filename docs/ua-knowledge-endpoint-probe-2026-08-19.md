@@ -137,3 +137,21 @@ re-runs the five sequentially). Not committed (third-party corpus text).
 - Their one future use if an authed retrieval endpoint exists: a cheap
   "does the corpus cover this question?" pre-check before spending a Brain job —
   internal-only, no customer text in the output.
+
+## 8. OPERATOR RULING 2026-08-19 [reported via work-automation advisor; source of record: work-automation docs/operator-pending.md c3c737c]
+
+- UA Knowledge (GitHub docs corpus) is **AUTHORITATIVE** and will be used as a
+  **BACKUP grounding source** for Rami-facing lanes + RFP draft wording — not a
+  replacement; it cannot make a held RFP answer customer-shareable
+  (internal-only class stands).
+- **Unpark condition for ANY build, both tracks:** an AUTHENTICATED retrieval
+  endpoint the operator controls, bound to the GitHub Knowledge Set (FDE: authed
+  clone, retrieval-only). Nothing calls the open gateway meanwhile.
+- When it exists: ONE shared `knowledge_ask` client — call-assistant pre-call
+  pack slice + work-automation Brain-fallback (Brain job fails/times out →
+  knowledge chunks, cached, labelled internal-only, one in flight). Built once,
+  together, after the endpoint.
+- Reporting the unauthenticated gateway to FDE is operator-only.
+- This track's item is PARKED on the same condition; §5/§6 stand as the design
+  read and the pre-conditions. The law-1 (Anthropic-only) question is still open
+  for the in-call lookup lane — not decided by this ruling.
