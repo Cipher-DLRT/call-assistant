@@ -111,3 +111,29 @@ re-runs the five sequentially). Not committed (third-party corpus text).
 - Operator: finish the five timed-out probes (pricing etc.) one at a time.
 - Operator: data-processor ruling (internal calls first) before any in-call use.
 - Operator: tell the FDE owners the gateway is unauthenticated.
+
+## 7. Cross-track read — work-automation advisor, 2026-08-19 [reported, cross-session message]
+
+- RFP factory / answer lane: NO. Customer-facing text is gated on the Brain's
+  per-source shareability verdict (knowledgeSourceType; WEBSITE → shareable, all
+  else internal-only, pinned 2026-07-12). `appName: github` chunks with no
+  source-type/scores = internal-only grounding by that law; latency/throttling
+  worse than the Brain's async job for bulk. brain-bridge stays their grounding
+  path (ruling 2026-08-14).
+- Pre-call pack slice: plausible behind the same three gates (own authed clone on
+  a chosen Knowledge Set, 30+ latency samples, retrieval-only mode). Never on the
+  unauthenticated gateway.
+- Precedent (a): customer text ALREADY transits UnifyApps in the work-automation
+  estate (RFP factory → UA Brain, approved under the CLAUDE.md placement rule:
+  job-scoped, demoable work may run on UA; PERSONAL data never). "Customer speech
+  → UA Knowledge" is therefore not a new class of flow; this track's law 1
+  (Anthropic-only) is the stricter rule and the OPERATOR decides whether it
+  relaxes to match — their recommendation: only for the operator-triggered
+  lookup lane, never automatic, never from a personal-device context.
+- Precedent (b): the unauthenticated FDE gateway is a security finding about the
+  operator's employer's system → reporting it is external comms = operator-only
+  tier; neither advisor sends anything. Stop-the-line: until auth exists, no
+  build points at it.
+- Their one future use if an authed retrieval endpoint exists: a cheap
+  "does the corpus cover this question?" pre-check before spending a Brain job —
+  internal-only, no customer text in the output.
