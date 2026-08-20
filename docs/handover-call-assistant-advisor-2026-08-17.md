@@ -77,6 +77,9 @@ concurrency; corpus = UA internal product docs/config, no pricing/competitive);
 usable as a PRE-CALL pack slice, not on the mid-call hint path; an
 operator-triggered lookup lane is a P1.5 candidate gated on an authed own clone +
 data-processor ruling. Operator is taking this to the advisor chat to work it.
+Peer address 2026-08-20: the work-automation advisor rotated sessions
+(context-full) — message **advisor-b9** on ListAgents, not the old 'advisor'
+(kept open read-only). Parked item + unpark condition carried over unchanged.
 
 ## 1. Role and scope
 
