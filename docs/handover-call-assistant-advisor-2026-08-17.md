@@ -207,6 +207,23 @@ Deployed vs committed vs on-box:
   built once together. FDE auth report = operator-only. Law-1 relaxation for the
   in-call lookup lane NOT decided. Record: docs/ua-knowledge-endpoint-probe-2026-08-19.md §8.
 
+- 2026-08-24 (operator, relayed by the work-automation guide session on his
+  explicit instruction; verified this sitting) · NO-IDLE / EVENT-DRIVEN PICKUP:
+  advisor sessions do not hold idle waiting for a polling tick when an event
+  signal is possible — event-driven pickup is the default, polling stays only as
+  the fallback belt. Mechanisms as measured on the wa estate: (a) unsandboxed
+  Claude sessions use the orca `orchestration` + `orca-cli` skills (symlinked
+  into ~/.claude/skills 2026-08-24 22:04 — verified present here; /reload-skills
+  or a session restart loads them) for worker_done waits, blocking ask/reply,
+  terminal signaling; (b) sandboxed codex lanes CANNOT reach the orca runtime
+  (measured: sandbox blocks all network incl. unix sockets; the all-outbound
+  sandbox flag was egress-reviewed NOT-APPLY-SAFE — do not adopt it) — for lanes
+  use a file sentinel/mailbox in sandbox-writable roots plus a persistent file
+  Monitor in the advisor session (wa pattern, pickup < 60 s). Sources verified:
+  work-automation branch Cipher-DLRT/operator-sessions
+  docs/guide-recommendations.md entry 17 (commits 157965d/913bd4d) and
+  docs/exp-2026-08-25/lane-network-egress-review-1.md (on disk).
+
 ## 4. Open items
 
 - Canon re-export — owner: operator (or advisor on his word); state: NOT DONE
