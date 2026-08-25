@@ -222,7 +222,12 @@ Deployed vs committed vs on-box:
   Monitor in the advisor session (wa pattern, pickup < 60 s). Sources verified:
   work-automation branch Cipher-DLRT/operator-sessions
   docs/guide-recommendations.md entry 17 (commits 157965d/913bd4d) and
-  docs/exp-2026-08-25/lane-network-egress-review-1.md (on disk).
+  docs/exp-2026-08-25/lane-network-egress-review-1.md (on disk). Durable how-to
+  reference (added 2026-08-25, verified on disk, commit 7103c23):
+  /Users/rami/orca/workspaces/work-automation/operator-sessions/docs/orca-for-advisors.md
+  — the two worlds (unsandboxed = full orca via skills; lanes = filesystem-only),
+  lane file-mailbox protocol, codex notify-hook, heartbeat-file liveness,
+  succession re-arm. Read it before wiring any lane or watch pattern here.
 
 ## 4. Open items
 
