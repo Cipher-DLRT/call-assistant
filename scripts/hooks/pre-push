@@ -1,0 +1,239 @@
+#!/bin/sh
+# The boot-surface budgets, enforced at the PUSH.
+#
+# scripts/hooks/pre-commit runs the same checks, but measured 2026-09-08:
+#
+#     git commit          -> pre-commit, commit-msg, post-commit
+#     git commit --amend  -> pre-commit, commit-msg, post-commit
+#     git cherry-pick     -> post-commit ONLY
+#     git merge --no-ff   -> nothing at all
+#
+# wa's landing path is a cherry-pick onto main, so every budget gate landed on
+# 2026-09-07 was silently absent from the one path that matters. The estate believed it
+# was protected and it was not -- the same defect those gates exist to prevent.
+#
+# pre-push fires on every path (commit, cherry-pick, merge, amend, rebase) because it
+# gates the transport rather than the commit, and it matches estate §37: a landing is
+# the push, not the local commit. This is the gate of record; pre-commit stays as the
+# earlier, friendlier warning.
+#
+# Measures the FILES AT THE PUSHED SHA, never the working tree.
+# Overrides, same as pre-commit: STATUS_BUDGET_OVERRIDE, ADVISOR_BUDGET_OVERRIDE,
+# STATUS_ENTRY_OVERRIDE, WALK_BRIEF_OVERRIDE.
+STATUS_BUDGET=${STATUS_BUDGET_TOKENS:-13000}
+# 47,000 on the operator's word, 2026-09-11, verbatim: "open up the limit 47k". The same
+# number is in scripts/hooks/pre-commit and declared in docs/boot-sets.json; all three moved
+# in one commit. THIS IS THE THIRD HOME FOR ONE NUMBER and relmem has no
+# scripts/ceiling-consistency.sh to refuse a commit in which the three disagree -- checked by
+# hand this sitting, which is a weaker control and is recorded as such rather than assumed.
+ADVISOR_BUDGET=${ADVISOR_BUDGET_TOKENS:-47000}
+# 40,000 on the operator's word, 2026-09-11, verbatim: "You have up to 40,000 as long as the
+# architect is not going and pulling files That it needed during boot". THE CONDITION IS THE
+# RULING, NOT THE NUMBER -- and relmem's side of the condition is UNMEASURED: no architect
+# has booted here yet. Override: ARCHITECT_BUDGET_OVERRIDE.
+ARCHITECT_BUDGET=${ARCHITECT_BUDGET_TOKENS:-40000}
+ENTRY_CAP=${STATUS_ENTRY_CAP:-350}
+ADVISOR_FILES='docs/ADVISOR.md docs/ADVISOR-WA.md docs/ADVISOR-SF.md docs/ADVISOR-RELMEM.md'
+# Agrees with docs/boot-sets.json roles.architect.reads and with pre-commit's ARCHITECT_FILES.
+# NO STATUS.md, unlike work-automation: that entry rests on a measurement of wa seats and
+# relmem has had no architect seat to measure. See the manifest's RELMEM DOES NOT CHARGE
+# STATUS.md note before reconciling this list with wa's.
+ARCHITECT_FILES='docs/ARCHITECT.md docs/ADVISOR.md'
+ZERO=0000000000000000000000000000000000000000
+LINT=$(git rev-parse --show-toplevel)/scripts/hooks/walk-brief-lint.py
+
+blob_size() { git cat-file -s "$1:$2" 2>/dev/null || echo 0; }
+
+# Doctrine-identity: one shared instrument, invoked from this endpoint.
+# Lives in work-automation. Never copied here. Absent is a refusal, never a skip.
+# Locator, not a skip: there is no DOCTRINE_IDENTITY_OVERRIDE on this hook (estate §68).
+: "${DOCTRINE_CHECKER_HOME:=/Users/rami/dev/work-automation}"
+DOCTRINE_CHECKER_REL=scripts/doctrine-identity-check.py
+
+doctrine_checker_from_home() {
+  _home=$DOCTRINE_CHECKER_HOME
+  _instrument=$DOCTRINE_CHECKER_REL
+  if [ -z "$_home" ]; then
+    printf '\n  BLOCKED at push: doctrine-identity predicate=checker_path_resolves home=%s instrument=%s result=false\n' \
+      "$_home" "$_instrument" >&2
+    return 1
+  fi
+  if [ ! -e "$_home/$_instrument" ]; then
+    printf '\n  BLOCKED at push: doctrine-identity predicate=instrument_exists home=%s instrument=%s result=false\n' \
+      "$_home" "$_instrument" >&2
+    return 1
+  fi
+  _resolved=$(cd "$_home" 2>/dev/null && pwd -P)/$_instrument
+  if [ ! -f "$_resolved" ] || [ ! -r "$_resolved" ]; then
+    printf '\n  BLOCKED at push: doctrine-identity predicate=checker_path_resolves home=%s instrument=%s result=false\n' \
+      "$_home" "$_instrument" >&2
+    return 1
+  fi
+  printf '%s\n' "$_resolved"
+}
+
+# Resolve the instrument only when this push lands a commit. A delete lands
+# nothing (estate §68, advisor ruling 2026-09-13). A tag is not exempt
+# (ADVISOR.md:913): it publishes a commit, so doctrine runs on it.
+rc=0
+_doctrine_c=
+_doctrine_lands_commits=0
+_doctrine_ref_examined=0
+while read -r local_ref local_sha remote_ref remote_sha; do
+  [ -z "$local_sha" ] && continue
+  [ "$local_sha" = "$ZERO" ] && continue
+  _doctrine_lands_commits=1
+
+  if [ -z "$STATUS_BUDGET_OVERRIDE" ]; then
+    t=$(( $(blob_size "$local_sha" STATUS.md) / 4 ))
+    pt=$(( $(blob_size "$remote_sha" STATUS.md) / 4 ))
+    if [ "$t" -gt "$STATUS_BUDGET" ] && [ "$t" -ge "$pt" ]; then
+      printf '\n  BLOCKED at push: STATUS.md is ~%s tokens at %.8s, over the %s budget.\n' "$t" "$local_sha" "$STATUS_BUDGET" >&2
+      printf '  Every agent re-sends STATUS.md on every call. Fix:\n      python3 scripts/status-scrub.py . --apply\n  Deliberate exception: STATUS_BUDGET_OVERRIDE=1 git push ...\n\n' >&2
+      rc=1
+    fi
+  fi
+
+  if [ -z "$WALK_BRIEF_OVERRIDE" ]; then
+    if [ "$remote_sha" = "$ZERO" ]; then
+      base=$(git merge-base "$local_sha" origin/main 2>/dev/null || true)
+    else
+      base="$remote_sha"
+    fi
+    if [ -n "$base" ]; then
+      wb=$(git diff --name-only "$base" "$local_sha" 2>/dev/null)
+    else
+      wb=$(git show --pretty=format: --name-only "$local_sha" 2>/dev/null)
+    fi
+    # Fail OPEN if the lint is absent: a checkout that has not yet pulled main must not have
+    # every unrelated push blocked by a missing file (reproduced 2026-09-09 before landing).
+    if [ -n "$wb" ] && [ -x "$LINT" ]; then
+      python3 "$LINT" "$local_sha" $wb || rc=1
+    fi
+  fi
+
+  if [ -z "$ADVISOR_BUDGET_OVERRIDE" ]; then
+    a=0; pa=0
+    for f in $ADVISOR_FILES; do
+      a=$(( a + $(blob_size "$local_sha" "$f") / 4 ))
+      pa=$(( pa + $(blob_size "$remote_sha" "$f") / 4 ))
+    done
+    # RATCHET: a push that SHRINKS the set passes even while over budget, so the gate never
+    # blocks the only work that fixes it. A new branch has pa=0 and gets no free pass.
+    if [ "$a" -gt "$ADVISOR_BUDGET" ] && [ "$a" -ge "$pa" ]; then
+      printf '\n  BLOCKED at push: the advisor boot set is ~%s tokens at %.8s, over the %s budget.\n' "$a" "$local_sha" "$ADVISOR_BUDGET" >&2
+      printf '  Take something OUT of the set -- an origin story goes to docs/ADVISOR-ORIGINS.md\n  (not a boot read). Moving text BETWEEN these files is not a saving.\n  Deliberate exception: ADVISOR_BUDGET_OVERRIDE=1 git push ...\n\n' >&2
+      rc=1
+    fi
+  fi
+
+  if [ -z "$ARCHITECT_BUDGET_OVERRIDE" ]; then
+    x=0; px=0
+    for f in $ARCHITECT_FILES; do
+      x=$(( x + $(blob_size "$local_sha" "$f") / 4 ))
+      px=$(( px + $(blob_size "$remote_sha" "$f") / 4 ))
+    done
+    # Same ratchet as the advisor gate above: a push that SHRINKS the set passes even while
+    # over budget, so the gate never blocks the only work that fixes it.
+    if [ "$x" -gt "$ARCHITECT_BUDGET" ] && [ "$x" -ge "$px" ]; then
+      printf '\n  BLOCKED at push: the architect boot set is ~%s tokens at %.8s, over the %s budget.\n' "$x" "$local_sha" "$ARCHITECT_BUDGET" >&2
+      printf '  docs/ADVISOR.md is charged to BOTH roles; trimming it moves the advisor number too.\n  An origin story goes to docs/ADVISOR-ORIGINS.md (in no role set).\n  Deliberate exception: ARCHITECT_BUDGET_OVERRIDE=1 git push ...\n\n' >&2
+      rc=1
+    fi
+  fi
+
+  if [ -z "$STATUS_ENTRY_OVERRIDE" ] && [ -n "$remote_sha" ] && [ "$remote_sha" != "$ZERO" ] \
+     && command -v python3 >/dev/null 2>&1; then
+    NEW_SHA="$local_sha" OLD_SHA="$remote_sha" CAP="$ENTRY_CAP" python3 -c '
+import os,re,subprocess,sys
+cap=int(os.environ["CAP"])
+def show(s):
+    p=subprocess.run(["git","show",s+":STATUS.md"],capture_output=True,text=True)
+    return p.stdout if p.returncode==0 else ""
+new=show(os.environ["NEW_SHA"]); old=show(os.environ["OLD_SHA"])
+if not new or not old: sys.exit(0)
+def units(t):
+    out=[];cur=None;start=0
+    for i,l in enumerate(t.split("\n")):
+        if re.match(r"^- ",l):
+            if cur:out.append((start,cur))
+            cur=[l];start=i
+        elif cur is not None:cur.append(l)
+    if cur:out.append((start,cur))
+    return out
+def resurrect_span(t):
+    lines=t.split("\n");a=None
+    for i,l in enumerate(lines):
+        if a is None:
+            if re.match(r"^## RESURRECT",l): a=i
+        elif re.match(r"^## ",l): return a,i
+    return (a,len(lines)) if a is not None else (None,None)
+res_a,res_b=resurrect_span(new)
+def words(s): return set(re.sub(r"[^a-z0-9 ]"," ",s.lower()).split())
+newu=units(new); oldu=units(old)
+newfirst={u[0] for _,u in newu}; oldfirst={u[0] for _,u in oldu}
+# An entry is NEW if this RANGE added its first line and removed no line resembling it.
+# Comparing against REMOVED lines only is what separates an edit from an addition: whole-file
+# similarity was measured and failed (pre-commit :150-155 -- a genuinely new entry scored 0.71
+# against an unrelated one and was skipped).
+added=newfirst-oldfirst
+gone=[f for f in oldfirst if f not in newfirst]
+def is_new(u):
+    if u[0] not in added: return False
+    w=words(u[0])
+    for g in gone:
+        q=words(g)
+        if w and q and len(w&q)/len(w|q) >= 0.5: return False
+    return True
+CLOSED=re.compile(r"\b(CLOSED|LANDED|DEPLOYED|VERIFIED|COMPLETE|DELIVERED|ACCEPTED|SUPERSEDED)\b")
+PTR=re.compile(r"\b[0-9a-f]{7,40}\b|docs/[\w./-]+")
+bad=[]
+for start,u in newu:
+    # RESURRECT bullets are successor instructions rewritten wholesale at §39b restarts (§17); they are not closed entries and are not scored. Everything outside that section still is.
+    if res_a is not None and res_a <= start < res_b: continue
+    if not is_new(u): continue
+    if not CLOSED.search(u[0]): continue
+    text=" ".join(x.strip() for x in u).strip()
+    why=[]
+    if len(text)>cap: why.append("%d chars, cap %d"%(len(text),cap))
+    if not PTR.search(text): why.append("no evidence pointer")
+    if why: bad.append((why,re.sub(r"\s+"," ",text)[:120]))
+if bad:
+    print("",file=sys.stderr)
+    print("  BLOCKED at push: %d new STATUS.md entry(ies) claim a closed verdict but are"%len(bad),file=sys.stderr)
+    print("  not written as one (verdict + evidence pointer; detail in a docs/ record file).",file=sys.stderr)
+    for why,t in bad:
+        print("    * %s"%"; ".join(why),file=sys.stderr); print("      %s..."%t[:105],file=sys.stderr)
+    print("  Deliberate exception: STATUS_ENTRY_OVERRIDE=1 git push ...",file=sys.stderr)
+    print("",file=sys.stderr)
+    sys.exit(1)
+' || rc=1
+  fi
+
+  case "$remote_ref" in
+    refs/heads/*|refs/tags/*)
+      if [ -z "$_doctrine_c" ]; then
+        _doctrine_c=$(doctrine_checker_from_home) || exit 1
+        if ! command -v python3 >/dev/null 2>&1; then
+          printf '\n  BLOCKED at push: doctrine-identity predicate=python3_available result=false\n' >&2
+          exit 1
+        fi
+      fi
+      _doctrine_ref_examined=1
+      if ! DOCTRINE_IDENTITY_HOOK=1 DOCTRINE_IDENTITY_PUSH_SHA="$local_sha" \
+           python3 "$_doctrine_c" < /dev/null; then
+        printf '\n  BLOCKED at push: doctrine-identity predicate=checker_exit_zero result=false\n' >&2
+        printf '  failing_ref: local_ref=%s local_sha=%s remote_ref=%s remote_sha=%s\n' \
+          "$local_ref" "$local_sha" "$remote_ref" "$remote_sha" >&2
+        rc=1
+      fi
+      ;;
+  esac
+done
+# Tripwire: a non-zero sha landed, but no heads/tags case ran. Unreachable for
+# branches and tags. Catches a future ref class that silently skips the arm.
+if [ "$_doctrine_lands_commits" -eq 1 ] && [ "$_doctrine_ref_examined" -eq 0 ]; then
+  printf '\n  BLOCKED at push: doctrine-identity predicate=doctrine_ref_examined result=false\n' >&2
+  exit 1
+fi
+exit $rc

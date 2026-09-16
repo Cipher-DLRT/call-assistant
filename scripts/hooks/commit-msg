@@ -1,0 +1,28 @@
+#!/bin/sh
+# ADVISOR-ESTATE §39c and §41 enforcement — install as .git/hooks/commit-msg
+# §39c  a quiet tick is a heartbeat, not a record: it may not commit.
+# §41   attest:/walk: records are committed by the lane that produced them,
+#       in its worktree — not transcribed by an advisor seat in a main checkout.
+# Override for a genuine exception:  ESTATE_OVERRIDE=1 git commit ...
+msg=$(cat "$1")
+top=$(git rev-parse --show-toplevel 2>/dev/null)
+fail() { printf '\nBLOCKED by ADVISOR-ESTATE %s\n  %s\n\n  message: %s\n  override (rare, say why in the message): ESTATE_OVERRIDE=1 git commit ...\n\n' "$1" "$2" "$msg" >&2; exit 1; }
+[ -n "$ESTATE_OVERRIDE" ] && exit 0
+
+# 39c — no quiet-tick commits, in any repo
+echo "$msg" | grep -qiE '^ledger: tick .*quiet' && \
+  fail "§39c" "A quiet tick may wake, look and stop. It may not commit — every tick commit stays in the seat's context for the rest of its life. Append to a log instead."
+
+# 41 — attest:/walk: must not be authored from a main checkout (an advisor seat)
+# Lane-worktree conventions, both allowed: Orca lanes live at ~/orca/workspaces/<repo>/<lane>,
+# relmem lanes at ~/dev/relmem-wt-<lane>. A new convention is ADDED to this case, never worked
+# around with ESTATE_OVERRIDE — an override made routine is an allowlist that teaches nothing.
+case "$top" in
+  */orca/workspaces/*) ;;                      # a lane worktree (Orca convention): allowed
+  */dev/relmem-wt-*) ;;                        # a lane worktree (relmem convention): allowed
+  *)
+    echo "$msg" | grep -qE '^(attest|walk):' && \
+      fail "§41" "attest:/walk: records are committed by the lane or walker that ran the thing, in its own worktree. This is a main checkout (an advisor seat) — the advisor reads the record, it does not transcribe it."
+  ;;
+esac
+exit 0
