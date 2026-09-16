@@ -40,7 +40,7 @@ label of their own. A brief that cannot name one does not open.
 TIER (ESTATE §2): cheapest that fits — menial → opus-medium; simple bounded build → grok-medium or grok-high by
 complexity (Grok never at xhigh), or codex-medium when the codex harness is needed; standard build → codex-high; genuinely hard → codex-xhigh or opus-xhigh; muse-xhigh on muse-spark-1.3-contributor when Muse is the chosen family; review →
 cross-family from the builder. Write-enabled GitHub automation lanes are Opus 5 from the start. One-line
-why: <…>. Launch with `scripts/lane.sh launch <lane> <tier> <brief>`.
+why: <…>. Launch with `$ESTATE/scripts/lane.sh launch <lane> <tier> <brief>`.
 TIER: <grok-medium | grok-high | opus-medium | opus-high | opus-xhigh | codex-medium | codex-high | codex-xhigh | codex6-xhigh (brief review only) | muse-xhigh>. Gate: in-lane Opus gate REQUIRED
 (read-only `claude -p --model claude-opus-5`; RESULT verbatim in HANDOFF.md) — for build lanes.
 External review: <NOT required (class: <presentation | additive nullable | read-only | prompt>) |
@@ -115,7 +115,7 @@ run writes `NOT EXERCISABLE — <reason>`. Do not invent a verdict either way.
    Never commit HANDOFF.md, BRIEF.md, EQ14_PATH.txt/WA_PATH.txt or flag files.
 2. `touch <worktree>/HANDOFF-READY` — the same file for every lane kind (build, review, walk, diag, apply); the outcome (verdict, PASS/FAIL, blocked reason) goes INSIDE the file, never into its name (ESTATE §8 rule 3), then signal
    `orca terminal send --terminal <advisor handle> --enter --text 'LANE-SIGNAL <lane> | <BOOT|STOP|ASK|DONE> | <one line>'`
-   (or `scripts/lane.sh signal`); the prefix is verbatim, pipe-delimited, and the first characters of the message.
+   (or `$ESTATE/scripts/lane.sh signal`); the prefix is verbatim, pipe-delimited, and the first characters of the message.
 3. A question you cannot answer from source: write ASK-ADVISOR in the worktree root and signal the same way. Never stop silently.
    Signal-at-every-stop: send the LANE-SIGNAL BEFORE any approval request, blocker, question or finish.
 
@@ -144,4 +144,4 @@ tokens in 35 minutes. Watching ORIGIN rather than screen text stays correct; it 
 after the wake, not the wake itself.
 
 A walk coordinator covers ONE leg or one small adjacent group (48), and runs on a machine-read
-model, not Opus or Fable. scripts/hooks/walk-brief-lint.py enforces all three at commit and push.
+model, not Opus or Fable. $ESTATE/scripts/hooks/walk-brief-lint.py enforces all three at commit and push.

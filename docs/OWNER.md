@@ -85,10 +85,10 @@ CLAUDE.md of each repo wins over this file where they disagree.
   yours to allow. Small fixes and brief mechanics stay with you.
 - Lanes: every build brief comes from your architect, written from `docs/lane-briefs/TEMPLATE.md`;
   review-lane briefs you write from the same template. Every lane is launched with
-  `scripts/lane.sh launch`. A build brief whose commands touch eq14, Postgres, roles, credentials
+  `$ESTATE/scripts/lane.sh launch`. A build brief whose commands touch eq14, Postgres, roles, credentials
   or an external write path carries its `BRIEF-REVIEW:` line from the architect's GPT-6 review
   before you launch it; no line, no launch (operator, 2026-09-16). The brief's signal block carries YOUR terminal handle, read with
-  `scripts/lane.sh address "$PWD"`, so the worker's BOOT, ASK and DONE land on your screen.
+  `$ESTATE/scripts/lane.sh address "$PWD"`, so the worker's BOOT, ASK and DONE land on your screen.
   Grok, codex and Muse workers reach you only through that line; Claude workers may also use
   SendMessage to your session name (`ListAgents`), tags on line one per the send gate.
 - Reports: one message per day, five lines: done, next, blocked on Rami, spend, risk. It goes
@@ -125,9 +125,9 @@ These exist because a seat once met a broken dependency and rebuilt it alone.
   line each; `ASK-ADVISOR` for a question. What only Rami can answer, the advisor sends on to
   the coordinator as `ASK-OPERATOR` and returns his answer verbatim. The home advisor is the one
   whose board holds the milestone; the owner signals BOOT, ASK and DONE to it.
-- Addresses: an advisor's terminal is `scripts/lane.sh address /Users/rami/dev/<repo>` (outside
-  work-automation: `/Users/rami/dev/work-automation/scripts/lane.sh`, until #105); send
-  with `scripts/lane.sh signal ... --to <handle>` or `orca terminal send --terminal <handle>
+- Addresses: an advisor's terminal is `$ESTATE/scripts/lane.sh address /Users/rami/dev/<repo>`
+  (`$ESTATE` = `/Users/rami/dev/estate-tooling`, ADVISOR.md §D); send
+  with `$ESTATE/scripts/lane.sh signal ... --to <handle>` or `orca terminal send --terminal <handle>
   --enter --text '...'`. Claude seats also answer to their session name in `ListAgents`.
 
 ## 7. Boot set, closed

@@ -27,7 +27,7 @@ his answer verbatim. The architect never messages the operator or the coordinato
 
 The client's address is SUPPLIED AT SPAWN and confirmed to be a live session before first
 use; the seat STOPS and reports if it is not. It is never a literal in a tracked file:
-`scripts/lane.sh address <checkout>` prints the current one.
+`$ESTATE/scripts/lane.sh address <checkout>` prints the current one (`$ESTATE` = `/Users/rami/dev/estate-tooling`).
 
 Origin: docs/ADVISOR-ORIGINS.md.
 
@@ -248,10 +248,10 @@ the architect on its own branch. It carries, in this order:
    A build brief whose commands touch eq14, Postgres, roles, credentials, or a path that
    writes to an external system is read by a reviewer before the client sees it (operator,
    2026-09-16, overruling the rule freeze for this rule): a codex session on `gpt-6-astra` at
-   xhigh, read-only, launched by the architect with `scripts/lane.sh launch
+   xhigh, read-only, launched by the architect with `$ESTATE/scripts/lane.sh launch
    <lane>-briefreview codex6-xhigh <review brief>`, the review brief written from
    `docs/lane-briefs/TEMPLATE.md` with the architect's own handle
-   (`scripts/lane.sh address "$PWD"`) in its signal block. The reviewer checks every command
+   (`$ESTATE/scripts/lane.sh address "$PWD"`) in its signal block. The reviewer checks every command
    against the target it runs on and reports on the architect's screen as
    `LANE-SIGNAL <lane>-briefreview | ROUND <n> | <findings>`; the architect amends the brief
    and answers on the reviewer's terminal, `orca terminal send --terminal <handle from the

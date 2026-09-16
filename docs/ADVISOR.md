@@ -3,7 +3,7 @@
 Byte-identical in every repo on the list below. The operator owns it; an advisor proposes and
 never edits its copy.
 
-ENDPOINT LIST: work-automation, relationship-memory, skill-factory, agent-sdk, demo-agent, call-assistant.
+ENDPOINT LIST: estate-tooling, work-automation, relationship-memory, skill-factory, agent-sdk, demo-agent, call-assistant.
 
 Retired detail: `docs/archive/ADVISOR-full-2026-09-15.md`, mapped by
 `docs/doctrine-relocation-2026-09-15.md`.
@@ -43,16 +43,16 @@ seat died with state unwritten; headless runs from a neutral cwd.
 
 One backlog lane open per advisor, taken to deployed-and-shown before the next; a hold covers
 an item, never the session. The advisor owns its repo and opens its own lanes; the box lock
-(`scripts/box-lock.sh`) keeps one box change at a time, and the coordinator seat is the single
+(`$ESTATE/scripts/box-lock.sh`) keeps one box change at a time, and the coordinator seat is the single
 operator funnel. Advisors talk to each other by XREPO and to the operator through the
 coordinator. An operator decision given in an advisor's terminal becomes an issue or a
 CLAUDE.md line that turn. An ask only he can answer goes to the coordinator as ASK-OPERATOR;
 unanswered by the next digest it becomes an owner:operator issue.
-A seat's address is the handle `scripts/lane.sh address <checkout>` prints: advisors at
+A seat's address is the handle `$ESTATE/scripts/lane.sh address <checkout>` prints: advisors at
 `/Users/rami/dev/<repo>`, the coordinator at its `coordinator` worktree, an owner at its milestone
 worktree; a lane's is in its brief. Claude seats also answer to their `ListAgents` name.
-`scripts/lane.sh` lives in work-automation only until #105 mirrors it; from another repo run it as
-`/Users/rami/dev/work-automation/scripts/lane.sh` from your own worktree.
+`$ESTATE` is `/Users/rami/dev/estate-tooling`, the one checkout of the estate tooling (lane script,
+lints, hooks, wake, digest, doctrine originals); every repo runs it by that path from its own worktree.
 Every milestone Rami has promoted is held by one owner seat per `docs/OWNER.md`: the advisor whose
 board holds it launches the owner in a worktree named for the milestone, relaunches it when it
 folds, and is its landlord and reviewer; the advisor opens no milestone lane itself. The seat that
@@ -71,7 +71,7 @@ Always the explicit model id, never an alias; read the banner before the first p
 - Owner seat: that line at `--effort high`.
 - Architect seat: `claude --model claude-fable-5 --effort high`, on demand, per ARCHITECT.md;
   Fable 5 over 5.1; Opus 5 also architects.
-- Lanes: the tier ladder, cheapest that fits, built and launched by `scripts/lane.sh launch`:
+- Lanes: the tier ladder, cheapest that fits, built and launched by `$ESTATE/scripts/lane.sh launch`:
   `grok-medium`, `grok-high` by the task's complexity, Grok never at xhigh; `codex-medium`,
   `codex-high`, `codex-xhigh` by the task's complexity; `codex6-xhigh` (`gpt-6-astra`) for the brief
   review only; `opus-xhigh` for judgment;
