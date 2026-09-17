@@ -213,7 +213,10 @@ section exists to prevent. Standing something up is not adopting it.
 
 Research is the architect's judgment and the worker's legwork: the architect decides
 what must be found out and reads the answer; bulk fetching, doc trawls and comparison
-matrices are delegated to a spawned worker session under the ADVISOR §2 effort ladder.
+matrices are delegated to a spawned worker session under the ADVISOR §2 effort ladder. The worker is
+launched by the architect's CLIENT, owner or advisor, on the architect's one-line ask naming the
+question, the tier and the hosts; an architect launches review sessions only, and the launch-cap
+hook refuses anything else from it (operator, 2026-09-17: tests go through the owner).
 An architect that spends its turns fetching pages has become a worker.
 
 ADVISOR §14 (evaluate open source before hand-building) is the same duty applied to
@@ -255,8 +258,10 @@ the architect on its own branch. It carries, in this order:
    against the target it runs on and reports on the architect's screen as
    `LANE-SIGNAL <lane>-briefreview | ROUND <n> | <findings>`; the architect amends the brief
    and answers on the reviewer's terminal, `orca terminal send --terminal <handle from the
-   launch output> --enter --text '...'`, with what changed. Two rounds, the cap named in the
-   review brief. Round 2 ends in one of `LAUNCH`, `LAUNCH WITH RISKS: <named>`,
+   launch output> --enter --text '...'`, with what changed. Two rounds, enforced at launch by
+   the launch-cap hook. The review brief names the build brief it reviews and the files the
+   reviewer may open; the reviewer reads those and nothing else (operator, 2026-09-17, after
+   28 astra sessions re-read the repo overnight). Round 2 ends in one of `LAUNCH`, `LAUNCH WITH RISKS: <named>`,
    `DO NOT LAUNCH`, and the reviewer folds. The architect writes the verdict into the build
    brief as its last line before the signal block:
    `BRIEF-REVIEW: <verdict> | <lane>-briefreview | round <n> | <date>`. A brief still at
@@ -301,7 +306,7 @@ architect does not hold the close and does not escalate.
 The architecture model is rationed by the week. Request count is the gauge, because
 every request re-reads the seat's whole context:
 
-- A design item is tens of requests, not thousands. A seat past **300 requests** has
+- A design item is tens of requests, not thousands. A seat past **600 tool calls** (TURN_BUDGET on its launch line) has
   stopped designing and started orchestrating; it folds and hands back what it has.
 - Shell work is the signature. An architect running `git status`, driving a terminal,
   fast-forwarding, or appending to a ledger has drifted out of its charter.
