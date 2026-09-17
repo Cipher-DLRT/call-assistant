@@ -3,7 +3,7 @@
 Byte-identical in every repo on the list below. The operator owns it; an advisor proposes and
 never edits its copy.
 
-ENDPOINT LIST: estate-tooling, work-automation, relationship-memory, skill-factory, agent-sdk, demo-agent, call-assistant.
+ENDPOINT LIST: estate-tooling, work-automation, relationship-memory, skill-factory, agent-sdk, demo-agent, call-assistant, eq14-stacks.
 
 Retired detail: `docs/archive/ADVISOR-full-2026-09-15.md`, mapped by
 `docs/doctrine-relocation-2026-09-15.md`.
@@ -44,7 +44,10 @@ seat died with state unwritten; headless runs from a neutral cwd.
 One backlog lane open per advisor, taken to deployed-and-shown before the next; a hold covers
 an item, never the session. The advisor owns its repo and opens its own lanes; the box lock
 (`$ESTATE/scripts/box-lock.sh`) keeps one box change at a time, and the coordinator seat is the single
-operator funnel. Advisors talk to each other by XREPO and to the operator through the
+operator funnel. eq14-stacks is the box: its advisor holds the box lock, lands every box change, and
+takes every BOX-SEQ; no other advisor lands there. estate-tooling's advisor lands the tooling and runs
+the doctrine sittings; the estate architect designs and never lands (operator, 2026-09-17). Advisors
+talk to each other by XREPO and to the operator through the
 coordinator. An operator decision given in an advisor's terminal becomes an issue or a
 CLAUDE.md line that turn. An ask only he can answer goes to the coordinator as ASK-OPERATOR;
 unanswered by the next digest it becomes an owner:operator issue.
