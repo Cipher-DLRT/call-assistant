@@ -84,7 +84,24 @@ Always the explicit model id, never an alias; read the banner before the first p
 - Fable runs only in architect seats and the judge and synthesizer legs; no other seat takes it.
 - Every spawn names its effort, since an unflagged one inherits the parent's; reviews default
   high, xhigh says why.
-- Walks: a spawned Grok session at HIGH on the Orca per-worktree browser.
+- Walks: a spawned Muse session at `muse-xhigh` (`muse-spark-1.3-contributor`) on the Orca
+  per-worktree browser (operator, 2026-09-19; replaces Grok at HIGH).
+
+**Builder spread (operator, 2026-09-19).** The estate builds with Grok, Muse, and Codex.
+Codex is NOT the default family: a brief that tiers codex where grok or muse serves the
+work states in its TIER line why the work is beyond them. Mechanical and simple lanes go
+to grok or muse first. His words, verbatim: "I'm seeing a lot of focus on the owners just
+using Codex to build all their lanes, even the relatively simpler ones, even though, on
+scoring benchmarks, Muse is higher than Grok and even scores very closely to gpt"
+(2026-09-19); "Dont just use codex for building, you can use muse and grok as well"
+(2026-09-18). Standing per-use approvals unchanged: codex-xhigh and codex6-xhigh (astra)
+still need his word per use; codex-medium and codex-high are released.
+
+**Browser runs (operator, 2026-09-19, exclusive).** Muse is the ONLY family that holds a
+browser in a build lane. His words, verbatim: "Muse is to be used for browser runs. No
+other agent can be used for browser runs for building." A build brief whose lane opens a
+browser is a Muse brief; a non-Muse lane that finds it needs a browser stops and
+ASK-ADVISOR rather than opening one. Walks carry the same law.
 
 ## §F. Review law by blast radius
 
