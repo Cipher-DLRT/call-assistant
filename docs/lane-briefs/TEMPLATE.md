@@ -38,10 +38,11 @@ counted. A phase list is not a reason. Hardening, controls and refactors take no
 label of their own. A brief that cannot name one does not open.
 
 TIER (ESTATE §2): cheapest that fits — menial → opus-medium; simple bounded build → grok-medium or grok-high by
-complexity (Grok never at xhigh), or codex-medium when the codex harness is needed; standard build → codex-high; genuinely hard → codex-xhigh or opus-xhigh; muse-xhigh on muse-spark-1.3-contributor when Muse is the chosen family; review →
+complexity, or codex-medium when the codex harness is needed; standard build → codex-high; genuinely hard → grok-xhigh, codex-xhigh or opus-xhigh; muse-xhigh on muse-spark-1.3-contributor when Muse is the chosen family; review →
 cross-family from the builder. Write-enabled GitHub automation lanes are Opus 5 from the start. One-line
 why: <…>. Launch with `$ESTATE/scripts/lane.sh launch <lane> <tier> <brief>`.
-TIER: <grok-medium | grok-high | opus-medium | opus-high | opus-xhigh | codex-medium | codex-high | codex-xhigh | codex6-xhigh (brief review only) | muse-xhigh>. Gate: in-lane Opus gate REQUIRED
+TIER: <grok-medium | grok-high | opus-medium | opus-high | opus-xhigh | codex-medium | codex-high | codex-xhigh | codex6-xhigh (brief review only) | muse-xhigh>. Gate: <in-lane <family> gate REQUIRED — cross-family from the builder |
+NOT REQUIRED — §F all not-engaged, one git revert undoes it with no data loss>
 (read-only `claude -p --model claude-opus-5`; RESULT verbatim in HANDOFF.md) — for build lanes.
 External review: <NOT required (class: <presentation | additive nullable | read-only | prompt>) |
 REQUIRED (class: <grant/role | containment | external write | column drop | customer data off-box>)>.

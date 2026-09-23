@@ -75,7 +75,8 @@ Always the explicit model id, never an alias; read the banner before the first p
 - Architect seat: `claude --model claude-fable-5 --effort high`, on demand, per ARCHITECT.md;
   Fable 5 over 5.1; Opus 5 also architects.
 - Lanes: the tier ladder, cheapest that fits, built and launched by `$ESTATE/scripts/lane.sh launch`:
-  `grok-medium`, `grok-high` by the task's complexity, Grok never at xhigh; `codex-medium`,
+  `grok-medium`, `grok-high` by the task's complexity and `grok-xhigh` for genuinely hard work
+  (operator, 2026-09-23; `grok-high` remains the default); `codex-medium`,
   `codex-high`, `codex-xhigh` by the task's complexity; `codex6-xhigh` (`gpt-6-astra`) for the brief
   review only; `opus-xhigh` for judgment;
   `muse-xhigh` on `muse-spark-1.3-contributor`, Muse at no other effort.
@@ -110,7 +111,10 @@ external system; migrations that drop or alter a column; customer data off-box.
 
 NOT run on: additive nullable columns; read-only views and screens; prompt edits; presentation
 changes; anything reversible by one git revert with no data loss. Default there: build it,
-test it, show it. The in-lane cross-family gate is never optional (the brief template's TIER line).
+test it, show it. The in-lane cross-family gate is earned on this same axis (operator,
+2026-09-22, restated 2026-09-24): a brief whose §F CLASSIFICATION is not-engaged on every
+item, and whose change one git revert undoes with no data loss, declares `Gate: NOT REQUIRED`
+and takes none. Anything else takes one. A brief carrying no §F CLASSIFICATION takes one.
 
 ## §G. Acceptance
 
