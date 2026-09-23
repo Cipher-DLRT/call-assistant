@@ -70,7 +70,7 @@ an external write path carries a `BRIEF-REVIEW:` verdict line from the architect
 
 Always the explicit model id, never an alias; read the banner before the first prompt.
 
-- Advisor seat: `claude --model claude-opus-5 --effort medium --permission-mode bypassPermissions`.
+- Advisor seat: `claude --model claude-opus-5-5 --effort medium --permission-mode bypassPermissions`.
 - Owner seat: that line at `--effort high`.
 - Architect seat: `claude --model claude-fable-5 --effort high`, on demand, per ARCHITECT.md;
   Fable 5 over 5.1; Opus 5 also architects.
@@ -115,6 +115,13 @@ test it, show it. The in-lane cross-family gate is earned on this same axis (ope
 2026-09-22, restated 2026-09-24): a brief whose §F CLASSIFICATION is not-engaged on every
 item, and whose change one git revert undoes with no data loss, declares `Gate: NOT REQUIRED`
 and takes none. Anything else takes one. A brief carrying no §F CLASSIFICATION takes one.
+
+An item RESTORABLE TO A BEFORE-STATE RECORDED IN THE SAME RUN — it reads before every write,
+writes only inside a named directory or compose project, records every command with its return code
+and output, and restores to the recorded digest — may be run live under a one-paragraph brief the
+OWNER writes: what changes, and how you will know it worked. No RED legs, no gate, no HANDOFF; the
+run's own record is the deliverable. The REQUIRED list above is not narrowed by it. (Operator,
+2026-09-24: "run it live, no more briefs".)
 
 ## §G. Acceptance
 
