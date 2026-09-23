@@ -248,9 +248,10 @@ the architect on its own branch. It carries, in this order:
    ASK-OPERATOR before the brief is final, and a brief that bakes in an unapproved cut is
    returned. Operator, 2026-09-16, verbatim: "designs seem to emphasize cost saving at the
    expense of function. I should be told about cost cutting measures and I need to approve them."
-   A build brief whose commands touch eq14, Postgres, roles, credentials, or a path that
-   writes to an external system is read by a reviewer before the client sees it (operator,
-   2026-09-16, overruling the rule freeze for this rule): a codex session on `gpt-6-astra` at
+   A build brief whose HOSTS write to the box or name an external system (ADVISOR.md §D's
+   list, the one the lint fences on) is read by a reviewer before the client sees it (operator,
+   2026-09-16, overruling the rule freeze for this rule; one round, operator, 2026-09-24): a
+   codex session on `gpt-6-astra` at
    xhigh, read-only, launched by the architect with `$ESTATE/scripts/lane.sh launch
    <lane>-briefreview codex6-xhigh <review brief>`, the review brief written from
    `docs/lane-briefs/TEMPLATE.md` with the architect's own handle
@@ -258,10 +259,11 @@ the architect on its own branch. It carries, in this order:
    against the target it runs on and reports on the architect's screen as
    `LANE-SIGNAL <lane>-briefreview | ROUND <n> | <findings>`; the architect amends the brief
    and answers on the reviewer's terminal, `orca terminal send --terminal <handle from the
-   launch output> --enter --text '...'`, with what changed. Two rounds, enforced at launch by
-   the launch-cap hook. The review brief names the build brief it reviews and the files the
+   launch output> --enter --text '...'`, with what changed. One round, enforced at launch by
+   the launch-cap hook; a second launches only on a REPRODUCED failure, named in the review
+   brief's `REPRODUCED:` line. The review brief names the build brief it reviews and the files the
    reviewer may open; the reviewer reads those and nothing else (operator, 2026-09-17, after
-   28 astra sessions re-read the repo overnight). Round 2 ends in one of `LAUNCH`, `LAUNCH WITH RISKS: <named>`,
+   28 astra sessions re-read the repo overnight). The round ends in one of `LAUNCH`, `LAUNCH WITH RISKS: <named>`,
    `DO NOT LAUNCH`, and the reviewer folds. The architect writes the verdict into the build
    brief as its last line before the signal block:
    `BRIEF-REVIEW: <verdict> | <lane>-briefreview | round <n> | <date>`. A brief still at

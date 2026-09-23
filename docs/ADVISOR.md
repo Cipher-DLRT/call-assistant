@@ -61,10 +61,14 @@ board holds it launches the owner in a worktree named for the milestone, relaunc
 folds, and is its landlord and reviewer; the advisor opens no milestone lane itself. The seat that
 holds an item, owner or advisor, is the client of any architect it spawns (ARCHITECT.md); the
 architect writes the design and every build brief, and the client writes none for an architected
-item (operator, 2026-09-15). A build brief whose commands touch eq14, Postgres, roles, credentials or
-an external write path carries a `BRIEF-REVIEW:` verdict line from the architect's GPT-6 review
-(ARCHITECT.md §G) before the client, owner or advisor, launches it; no line, no launch (operator,
-2026-09-16, overruling the rule freeze for this rule).
+item (operator, 2026-09-15). A build brief whose HOSTS write to the box or name an external system
+— Postgres other than read-only, HubSpot, Gmail, Telegram; the one list the lint fences on — carries
+a `BRIEF-REVIEW:` verdict line from ONE round of the architect's GPT-6 review (ARCHITECT.md §G)
+before the client, owner or advisor, launches it; no line, no launch (operator, 2026-09-16,
+overruling the rule freeze for this rule). A brief review sees commands against targets and nothing
+else, so a §F item with no host — customer data off-box in text — takes its one review on the BUILT
+thing instead. Every other build brief takes no brief review (operator, 2026-09-24: "cut all those.
+two reviews like you mentioned").
 
 ## §E. Seat shape
 
@@ -115,6 +119,10 @@ test it, show it. The in-lane cross-family gate is earned on this same axis (ope
 2026-09-22, restated 2026-09-24): a brief whose §F CLASSIFICATION is not-engaged on every
 item, and whose change one git revert undoes with no data loss, declares `Gate: NOT REQUIRED`
 and takes none. Anything else takes one. A brief carrying no §F CLASSIFICATION takes one.
+A REQUIRED item takes ONE review of the built thing, plus the advisor's read before landing;
+those are the two. A second round on the same control launches only on a REPRODUCED failure,
+the command and its output on record, never on a verdict alone (operator, 2026-09-24: "cut all
+those. two reviews like you mentioned please").
 
 An item RESTORABLE TO A BEFORE-STATE RECORDED IN THE SAME RUN — it reads before every write,
 writes only inside a named directory or compose project, records every command with its return code

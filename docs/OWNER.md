@@ -53,7 +53,9 @@ CLAUDE.md of each repo wins over this file where they disagree.
   changes; containment and egress; any path that writes to an external system (mail, HubSpot,
   spend); migrations that drop or alter an existing column; customer data leaving the box.
   Not required for: additive nullable columns, read-only views and screens, prompt edits,
-  presentation changes, anything one git revert undoes.
+  presentation changes, anything one git revert undoes. One review of the built thing per
+  required item, plus your advisor's read; a second round needs a reproduced failure on record,
+  not a verdict (operator, 2026-09-24: "two reviews").
 - One writer per checkout. Never commit into a tree another session is live in.
 - No secrets in git. `.env` only. No `REPLACE_*` placeholders in flows.
 - Deploys: flows through `scripts/n8n.sh update`; stacks through a landing on eq14-stacks
@@ -85,9 +87,10 @@ CLAUDE.md of each repo wins over this file where they disagree.
   yours to allow. Small fixes and brief mechanics stay with you.
 - Lanes: every build brief comes from your architect, written from `docs/lane-briefs/TEMPLATE.md`;
   review-lane briefs you write from the same template. Every lane is launched with
-  `$ESTATE/scripts/lane.sh launch`. A build brief whose commands touch eq14, Postgres, roles, credentials
-  or an external write path carries its `BRIEF-REVIEW:` line from the architect's GPT-6 review
-  before you launch it; no line, no launch (operator, 2026-09-16). The brief's signal block carries YOUR terminal handle, read with
+  `$ESTATE/scripts/lane.sh launch`. A build brief whose commands write to eq14 or touch an external
+  system (Postgres other than read-only, HubSpot, Gmail, Telegram) carries its `BRIEF-REVIEW:` line
+  from one round of the architect's GPT-6 review before you launch it; no line, no launch (operator,
+  2026-09-16; one round, 2026-09-24). The brief's signal block carries YOUR terminal handle, read with
   `$ESTATE/scripts/lane.sh address "$PWD"`, so the worker's BOOT, ASK and DONE land on your screen.
   Grok, codex and Muse workers reach you only through that line; Claude workers may also use
   SendMessage to your session name (`ListAgents`), tags on line one per the send gate.
