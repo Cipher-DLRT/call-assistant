@@ -41,11 +41,20 @@ seat died with state unwritten; headless runs from a neutral cwd.
 
 ## §D. Deliver serially
 
-One backlog lane open per advisor, taken to deployed-and-shown before the next; a hold covers
-an item, never the session. The advisor owns its repo and opens its own lanes; the box lock
+One backlog item held per advisor, given to an owner and taken to deployed-and-shown before the
+next; a hold covers an item, never the session. **An advisor launches owners, architects and review
+lanes, and no build lane: every build lane launches from an owner's worktree.** **No lane launches without an owner.** Each product repo has one standing BACKLOG owner holding
+the milestone `Backlog`: what the operator reports that serves no promoted milestone, the advisor
+files as an issue there and the backlog owner launches it; a fix that blocks an owner in ANOTHER
+repo is filed in that repo and launched by its backlog owner (operator, 2026-09-25: "no lane can launch without an owner. if it finds a fix that is needed that isnt part of and owners task, but blocking a certain owner, that owner spawns a lane to do it. If i report something that isnt related to any owner, it files an issue and spawns an owner still"; the standing backlog owner is the architect's shape, to which he said "i agree, proceed", 2026-09-25). The estate-tooling
+advisor alone builds and lands the tooling the estate architect briefs (operator, 2026-09-24: "the change you wanna do to make the owners work better is approved. check if modifications are needed for the boot files too", to the architect's proposal of that day). The advisor owns its repo; the box lock
 (`$ESTATE/scripts/box-lock.sh`) keeps one box change at a time, and the coordinator seat is the single
-operator funnel. eq14-stacks is the box: its advisor holds the box lock, lands every box change, and
-takes every BOX-SEQ; no other advisor lands there. estate-tooling's advisor lands the tooling and runs
+operator funnel. eq14-stacks is the box: the lock, not a seat, serialises it. The seat that holds a
+reviewed box item — an owner or an advisor, its brief carrying its box `BRIEF-REVIEW:` verdict — takes
+the lock, lands its change and its BOX-SEQ, and releases; the eq14-stacks advisor owns the box repo,
+lands that repo's own work, clears stale locks, and is no longer the funnel for other repos' box
+changes (operator, 2026-09-24, "agreed on the box", to this proposal in the architect's words; it
+supersedes "no other advisor lands there", 2026-09-17). estate-tooling's advisor lands the tooling and runs
 the doctrine sittings; the estate architect designs and never lands (operator, 2026-09-17). Advisors
 talk to each other by XREPO and to the operator through the
 coordinator. An operator decision given in an advisor's terminal becomes an issue or a
@@ -58,7 +67,7 @@ worktree; a lane's is in its brief. Claude seats also answer to their `ListAgent
 lints, hooks, wake, digest, doctrine originals); every repo runs it by that path from its own worktree.
 Every milestone Rami has promoted is held by one owner seat per `docs/OWNER.md`: the advisor whose
 board holds it launches the owner in a worktree named for the milestone, relaunches it when it
-folds, and is its landlord and reviewer; the advisor opens no milestone lane itself. The seat that
+folds, and is its landlord and reviewer; the advisor opens no build lane itself. The seat that
 holds an item, owner or advisor, is the client of any architect it spawns (ARCHITECT.md); the
 architect writes the design and every build brief, and the client writes none for an architected
 item (operator, 2026-09-15). A build brief whose HOSTS write to the box or name an external system
@@ -120,9 +129,10 @@ test it, show it. The in-lane cross-family gate is earned on this same axis (ope
 item, and whose change one git revert undoes with no data loss, declares `Gate: NOT REQUIRED`
 and takes none. Anything else takes one. A brief carrying no §F CLASSIFICATION takes one.
 A REQUIRED item takes ONE review of the built thing, plus the advisor's read before landing;
-those are the two. A second round on the same control launches only on a REPRODUCED failure,
-the command and its output on record, never on a verdict alone (operator, 2026-09-24: "cut all
-those. two reviews like you mentioned please").
+those are the two. A second round of either kind launches only on the operator's word, carried
+on the launch line, answering a REPRODUCED failure on record: the command and its output, never a
+verdict alone (operator, 2026-09-24: "cut all those. two reviews like you mentioned please"; and,
+told the ceiling without his word was four: "I thought we are bringing it down to 2").
 
 An item RESTORABLE TO A BEFORE-STATE RECORDED IN THE SAME RUN — it reads before every write,
 writes only inside a named directory or compose project, records every command with its return code
@@ -141,7 +151,7 @@ zero-added-actions leg applies to every phase.
 
 ## §I. Law lines
 
-L1 Outsource every task, security reviews included; keep launch, verdict line, land, deploy, ledger, ruling.
+L1 Outsource every task, security reviews included; keep owner launch, verdict line, ledger, ruling; owners land and deploy their own milestones (OWNER.md).
 L2 Source design from an architect seat for a feature, new surface or redesign, or when you cannot state it.
 L3 A subagent is for a MICROTASK and never writes to the repo; all else is a visible Orca session.
 L4 Arm a lane's monitor on its own signal, never a filename, and keep it until the handoff is CONSUMED.

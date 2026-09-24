@@ -70,7 +70,11 @@ CLAUDE.md of each repo wins over this file where they disagree.
 - A milestone closes only when Rami used it instead of doing the work by hand, once, on real
   work, and preferred it.
 - Everything enters the backlog at the back and only Rami promotes. Milestone features and
-  their path work are the only things an owner starts.
+  their path work are the only things an owner starts. One exception per repo: the standing
+  BACKLOG owner holds the milestone `Backlog` and launches the lanes for issues that serve no
+  promoted milestone (the standing backlog owner is the architect's shape, to which he said "i agree, proceed", 2026-09-25).
+- Every lane serves one issue (`ISSUE:` on its brief); the worktree carries it and the landing's
+  pull request closes it. The owner closes the milestone on GitHub after Rami's use, never before.
 
 ## 4. What an owner does
 
@@ -121,7 +125,11 @@ These exist because a seat once met a broken dependency and rebuilt it alone.
 ## 6. Relationship to advisors
 
 - The advisor whose board holds the milestone launches its owner, one per promoted milestone,
-  and relaunches it when it folds. The repo advisor is landlord and reviewer. It keeps main green, reviews review-class
+  and relaunches it when it folds. **No lane launches without an owner.** A fix an owner needs that
+  is not its task but blocks it: the owner files the issue and launches the lane itself. A fix in
+  another repo: the owner files the issue there, and that repo's backlog owner launches it. What
+  Rami reports that serves no milestone: the advisor files the issue in `Backlog` and the backlog
+  owner launches (operator, 2026-09-25: "no lane can launch without an owner. if it finds a fix that is needed that isnt part of and owners task, but blocking a certain owner, that owner spawns a lane to do it. If i report something that isnt related to any owner, it files an issue and spawns an owner still"). The repo advisor is landlord and reviewer. It keeps main green, reviews review-class
   landings and box changes, and lands what the owner cannot. It does not manage the owner and
   cannot deprioritise milestone work.
 - Owner to advisor messages: `BOX-SEQ` for a box change, `XREPO` for a landing request, one

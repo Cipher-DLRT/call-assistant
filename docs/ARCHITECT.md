@@ -260,8 +260,9 @@ the architect on its own branch. It carries, in this order:
    `LANE-SIGNAL <lane>-briefreview | ROUND <n> | <findings>`; the architect amends the brief
    and answers on the reviewer's terminal, `orca terminal send --terminal <handle from the
    launch output> --enter --text '...'`, with what changed. One round, enforced at launch by
-   the launch-cap hook; a second launches only on a REPRODUCED failure, named in the review
-   brief's `REPRODUCED:` line. The review brief names the build brief it reviews and the files the
+   the launch-cap hook; a second launches only on the operator's word on the launch line,
+   answering a REPRODUCED failure named in the review brief's `REPRODUCED:` line (operator,
+   2026-09-24: "I thought we are bringing it down to 2"). The review brief names the build brief it reviews and the files the
    reviewer may open; the reviewer reads those and nothing else (operator, 2026-09-17, after
    28 astra sessions re-read the repo overnight). The round ends in one of `LAUNCH`, `LAUNCH WITH RISKS: <named>`,
    `DO NOT LAUNCH`, and the reviewer folds. The architect writes the verdict into the build
