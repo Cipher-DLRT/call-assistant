@@ -152,6 +152,6 @@ Nothing else. Not ADVISOR.md, not the ledger, not the archive, not the RESURRECT
 
 ## 8. Seat line
 
-`claude --model claude-opus-5 --effort high --permission-mode bypassPermissions`, in an Orca
+`claude --model claude-opus-5-5 --effort high --permission-mode bypassPermissions`, in an Orca
 worktree named for the milestone, with the milestone brief path as the boot prompt; the brief
 names the milestone file.
