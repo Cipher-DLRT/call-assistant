@@ -47,7 +47,51 @@ column drop/alter not-engaged; customer data off-box not-engaged (test tones onl
 - demo-agent's consumer, read only: `/Users/rami/orca/workspaces/demo-agent/owner-ai-se-2/app/voice/ears.py` l.150-160
   (it spawns `capture stream-online` and demuxes stream 1 as `them`).
 
-## The change
+## AMENDMENT 1, 2026-09-26: the design changes to a Core Audio process tap (supersedes "The change", "Legs" and "Pins" below)
+
+**Why:** leg 2 STOPPED as designed (the lane's ASK-ADVISOR, 2026-09-26). ScreenCaptureKit's app filter drops Chrome's
+helper-process audio: a Chrome for Testing tone reads -50.0 dB unfiltered and -200 dB with `--apps`. Our Python mixer
+is not an SCK application either, so exclude-by-app fails too. **Rami, verbatim via the demo-agent advisor: "go with your
+recommendation."** That is the lane's proposal: exclude the agent's own process from a global Core Audio process tap.
+
+**The change:**
+1. `capture stream-online --exclude-pid <pid>[,<pid>…]`: stream 1 comes from a Core Audio process tap (macOS 14.2+:
+   `CATapDescription(stereoGlobalTapButExcludeProcesses:)`, `AudioHardwareCreateProcessTap`, a private aggregate device),
+   with each PID translated through `kAudioHardwarePropertyTranslatePIDToProcessObject`. Same framing, same 16 kHz mono
+   resampling, same stderr status lines. Stream 0 (mic) is untouched.
+2. Without `--exclude-pid`: today's SCK path, byte for byte. Every other mode is untouched.
+3. A listed PID with no audio process object yet (it has not opened audio): print one stderr line, run the tap
+   without it, and re-resolve on a timer until it appears. Say in HANDOFF how.
+4. The `--apps` code in the worktree is not landed. Remove it, and keep only what the tap path reuses.
+
+**Legs:**
+1. **STOP-shaped, before building the flag properly: a minimal tap proves both sides.** Run a tap that excludes one
+   Python process which writes a 1 kHz tone at -20 dBFS into BlackHole 2ch (the shape of demo-agent's mixer). In the
+   same run, (b) Chrome for Testing plays a WebAudio 1 kHz tone at -50 dBFS on a local `file://` page, and (c) `afplay`
+   plays a -50 dBFS tone to the default output. PASS: (a) the excluded process's tone is at least 40 dB below its played
+   level on the tap; (b) and (c) are within 6 dB of their played levels. A leg-1 FAIL is a STOP: write ASK-ADVISOR and
+   signal ASK.
+   **If macOS asks for a permission** (System Audio Recording / `NSAudioCaptureUsageDescription`, a TCC prompt or a
+   silent all-zero tap): STOP and signal ASK with the exact prompt or symptom. **No seat clicks a permission dialog.**
+   The advisor gets Rami.
+2. Build `--exclude-pid` into `capture stream-online`: `swiftc -O app/capture/main.swift -o app/bin/capture` in this worktree.
+3. **Through the real binary:** leg 1's (a), (b) and (c) again via `capture stream-online --exclude-pid <python pid>`,
+   stream 1 measured at 1 kHz in 0.5 s windows.
+4. **Unchanged without the flag:** the same three tones with no flag. All three appear on stream 1 (today's SCK
+   behaviour; (a) at about -20 dB, measured 2026-09-26).
+5. **Late PID:** start capture with `--exclude-pid <pid>` for a Python process that opens BlackHole about 5 s after
+   capture starts. PASS: within 5 s of its first audio, its tone is at least 40 dB below played on stream 1, without a restart.
+6. Suite: `13 passed` before and after (the baseline command in PREREQUISITES).
+
+`scripts/check_capture_apps.py` becomes the check for legs 3–5, with one PASS/FAIL line per leg. Rename it to
+`scripts/check_capture_exclude.py`. Record the numbers in `docs/capture-exclude-result-2026-09-26.md`, with a STATUS.md
+log line in the same commit (law 10).
+
+**Pins:** the PASS lines of legs 1 and 3–5, verbatim, in HANDOFF and the result doc. `git diff --stat` touches only
+`app/capture/main.swift`, `scripts/check_capture_exclude.py`, `docs/capture-exclude-result-2026-09-26.md` and `STATUS.md`.
+Consumer follow-up, not this lane: demo-agent's `app/voice/ears.py` passes `--exclude-pid <its own PID>`.
+
+## The change (SUPERSEDED by Amendment 1)
 1. `capture stream-online --apps <bundle-id>[,<bundle-id>…]`: stream 1 records system audio only from the running
    applications whose bundle IDs are listed (`SCContentFilter(display:including:exceptingWindows:)` or an equivalent
    you can justify). Stream 0 (mic), the framing, the 16 kHz resampling and the stderr status lines are unchanged.
