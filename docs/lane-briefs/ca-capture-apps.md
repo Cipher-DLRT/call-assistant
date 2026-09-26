@@ -1,6 +1,6 @@
 # build-brief ca-capture-apps — capture stream-online records only the named meeting apps (opt-in --apps) (2026-09-26)
 
-STATUS: LAUNCHED 2026-09-26 by owner-ai-se-2 (demo-agent) on Rami's word via the demo-agent advisor: "owner 2 launches call-assistant#2".
+STATUS: CLOSED 2026-09-26 PASS 9b78437955a1ba0e084fe94ae6b80f22ddefd3a5
 ISSUE: Cipher-DLRT/call-assistant#2
 
 **Category:** fix — path towards Cipher-DLRT/demo-agent#24 (the AI SE's Teams and Meet check, milestone AI SE 2).
