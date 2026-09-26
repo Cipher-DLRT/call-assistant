@@ -36,17 +36,25 @@ Legs 3–5 through the real binary (`scripts/check_capture_exclude.py`, final ru
     LEG 4 FAIL: no flag (today's SCK path); (a) BlackHole -20 dBFS -> stream 1 median -200.0 dB; (b) Chrome for Testing -50 dBFS -> median -50.0 dB; (c) afplay -50 dBFS -> median -50.0 dB (pass: all within 6 dB)
     LEG 5 PASS: late PID (mixer opened BlackHole after capture started); first window <= -60 dB at +2.0 s after its first audio; max from +5 s on -200.0 dB over 10 windows (pass: <= -60 from +5 s)
 
-**Leg 4 is not a regression.** A baseline binary built from the unchanged `git show HEAD:app/capture/main.swift` gives
-the same numbers:
+**Leg 4 PASS (equal to baseline), by the owner's ruling of 2026-09-26.** The script's own line above prints FAIL
+because it checks (a) against -20 dB. A baseline binary built from the unchanged `git show HEAD:app/capture/main.swift`
+gives the same numbers:
 
     BASELINE (HEAD main.swift) LEG 4 FAIL: no flag (today's SCK path); (a) BlackHole -20 dBFS -> stream 1 median -200.0 dB; (b) Chrome for Testing -50 dBFS -> median -50.0 dB; (c) afplay -50 dBFS -> median -50.1 dB (pass: all within 6 dB)
 
-The no-flag behaviour is therefore unchanged. The failing part is the expectation for (a). The brief expected about
--20 dB, taken from demo-agent's measurement. That does not reproduce here, with the test mixer either output-only or
-duplex (default mic in, BlackHole out, the shape of `app/voice/mixer.py`). ScreenCaptureKit did not capture a
-windowless process that writes only into BlackHole. afplay's tone, which goes to the default output, is captured.
-Unverified hypothesis: ScreenCaptureKit takes a GUI-app or default-output mix, and demo-agent's measured process
-differed in one of those ways. The advisor rules on leg 4.
+So the no-flag behaviour is unchanged. On this rig, the lane's stand-in writer (a windowless Python process, output-only
+or duplex) is not captured by ScreenCaptureKit. The stand-in is not the same shape as demo-agent's real Mixer.
+
+**Leg 4/3 with the real demo-agent Mixer, measured by owner-ai-se-2** (`app.voice.mixer.Mixer`, duplex, in its own
+process; tone -20 dBFS; stream 1 at 1 kHz):
+
+| binary | flag | stream 1 |
+|---|---|---|
+| baseline (HEAD main.swift) | none | -20.0 dB |
+| this lane | none | -20.0 dB |
+| this lane | `--exclude-pid <mixer pid>` | -240 dB (silence), from mixer start through the tone |
+
+With the real Mixer, the no-flag path reads the same as the baseline (leg 4), and the Mixer is excluded completely (leg 3).
 
 Suite: `13 passed` before and after (the baseline command in the brief's PREREQUISITES).
 
