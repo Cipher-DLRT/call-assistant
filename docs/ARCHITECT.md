@@ -274,6 +274,15 @@ the architect on its own branch. It carries, in this order:
 The brief is the complete starting state for the lane (ADVISOR §35, §40). A lane that
 must ask what to build has been handed an incomplete brief.
 
+**Written once** (operator, 2026-09-27, in the estate architect's terminal, verbatim: "ok i
+agree, do that fix, and check to make sure it works so we dont repeat the update fix issue
+again", to the architect's three changes). A build brief is not edited after its launch commit;
+the pre-commit refuses an edit to a launched brief other than its `STATUS:` line. A correction
+reaches the lane as one line on its terminal from the seat that found the fault, and the close
+record carries what was built. Before a brief names a source a predicate reads — a file, a
+field, a link, a command's output — the architect has run the command that shows it exists in
+the estate with one real case, and the brief carries that command and its result.
+
 ## §H. The callback
 
 While a lane builds, it may return to its architect **on a design question only** — the
@@ -286,9 +295,9 @@ Bounded, and the bounds are the rule:
   lines and "does this look right" are not design questions and are refused.
 - The lane states the question, what it tried, and what it proposes. A question with no
   proposal is sent back.
-- Three callbacks per lane. A fourth means the brief was wrong: the architect reopens
-  the brief, amends it in one pass, and the count resets. The reopen repeats as often as
-  the lane needs it (operator, 2026-09-15).
+- Three callbacks per lane. A fourth means the brief was wrong: the architect answers the lane in
+  one line, files the fault as an issue on the brief's repo, and the count resets. The brief is
+  not reopened (operator, 2026-09-27, superseding the reopen of 2026-09-15).
 - The client decides whether a callback is warranted before the lane makes it. The lane
   does not hold work waiting for an answer it has not been granted the right to ask for.
 

@@ -1,4 +1,6 @@
 # <kind>-brief <lane-name> — <one-line purpose> (<date>)
+FEATURE: <one or two sentences: what someone can do or see when this lands that they cannot now, and the one command or screen that shows it>
+<!-- It describes the result, never the change list; it names no file the lane must open. -->
 
 <!-- Every build, review, walk, diag and apply brief in work-automation starts from this file
      (ADVISOR.md Part II §35, formerly ADVISOR-ESTATE §35). The two header sentences below are copied VERBATIM; a brief without

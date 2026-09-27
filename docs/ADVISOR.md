@@ -79,6 +79,14 @@ else, so a §F item with no host — customer data off-box in text — takes its
 thing instead. Every other build brief takes no brief review (operator, 2026-09-24: "cut all those.
 two reviews like you mentioned").
 
+**A small fix takes no architect and no brief** (operator, 2026-09-27, in the estate architect's
+terminal: "ok i agree, do that fix"). A fix is small when all four hold: one repo, and no doctrine
+file; one `git revert` undoes it with no data loss; the issue carries a measured red, the command
+and its output; and the issue leaves one reading only, no design question. The seat that holds
+the repo builds it from the issue in a worktree — the tooling advisor in estate-tooling, the
+backlog owner elsewhere — tests it against the issue's red, lands it, and closes the issue with
+the command and its output. Any one test failing, the architect writes a brief, once.
+
 ## §E. Seat shape
 
 Always the explicit model id, never an alias; read the banner before the first prompt.
