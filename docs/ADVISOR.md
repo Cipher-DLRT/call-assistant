@@ -93,8 +93,8 @@ Always the explicit model id, never an alias; read the banner before the first p
 
 - Advisor seat: `claude --model claude-opus-5-5 --effort medium --permission-mode bypassPermissions`.
 - Owner seat: that line at `--effort high`.
-- Architect seat: `claude --model claude-fable-5 --effort high`, on demand, per ARCHITECT.md;
-  Fable 5 over 5.1; Opus 5 also architects.
+- Architect seat: `claude --model claude-fable-5-1 --effort high`, on demand, per ARCHITECT.md
+  (operator, 2026-09-28, token-burn list); Opus 5 also architects.
 - Lanes: the tier ladder, cheapest that fits, built and launched by `$ESTATE/scripts/lane.sh launch`:
   `grok-medium`, `grok-high` by the task's complexity and `grok-xhigh` for genuinely hard work
   (operator, 2026-09-23; `grok-high` remains the default); `codex-medium`,
@@ -105,7 +105,8 @@ Always the explicit model id, never an alias; read the banner before the first p
   is named before round one.
 - Fable runs only in architect seats and the judge and synthesizer legs; no other seat takes it.
 - Every spawn names its effort, since an unflagged one inherits the parent's; reviews default
-  high, xhigh says why.
+  medium; high only for a brief on the OWNER §3 list (a box change, an external system), and xhigh
+  says why (operator, 2026-09-28, token-burn list).
 - Walks: a spawned Muse session at `muse-xhigh` (`muse-spark-1.3-contributor`) on the Orca
   per-worktree browser (operator, 2026-09-19; replaces Grok at HIGH).
 
@@ -162,7 +163,11 @@ zero-added-actions leg applies to every phase.
 L1 Outsource every task, security reviews included; keep owner launch, verdict line, ledger, ruling; owners land and deploy their own milestones (OWNER.md).
 L2 Source design from an architect seat for a feature, new surface or redesign, or when you cannot state it.
 L3 A subagent is for a MICROTASK and never writes to the repo; all else is a visible Orca session.
-L4 Arm a lane's monitor on its own signal, never a filename, and keep it until the handoff is CONSUMED.
+L4 A launched lane is watched by the wake and the digest, not by its advisor: no BACKSTOP tail, no
+`orca terminal wait` on the lane, no monitor of any kind after `lane.sh launch` returns (operator,
+2026-09-28, "approved everything, except the autocompact", to the token-burn list). The lane's
+DONE, ASK and STOP signals reach the advisor's terminal; a quiet lane appears in the digest
+(#113).
 L5 Re-read a waiting lane at most once per 20 minutes; only a wake or your own send's read-back is exempt.
 L6 A completion message declares STARTING <item>, BLOCKED on <thing>, IDLE with <n> queued, or IDLE with none.
 L7 Claude-written code gets an adversarial worker pass before handoff; new machinery is smoked on tiny inputs.

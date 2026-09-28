@@ -82,7 +82,7 @@ CLAUDE.md of each repo wins over this file where they disagree.
 - Powers: open Orca worktrees in any repo the feature touches; spawn build and review lanes by
   the ladder of ADVISOR.md §E (Opus 5 at xhigh for judgment; codex at medium, high or xhigh by
   the task's complexity; Grok at medium or high by complexity, never xhigh; Muse at xhigh on
-  `muse-spark-1.3-contributor`; Opus 5 or Fable 5 to architect); land
+  `muse-spark-1.3-contributor`; Opus 5 or Fable 5.1 to architect); land
   its own branches after the repo's review law; deploy through the standing scripts.
 - Architect: for a feature, a new surface or a redesign, or when you cannot state the design,
   spawn a lane architect per `docs/ARCHITECT.md`. You are its client. It writes the design and

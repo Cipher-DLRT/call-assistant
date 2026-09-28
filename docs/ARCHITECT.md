@@ -128,7 +128,7 @@ stopped loading it.
 
 ## §C. Seat shape
 
-- Line: `claude --model claude-fable-5 --effort high --permission-mode bypassPermissions`.
+- Line: `claude --model claude-fable-5-1 --effort high --permission-mode bypassPermissions`.
   Explicit model id, never an alias. Banner checked before the first instruction.
 - Own Orca terminal and own worktree (ADVISOR §5, §43). A lane architect's worktree is
   the item's worktree or a sibling of it; the estate architect's is a child worktree off
@@ -303,15 +303,12 @@ Bounded, and the bounds are the rule:
 
 ## §I. The closing leg
 
-At lane close, before its client closes it, the architect reads the built result once
-and answers in one line: **does this honour the design, yes or no, and if no, what
-departed.**
-
-One read, one verdict line. It is not a code review (ADVISOR.md §F governs those), not a
-test run, and not a second acceptance. Its only question is design conformance.
-
-A `no` goes to the client, which decides what happens next. The
-architect does not hold the close and does not escalate.
+An architect folds when its last brief is launched (operator, 2026-09-28, token-burn list). A
+brief is written once (§G), so what the lane builds is checked against the brief's §1 by the
+client at close: one read, one line, "honours §1, yes or no, and if no, what departed". A `no`
+is an issue on the brief's repo, and the client decides what happens next; the architect is not
+re-minted for it. The janitor lists an idle architect whose briefs are all launched, and the
+client folds it.
 
 ## §J. Budget
 
@@ -322,6 +319,6 @@ every request re-reads the seat's whole context:
   stopped designing and started orchestrating; it folds and hands back what it has.
 - Shell work is the signature. An architect running `git status`, driving a terminal,
   fast-forwarding, or appending to a ledger has drifted out of its charter.
-- The client, not the architect, holds the item. The seat folds at its closing leg
-  (§I), not when the design is written — an OPEN seat costs nothing, only a REQUEST does,
+- The client, not the architect, holds the item. The seat folds when its last brief is launched
+  (§I) — an OPEN seat costs nothing, only a REQUEST does,
   and re-minting a seat to answer one callback pays the whole boot again.
