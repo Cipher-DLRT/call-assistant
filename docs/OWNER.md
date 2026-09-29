@@ -58,9 +58,13 @@ CLAUDE.md of each repo wins over this file where they disagree.
   not a verdict (operator, 2026-09-24: "two reviews").
 - One writer per checkout. Never commit into a tree another session is live in.
 - No secrets in git. `.env` only. No `REPLACE_*` placeholders in flows.
-- Deploys: flows through `scripts/n8n.sh update`; stacks through a landing on eq14-stacks
-  main, which is itself a deploy. One box change at a time; coordinate with the repo advisor
-  before a landing there.
+- Deploys: flows through `scripts/n8n.sh update`; stacks through a landing on eq14-stacks main,
+  which is itself a deploy. One box change at a time, kept by the box lock, not by a person. A
+  dashboard change (`dashboard/**` and its docs) is landed by the owner or advisor that built it:
+  `$ESTATE/scripts/dashboard-land.sh <sha>` takes the lock, runs the dashboard suite, lands, waits
+  for converge, releases (operator, 2026-09-29: "empower owners and advisors to be able to land
+  whatever they need on the dashboard"). Any other stack change still goes to the eq14 advisor as a
+  BOX-SEQ.
 - Personal data never transits UnifyApps. State, prompts and schemas live in these repos.
 - Model routing: labels and routing on GPT-5.6 Luna (Haiku 4.5 fallback); extraction and
   internal drafts on Sonnet 4.6; customer-facing prose on Opus 4.8; Fable never in an
@@ -132,10 +136,10 @@ These exist because a seat once met a broken dependency and rebuilt it alone.
   owner launches (operator, 2026-09-25: "no lane can launch without an owner. if it finds a fix that is needed that isnt part of and owners task, but blocking a certain owner, that owner spawns a lane to do it. If i report something that isnt related to any owner, it files an issue and spawns an owner still"). The repo advisor is landlord and reviewer. It keeps main green, reviews review-class
   landings and box changes, and lands what the owner cannot. It does not manage the owner and
   cannot deprioritise milestone work.
-- Owner to advisor messages: `BOX-SEQ` for a box change, `XREPO` for a landing request, one
-  line each; `ASK-ADVISOR` for a question. What only Rami can answer, the advisor sends on to
-  the coordinator as `ASK-OPERATOR` and returns his answer verbatim. The home advisor is the one
-  whose board holds the milestone; the owner signals BOOT, ASK and DONE to it.
+- Owner to advisor messages: `BOX-SEQ` for a box change other than the dashboard, `XREPO` for a
+  landing request, one line each; `ASK-ADVISOR` for a question. What only Rami can answer, the
+  advisor sends on to the coordinator as `ASK-OPERATOR` and returns his answer verbatim. The home
+  advisor is the one whose board holds the milestone; the owner signals BOOT, ASK and DONE to it.
 - Addresses: an advisor's terminal is `$ESTATE/scripts/lane.sh address /Users/rami/dev/<repo>`
   (`$ESTATE` = `/Users/rami/dev/estate-tooling`, ADVISOR.md §D); send
   with `$ESTATE/scripts/lane.sh signal ... --to <handle>` or `orca terminal send --terminal <handle>
