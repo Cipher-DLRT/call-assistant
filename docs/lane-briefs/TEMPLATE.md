@@ -6,13 +6,26 @@ FEATURE: <one or two sentences: what someone can do or see when this lands that 
      (ADVISOR.md Part II §35, formerly ADVISOR-ESTATE §35). The two header sentences below are copied VERBATIM; a brief without
      them is returned before launch. Fill every <…>; delete nothing above the Legs/Do section. -->
 
+<!-- CORE BEGIN — byte-identical in all eight endpoints. Edit ONLY in estate-tooling, the original; an edit anywhere else is drift the identity checker will refuse. -->
 **Category:** <feature — milestone #<n> | path towards feature — #<issue> | fix | instrument | estate>. A build
-brief with no Category line is not launched. A feature build brief that signals an advisor's main checkout is not
-launched: milestone work launches from an owner's worktree (ADVISOR.md §D, operator 2026-09-16).
+brief with no Category line is not launched. A build brief that signals an advisor's checkout is not launched,
+estate-tooling excepted: every build lane launches from an owner's worktree (ADVISOR.md §D; operator 2026-09-16 for
+feature builds, 2026-09-24 for every build brief).
+ISSUE: #<n> — on every build brief: the lane's worktree carries it and the landing's pull request closes it
+(operator, 2026-09-25). A build brief with no ISSUE: line is not launched; file the issue first if none exists.
 DESIGN: <docs/<architect design file>.md on origin/main> — on every feature build brief; a feature build with no
 design is refused (ADVISOR.md L2, operator 2026-09-16).
 BRIEF-REVIEW: <LAUNCH | LAUNCH WITH RISKS: <named> | DO NOT LAUNCH> | <lane>-briefreview | round <n> | <date> — on
-every build brief whose HOSTS name eq14, Postgres, HubSpot, Gmail or Telegram; no line, no launch (operator, 2026-09-16).
+every build brief whose HOSTS write to eq14, or name Postgres other than read-only, HubSpot, Gmail or Telegram (the
+one list the lint fences on); no line, no launch (operator, 2026-09-16). ONE round (operator, 2026-09-24).
+REVIEWS: <path of the brief reviewed> — on every review brief, a brief review (`<lane>-briefreview`) or a review of
+the built thing (`<lane>-<what>review`): the launcher counts rounds on this path, one per brief (ARCHITECT.md §G item 9).
+REPRODUCED: <path of the record: the command run and its output> — on every round-2+ review brief. A verdict alone
+buys no second round, and neither does the record alone: round 2+ launches with `--his-word` on the launch
+line; the launcher refuses a round-2+ review brief lacking either (operator, 2026-09-24: "bringing it down to 2").
+FILES: <path> [<path>...] — on every review brief: the only files the reviewer opens, besides the build brief;
+the reviewer reads those and nothing else. A `*-briefreview*` brief without both lines is not launched
+(operator, 2026-09-17, after 28 astra sessions re-read the repo overnight).
 
 BOUNDARY (ESTATE §31): No writes outside this worktree. Commit only in this worktree (and the sibling
 worktree named in EQ14_PATH.txt / WA_PATH.txt when the brief names one); never the operator's main
@@ -28,7 +41,9 @@ went in the report, and ASK-ADVISOR. A fixture that lives on the box and is not 
 by the advisor's named worker into a briefed path first. Each entry cites the exact path and command, not the host
 alone. A lane running scripts/n8n.sh symlinks the repo `.env` in and never reads, prints or commits it. A wait on a
 log names a literal copied from a real line of that log, and says "read from a real line". No `$<digit>` appears in
-any LANE-SIGNAL text; write "arg 1", "field 2".
+any LANE-SIGNAL text; write "arg 1", "field 2". Declare each stub with the two lines `STUB: <tool>` then
+`FIXTURE: <tool> docs/fixtures/<tool>-<date>.txt`. A stub answers with the bytes of its FIXTURE file, or with a
+fixture derived from them by a named edit; a stub that answers with text the lane wrote is the defect #176 names.
 
 REASON (ESTATE §70): exactly one of <feature | path-to-feature | fix | research | estate>, stated in
 one sentence at the top, before the lane opens. `feature` names the manual act it removes and carries
@@ -45,7 +60,7 @@ cross-family from the builder. Write-enabled GitHub automation lanes are Opus 5 
 why: <…>. Launch with `$ESTATE/scripts/lane.sh launch <lane> <tier> <brief>`.
 TIER: <grok-medium | grok-high | opus-medium | opus-high | opus-xhigh | codex-medium | codex-high | codex-xhigh | codex6-xhigh (brief review only) | muse-xhigh>. Gate: <in-lane <family> gate REQUIRED — cross-family from the builder |
 NOT REQUIRED — §F all not-engaged, one git revert undoes it with no data loss>
-(read-only `claude -p --model claude-opus-5`; RESULT verbatim in HANDOFF.md) — for build lanes.
+(read-only `claude -p --model claude-opus-5-5`; RESULT verbatim in HANDOFF.md) — for build lanes.
 External review: <NOT required (class: <presentation | additive nullable | read-only | prompt>) |
 REQUIRED (class: <grant/role | containment | external write | column drop | customer data off-box>)>.
 Secrets: none appear in chat, reports, git or terminals — key NAMES, byte lengths, sha256 prefixes only.
@@ -116,11 +131,23 @@ run writes `NOT EXERCISABLE — <reason>`. Do not invent a verdict either way.
    HANDOFF.md names every standing check the lane ran (e.g. a schema/checks/ member) with its own before and
    after exit lines.
    Never commit HANDOFF.md, BRIEF.md, EQ14_PATH.txt/WA_PATH.txt or flag files.
+   **A COMMITTED ARTIFACT IS NAMED PER LANE AND LIVES UNDER `docs/`, NEVER AT THE REPO ROOT** —
+   `docs/lane-briefs/<lane>-<kind>-<YYYY-MM-DD>.md`, e.g. a review lane's verdict. A bare root
+   filename contradicts the boundary clause above, and it collides: every lane of that kind is told
+   to write the SAME path, so lane N+1 overwrites lane N and it presents as a verdict that is simply
+   no longer there, with git showing a clean modification by a lane obeying its brief (#50). This is
+   not a risk the lane runs, it is a certainty the brief creates.
+   **If a brief you are given contradicts itself, obey the explicit deliverable**, say in HANDOFF.md
+   that you did and why, and write ASK-ADVISOR. A self-contradicting brief is the brief's defect and
+   never the lane's.
 2. `touch <worktree>/HANDOFF-READY` — the same file for every lane kind (build, review, walk, diag, apply); the outcome (verdict, PASS/FAIL, blocked reason) goes INSIDE the file, never into its name (ESTATE §8 rule 3), then signal
    `orca terminal send --terminal <advisor handle> --enter --text 'LANE-SIGNAL <lane> | <BOOT|STOP|ASK|DONE> | <one line>'`
    (or `$ESTATE/scripts/lane.sh signal`); the prefix is verbatim, pipe-delimited, and the first characters of the message.
+   Caps, so you write to them the first time: a send is 2,500 characters and its first line carries NEEDS, BLOCKED,
+   UPDATE or RETRY; a STATUS.md entry is 350 characters.
 3. A question you cannot answer from source: write ASK-ADVISOR in the worktree root and signal the same way. Never stop silently.
    Signal-at-every-stop: send the LANE-SIGNAL BEFORE any approval request, blocker, question or finish.
+<!-- CORE END -->
 
 ## Waiting on a lane (walk coordinators especially — ADVISOR.md 48, 8 rule 2b/6)
 WAKE (primary): the lane's own `LANE-SIGNAL <lane> | DONE | ... pushed <sha>` into YOUR
