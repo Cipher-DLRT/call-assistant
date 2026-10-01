@@ -54,9 +54,7 @@ removes, who was slowed, what breaks or slows without it, and the time it return
 counted. A phase list is not a reason. Hardening, controls and refactors take no
 label of their own. A brief that cannot name one does not open.
 
-TIER (ESTATE §2): cheapest that fits — menial → opus-medium; simple bounded build → grok-medium or grok-high by
-complexity, or codex-medium when the codex harness is needed; standard build → codex-high; genuinely hard → grok-xhigh, codex-xhigh or opus-xhigh; muse-xhigh on muse-spark-1.3-contributor when Muse is the chosen family; review →
-cross-family from the builder. Write-enabled GitHub automation lanes are Opus 5 from the start. One-line
+TIER (ESTATE §2): cheapest that fits, effort by complexity on every family (medium, high, xhigh): the hardest work → Opus 5.5 (`opus-medium`, `opus-high`; `opus-xhigh` for really complex work, never above); hard work → Codex on GPT-6.1 Sol (`codex-medium`, `codex-high`, `codex-xhigh`); the rest → Grok (`grok-medium`, `grok-high`, `grok-xhigh` for genuinely hard work; `grok-high` the default) or Muse (`muse-xhigh` on `muse-spark-1.3-contributor`, no other effort); `codex6-xhigh` (`gpt-6-astra`) for the brief review only, on his word per use; reviews cross-family from the builder (operator, 2026-10-01). Write-enabled GitHub automation lanes are Opus 5 from the start. One-line
 why: <…>. Launch with `$ESTATE/scripts/lane.sh launch <lane> <tier> <brief>`.
 TIER: <grok-medium | grok-high | opus-medium | opus-high | opus-xhigh | codex-medium | codex-high | codex-xhigh | codex6-xhigh (brief review only) | muse-xhigh>. Gate: <in-lane <family> gate REQUIRED — cross-family from the builder |
 NOT REQUIRED — §F all not-engaged, one git revert undoes it with no data loss>

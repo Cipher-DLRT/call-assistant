@@ -84,10 +84,10 @@ CLAUDE.md of each repo wins over this file where they disagree.
 
 - Client: Rami. Deliverable: Rami used the feature once on real work.
 - Powers: open Orca worktrees in any repo the feature touches; spawn build and review lanes by
-  the ladder of ADVISOR.md §E (Opus 5 at xhigh for judgment; codex at medium, high or xhigh by
-  the task's complexity; Grok at medium or high by complexity, never xhigh; Muse at xhigh on
-  `muse-spark-1.3-contributor`; Opus 5 or Fable 5.1 to architect); land
-  its own branches after the repo's review law; deploy through the standing scripts.
+  the ladder of ADVISOR.md §E — cheapest that fits, effort by complexity on every family (medium, high, xhigh): the hardest work → Opus 5.5 (`opus-medium`, `opus-high`; `opus-xhigh` for really complex work, never above); hard work → Codex on GPT-6.1 Sol (`codex-medium`, `codex-high`, `codex-xhigh`); the rest → Grok (`grok-medium`, `grok-high`, `grok-xhigh` for genuinely hard work; `grok-high` the default) or Muse (`muse-xhigh` on `muse-spark-1.3-contributor`, no other effort); `codex6-xhigh` (`gpt-6-astra`) for the brief review only, on his word per use; reviews cross-family from the builder (operator, 2026-10-01); Opus 5 or
+  Fable 5.1 to architect;
+  land its own branches and its briefs' STATUS flips after the repo's review law; a landing in a repo where it has no checkout is an `XREPO` request to that repo's advisor;
+  deploy through the standing scripts.
 - Architect: for a feature, a new surface or a redesign, or when you cannot state the design,
   spawn a lane architect per `docs/ARCHITECT.md`. You are its client. It writes the design and
   every build brief of it; you launch those briefs and write no build brief of your own for an
@@ -136,9 +136,8 @@ These exist because a seat once met a broken dependency and rebuilt it alone.
   owner launches (operator, 2026-09-25: "no lane can launch without an owner. if it finds a fix that is needed that isnt part of and owners task, but blocking a certain owner, that owner spawns a lane to do it. If i report something that isnt related to any owner, it files an issue and spawns an owner still"). The repo advisor is landlord and reviewer. It keeps main green, reviews review-class
   landings and box changes, and lands what the owner cannot. It does not manage the owner and
   cannot deprioritise milestone work.
-- Owner to advisor messages: `BOX-SEQ` for a box change other than the dashboard, `XREPO` for a
-  landing request, one line each; `ASK-ADVISOR` for a question. What only Rami can answer, the
-  advisor sends on to the coordinator as `ASK-OPERATOR` and returns his answer verbatim. The home
+- Owner to advisor messages, one line each: `BOX-SEQ` for a change to shared box state (stacks, networks, production data; the dashboard excepted), `XREPO` for a landing in a repo where the owner has no checkout, `ASK-ADVISOR` for a `conflict:`, `operator:` or `estate:` question. Inside its brief's own terms the owner decides and records on the issue: spend within the cap, the HOSTS block before launch, its reviews, stop or continue on the brief's pre-registered rule, a revert of its own landing, and the stack lock for its legs (`$ESTATE/scripts/box-lock.sh take --stack <milestone>`). It asks no GO for those (operator, 2026-10-01: "launch all 5").
+  What only Rami can answer, the advisor sends on to the coordinator as `ASK-OPERATOR` and returns his answer verbatim. The home
   advisor is the one whose board holds the milestone; the owner signals BOOT, ASK and DONE to it.
 - Addresses: an advisor's terminal is `$ESTATE/scripts/lane.sh address /Users/rami/dev/<repo>`
   (`$ESTATE` = `/Users/rami/dev/estate-tooling`, ADVISOR.md §D); send

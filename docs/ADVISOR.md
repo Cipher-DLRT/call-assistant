@@ -67,8 +67,11 @@ worktree; a lane's is in its brief. Claude seats also answer to their `ListAgent
 lints, hooks, wake, digest, doctrine originals); every repo runs it by that path from its own worktree.
 Every milestone Rami has promoted is held by one owner seat per `docs/OWNER.md`: the advisor whose
 board holds it launches the owner in a worktree named for the milestone, relaunches it when it
-folds, and is its landlord and reviewer; the advisor opens no build lane itself. The seat that
-holds an item, owner or advisor, is the client of any architect it spawns (ARCHITECT.md); the
+folds, and is its landlord and reviewer; the advisor opens no build lane itself.
+
+An advisor's reply to an owner carries the facts asked for. A decision inside the owner's brief is returned as the owner's: 'yours to decide; record it on the issue'. A ruling is Rami's word, carried verbatim with its date; the advisor's own numbering (rb<n>) is for inbound items, not for decisions about an owner's item. The advisor issues no per-leg GO; the owner's own stack lock is the gate (operator, 2026-10-01).
+
+The seat that holds an item, owner or advisor, is the client of any architect it spawns (ARCHITECT.md); the
 architect writes the design and every build brief, and the client writes none for an architected
 item (operator, 2026-09-15). A build brief whose HOSTS write to the box or name an external system
 — Postgres other than read-only, HubSpot, Gmail, Telegram; the one list the lint fences on — carries
@@ -95,12 +98,8 @@ Always the explicit model id, never an alias; read the banner before the first p
 - Owner seat: that line at `--effort high`.
 - Architect seat: `claude --model claude-fable-5-1 --effort high`, on demand, per ARCHITECT.md
   (operator, 2026-09-28, token-burn list); Opus 5 also architects.
-- Lanes: the tier ladder, cheapest that fits, built and launched by `$ESTATE/scripts/lane.sh launch`:
-  `grok-medium`, `grok-high` by the task's complexity and `grok-xhigh` for genuinely hard work
-  (operator, 2026-09-23; `grok-high` remains the default); `codex-medium`,
-  `codex-high`, `codex-xhigh` by the task's complexity; `codex6-xhigh` (`gpt-6-astra`) for the brief
-  review only; `opus-xhigh` for judgment;
-  `muse-xhigh` on `muse-spark-1.3-contributor`, Muse at no other effort.
+- Lanes: the tier ladder, built and launched by `$ESTATE/scripts/lane.sh launch` —
+  cheapest that fits, effort by complexity on every family (medium, high, xhigh): the hardest work → Opus 5.5 (`opus-medium`, `opus-high`; `opus-xhigh` for really complex work, never above); hard work → Codex on GPT-6.1 Sol (`codex-medium`, `codex-high`, `codex-xhigh`); the rest → Grok (`grok-medium`, `grok-high`, `grok-xhigh` for genuinely hard work; `grok-high` the default) or Muse (`muse-xhigh` on `muse-spark-1.3-contributor`, no other effort); `codex6-xhigh` (`gpt-6-astra`) for the brief review only, on his word per use; reviews cross-family from the builder (operator, 2026-10-01).
 - Reviewer: a separate visible session, cross-family from the builder, read-only; its round cap
   is named before round one.
 - Fable runs only in architect seats and the judge and synthesizer legs; no other seat takes it.
@@ -110,10 +109,13 @@ Always the explicit model id, never an alias; read the banner before the first p
 - Walks: a spawned Muse session at `muse-xhigh` (`muse-spark-1.3-contributor`) on the Orca
   per-worktree browser (operator, 2026-09-19; replaces Grok at HIGH).
 
-**Builder spread (operator, 2026-09-19).** The estate builds with Grok, Muse, and Codex.
-Codex is NOT the default family: a brief that tiers codex where grok or muse serves the
-work states in its TIER line why the work is beyond them. Mechanical and simple lanes go
-to grok or muse first. His words, verbatim: "I'm seeing a lot of focus on the owners just
+**Builder spread (operator, 2026-09-19; ladder 2026-10-01).** The estate builds with Opus 5.5,
+Codex, Grok and Muse by the ladder above: Opus 5.5 for the hardest work, Codex for hard work, Grok
+or Muse for the rest, and the TIER line says in one line why the work sits on its rung. Mechanical
+and simple lanes go to grok or muse first. His words, verbatim (2026-10-01): "hardest work, opus 5.5
+(effort level can be varied but not above xhigh, xhigh for really complex stuff) hard work work codex
+(move to 6.1 sol med, high, or xhigh), the rest the rules stay the same for grok and muse, but effort
+level rules i put for grok need to be matched"; and earlier: "I'm seeing a lot of focus on the owners just
 using Codex to build all their lanes, even the relatively simpler ones, even though, on
 scoring benchmarks, Muse is higher than Grok and even scores very closely to gpt"
 (2026-09-19); "Dont just use codex for building, you can use muse and grok as well"
