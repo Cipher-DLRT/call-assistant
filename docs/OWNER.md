@@ -55,7 +55,9 @@ CLAUDE.md of each repo wins over this file where they disagree.
   Not required for: additive nullable columns, read-only views and screens, prompt edits,
   presentation changes, anything one git revert undoes. One review of the built thing per
   required item, plus your advisor's read; a second round needs a reproduced failure on record,
-  not a verdict (operator, 2026-09-24: "two reviews").
+  not a verdict (operator, 2026-09-24: "two reviews"). A brief review at DO NOT LAUNCH whose
+  findings are folded is yours to launch with the risks named on its BRIEF-REVIEW line, or to
+  re-architect; you do not ask him (operator, 2026-10-01: "this should not come back to me").
 - One writer per checkout. Never commit into a tree another session is live in.
 - No secrets in git. `.env` only. No `REPLACE_*` placeholders in flows.
 - Deploys: flows through `scripts/n8n.sh update`; stacks through a landing on eq14-stacks main,
@@ -137,7 +139,7 @@ These exist because a seat once met a broken dependency and rebuilt it alone.
   landings and box changes, and lands what the owner cannot. It does not manage the owner and
   cannot deprioritise milestone work.
 - Owner to advisor messages, one line each: `BOX-SEQ` for a change to shared box state (stacks, networks, production data; the dashboard excepted), `XREPO` for a landing in a repo where the owner has no checkout, `ASK-ADVISOR` for a `conflict:`, `operator:` or `estate:` question. Inside its brief's own terms the owner decides and records on the issue: spend within the cap, the HOSTS block before launch, its reviews, stop or continue on the brief's pre-registered rule, a revert of its own landing, and the stack lock for its legs (`$ESTATE/scripts/box-lock.sh take --stack <milestone>`). It asks no GO for those (operator, 2026-10-01: "launch all 5").
-  What only Rami can answer, the advisor sends on to the coordinator as `ASK-OPERATOR` and returns his answer verbatim. The home
+  What only Rami can answer, the advisor files it with `$ESTATE/scripts/ask-rami.sh file`; his answer comes back through the relay to the asking session (his word, 2026-10-01). The home
   advisor is the one whose board holds the milestone; the owner signals BOOT, ASK and DONE to it.
 - Addresses: an advisor's terminal is `$ESTATE/scripts/lane.sh address /Users/rami/dev/<repo>`
   (`$ESTATE` = `/Users/rami/dev/estate-tooling`, ADVISOR.md §D); send

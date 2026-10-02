@@ -48,18 +48,19 @@ the milestone `Backlog`: what the operator reports that serves no promoted miles
 files as an issue there and the backlog owner launches it; a fix that blocks an owner in ANOTHER
 repo is filed in that repo and launched by its backlog owner (operator, 2026-09-25: "no lane can launch without an owner. if it finds a fix that is needed that isnt part of and owners task, but blocking a certain owner, that owner spawns a lane to do it. If i report something that isnt related to any owner, it files an issue and spawns an owner still"; the standing backlog owner is the architect's shape, to which he said "i agree, proceed", 2026-09-25). The estate-tooling
 advisor alone builds and lands the tooling the estate architect briefs (operator, 2026-09-24: "the change you wanna do to make the owners work better is approved. check if modifications are needed for the boot files too", to the architect's proposal of that day). The advisor owns its repo; the box lock
-(`$ESTATE/scripts/box-lock.sh`) keeps one box change at a time, and the coordinator seat is the single
-operator funnel. eq14-stacks is the box: the lock, not a seat, serialises it. The seat that holds a
+(`$ESTATE/scripts/box-lock.sh`) keeps one box change at a time, and a question for the operator is a
+GitHub issue assigned to him (`$ESTATE/scripts/ask-rami.sh`). eq14-stacks is the box: the lock, not a seat, serialises it. The seat that holds a
 reviewed box item — an owner or an advisor, its brief carrying its box `BRIEF-REVIEW:` verdict — takes
 the lock, lands its change and its BOX-SEQ, and releases; the eq14-stacks advisor owns the box repo,
 lands that repo's own work, clears stale locks, and is no longer the funnel for other repos' box
 changes (operator, 2026-09-24, "agreed on the box", to this proposal in the architect's words; it
 supersedes "no other advisor lands there", 2026-09-17). estate-tooling's advisor lands the tooling and runs
 the doctrine sittings; the estate architect designs and never lands (operator, 2026-09-17). Advisors
-talk to each other by XREPO and to the operator through the
-coordinator. An operator decision given in an advisor's terminal becomes an issue or a
-CLAUDE.md line that turn. An ask only he can answer goes to the coordinator as ASK-OPERATOR;
-unanswered by the next digest it becomes an owner:operator issue.
+talk to each other by XREPO and to the operator through issues assigned to him. An operator decision given in an advisor's terminal becomes an issue or a
+CLAUDE.md line that turn. An ask only he can answer: the advisor files it with
+`$ESTATE/scripts/ask-rami.sh file`; his answer comes back through the relay to the asking session,
+which answers and closes on the issue (his word, 2026-10-01: "open them up as issues in GitHub that
+are flagged to me ... relay my answer directly to that individual session").
 A seat's address is the handle `$ESTATE/scripts/lane.sh address <checkout>` prints: advisors at
 `/Users/rami/dev/<repo>`, the coordinator at its `coordinator` worktree, an owner at its milestone
 worktree; a lane's is in its brief. Claude seats also answer to their `ListAgents` name.
@@ -77,7 +78,10 @@ item (operator, 2026-09-15). A build brief whose HOSTS write to the box or name 
 — Postgres other than read-only, HubSpot, Gmail, Telegram; the one list the lint fences on — carries
 a `BRIEF-REVIEW:` verdict line from ONE round of the architect's GPT-6 review (ARCHITECT.md §G)
 before the client, owner or advisor, launches it; no line, no launch (operator, 2026-09-16,
-overruling the rule freeze for this rule). A brief review sees commands against targets and nothing
+overruling the rule freeze for this rule). A review at `DO NOT LAUNCH` whose findings the architect
+has folded is the client's call, launch with the risks named or re-architect, recorded on the
+BRIEF-REVIEW line and the issue; it is never put to the operator as a choice (operator, 2026-10-01:
+"this should not come back to me"); only a SECOND ROUND needs his word (§F). A brief review sees commands against targets and nothing
 else, so a §F item with no host — customer data off-box in text — takes its one review on the BUILT
 thing instead. Every other build brief takes no brief review (operator, 2026-09-24: "cut all those.
 two reviews like you mentioned").
@@ -139,11 +143,15 @@ test it, show it. The in-lane cross-family gate is earned on this same axis (ope
 2026-09-22, restated 2026-09-24): a brief whose §F CLASSIFICATION is not-engaged on every
 item, and whose change one git revert undoes with no data loss, declares `Gate: NOT REQUIRED`
 and takes none. Anything else takes one. A brief carrying no §F CLASSIFICATION takes one.
-A REQUIRED item takes ONE review of the built thing, plus the advisor's read before landing;
-those are the two. A second round of either kind launches only on the operator's word, carried
-on the launch line, answering a REPRODUCED failure on record: the command and its output, never a
-verdict alone (operator, 2026-09-24: "cut all those. two reviews like you mentioned please"; and,
-told the ceiling without his word was four: "I thought we are bringing it down to 2").
+When a change touches one of the five items listed above, it gets exactly one security review, run
+by a review lane on the finished code. Whoever lands the change, the owner for its own milestones
+or the advisor for what no owner can land, lands on the review's verdict and the lane's handoff.
+Nobody reads the code a second time. If the lander can reproduce a failure, it sends the command
+and its output to the build lane as one line. Nobody asks the operator for a second review or
+launches one. Anything not on that list is built, tested and shown, with no review (operator,
+2026-09-24: "cut all those. two reviews like you mentioned please"; 2026-10-01, on an advisor
+reading every diff of an owner's held landing: "i thought we stopped advisors from landing things,
+and we gave that to owners to speed things up"; the paragraph rewritten on his word "do the fix").
 
 An item RESTORABLE TO A BEFORE-STATE RECORDED IN THE SAME RUN — it reads before every write,
 writes only inside a named directory or compose project, records every command with its return code

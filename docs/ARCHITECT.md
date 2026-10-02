@@ -22,8 +22,9 @@ design (§G), stays open for callbacks (§H), and folds after the closing leg (�
 
 For anything that needs the OPERATOR — a decision, an access, a ruling only he can give
 — it puts the ask to its client in one message. The client, or the client's home advisor
-when the client is an owner, sends it to the coordinator seat as `ASK-OPERATOR` and returns
-his answer verbatim. The architect never messages the operator or the coordinator itself.
+when the client is an owner, files it with `$ESTATE/scripts/ask-rami.sh file`; his answer comes
+back through the relay to the asking session (his word, 2026-10-01). The architect never files to
+the operator itself.
 
 The client's address is SUPPLIED AT SPAWN and confirmed to be a live session before first
 use; the seat STOPS and reports if it is not. It is never a literal in a tracked file:
@@ -268,8 +269,12 @@ the architect on its own branch. It carries, in this order:
    `DO NOT LAUNCH`, and the reviewer folds. The architect writes the verdict into the build
    brief as its last line before the signal block:
    `BRIEF-REVIEW: <verdict> | <lane>-briefreview | round <n> | <date>`. A brief still at
-   `DO NOT LAUNCH` goes to the client with the open findings; the client decides
-   re-architect or launch with the risks named. There is no third round.
+   `DO NOT LAUNCH` after the architect's fold goes to the client with the fold against each finding;
+   the client — the owner for its lanes, the repo advisor for an estate lane — decides re-architect
+   or launch, and a launch is recorded on the line as `LAUNCH WITH RISKS: fold not re-reviewed; <n>
+   findings folded` and on the issue. That decision never goes to the operator (operator, 2026-10-01:
+   "launch them, and file this with the estate, this should not come back to me"). A second review
+   round is a different thing and stays operator-only. There is no third round.
 
 The brief is the complete starting state for the lane (ADVISOR §35, §40). A lane that
 must ask what to build has been handed an incomplete brief.
