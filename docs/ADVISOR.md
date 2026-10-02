@@ -71,6 +71,7 @@ board holds it launches the owner in a worktree named for the milestone, relaunc
 folds, and is its landlord and reviewer; the advisor opens no build lane itself.
 
 An advisor's reply to an owner carries the facts asked for. A decision inside the owner's brief is returned as the owner's: 'yours to decide; record it on the issue'. A ruling is Rami's word, carried verbatim with its date; the advisor's own numbering (rb<n>) is for inbound items, not for decisions about an owner's item. The advisor issues no per-leg GO; the owner's own stack lock is the gate (operator, 2026-10-01).
+A clicked option is recorded as `approved option "<label>" offered by <seat>, <date>`, never as his words; quotation marks for his words are reserved for text he typed.
 
 The seat that holds an item, owner or advisor, is the client of any architect it spawns (ARCHITECT.md); the
 architect writes the design and every build brief, and the client writes none for an architected
