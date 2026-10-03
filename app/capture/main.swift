@@ -15,6 +15,13 @@
 //                                      system audio except the listed processes (e.g.
 //                                      the caller's own mixer); PIDs that open audio
 //                                      later are excluded within 2 s (macOS 14.2+)
+//   capture stream-online --include-pid <pid>[,<pid>…]
+//                                      stream 1 from a Core Audio process tap of only
+//                                      the listed processes and all their descendants
+//                                      (e.g. a meeting's Chrome and its audio helper);
+//                                      re-resolved every 1 s, so a helper that starts
+//                                      or restarts later joins (macOS 14.2+). Exclusive
+//                                      with --exclude-pid (both given: exit 2)
 //   capture stream-inperson            built-in mic only (primary rig, law 8)
 
 import Foundation
@@ -27,6 +34,18 @@ setvbuf(stdout, nil, _IONBF, 0)
 let argv = CommandLine.arguments
 var mode = "", needle = "Wireless", outDirPath = "", maxSeconds = 3 * 3600
 var excludePIDs: [pid_t] = []   // stream-online --exclude-pid: empty = today's SCK path
+var includePIDs: [pid_t] = []   // stream-online --include-pid: the listed process trees only
+func usage(_ code: Int32) -> Never {
+    FileHandle.standardError.write("""
+    usage: capture online <outdir> [seconds]
+           capture single <device-substring> <outdir> [seconds]
+           capture stream-online [--exclude-pid <pid>[,<pid>…] | --include-pid <pid>[,<pid>…]]
+           capture stream-inperson
+
+    """.data(using: .utf8)!)
+    exit(code)
+}
+if argv.contains("--include-pid") && argv.contains("--exclude-pid") { usage(2) }
 switch argv.count >= 2 ? argv[1] : "" {
 case "online" where argv.count >= 3:
     mode = "online"; outDirPath = argv[2]
@@ -36,23 +55,17 @@ case "single" where argv.count >= 4:
     if argv.count >= 5 { maxSeconds = Int(argv[4]) ?? maxSeconds }
 case "stream-online" where argv.count == 2:
     mode = "stream-online"
-case "stream-online" where argv.count == 4 && argv[2] == "--exclude-pid":
+case "stream-online" where argv.count == 4 && ["--exclude-pid", "--include-pid"].contains(argv[2]):
     let pids = argv[3].split(separator: ",").map { pid_t($0.trimmingCharacters(in: .whitespaces)) }
-    if !pids.isEmpty && !pids.contains(nil) { mode = "stream-online"; excludePIDs = pids.map { $0! } }
+    if !pids.isEmpty && !pids.contains(nil) {
+        mode = "stream-online"
+        if argv[2] == "--exclude-pid" { excludePIDs = pids.map { $0! } } else { includePIDs = pids.map { $0! } }
+    }
 case "stream-inperson":
     mode = "stream-inperson"; needle = "MacBook"
 default: break
 }
-if mode.isEmpty {
-    FileHandle.standardError.write("""
-    usage: capture online <outdir> [seconds]
-           capture single <device-substring> <outdir> [seconds]
-           capture stream-online [--exclude-pid <pid>[,<pid>…]]
-           capture stream-inperson
-
-    """.data(using: .utf8)!)
-    exit(1)
-}
+if mode.isEmpty { usage(1) }
 let isStream = mode.hasPrefix("stream-")
 
 func note(_ msg: String) {
@@ -294,11 +307,13 @@ func startSystemCapture(streamId: UInt8?) {
 // read through a private aggregate device. A PID has an audio process object only once
 // it has opened audio, so the list is re-resolved on the meter timer and the tap's
 // description updated in place (no restart; stream 1 continues).
+// --include-pid: the same tap and device, but a stereo mixdown of only the process objects
+// whose PID is a listed PID or a descendant of one (Chrome plays from a helper child).
 var tapID = AudioObjectID(kAudioObjectUnknown)
 var tapDesc: CATapDescription?
 var tapDevice = AudioObjectID(kAudioObjectUnknown)
 var tapProc: AudioDeviceIOProcID?
-var tapExcluded: [AudioObjectID] = []
+var tapProcesses: [AudioObjectID] = []   // excluded (--exclude-pid) or included (--include-pid)
 
 func processObject(pid: pid_t) -> AudioObjectID? {
     var addr = AudioObjectPropertyAddress(
@@ -316,16 +331,65 @@ func processObject(pid: pid_t) -> AudioObjectID? {
 func resolveExcluded() -> ([AudioObjectID], String?) {
     let found = excludePIDs.map { ($0, processObject(pid: $0)) }
     let objs = found.compactMap { $0.1 }
-    guard objs != tapExcluded || tapDesc == nil else { return (objs, nil) }
+    guard objs != tapProcesses || tapDesc == nil else { return (objs, nil) }
     let on = found.filter { $0.1 != nil }.map { String($0.0) }
     let off = found.filter { $0.1 == nil }.map { String($0.0) }
     return (objs, "THEM exclude: excluding pid [\(on.joined(separator: ","))]"
                 + " no audio yet [\(off.joined(separator: ","))]")
 }
 
-func refreshExcluded() {
+func parentPID(_ pid: pid_t) -> pid_t? {
+    var info = kinfo_proc()
+    var size = MemoryLayout<kinfo_proc>.stride
+    var mib: [Int32] = [CTL_KERN, KERN_PROC, KERN_PROC_PID, pid]
+    guard sysctl(&mib, 4, &info, &size, nil, 0) == 0, size > 0 else { return nil }
+    return info.kp_eproc.e_ppid
+}
+
+func isIncluded(_ pid: pid_t) -> Bool {
+    var p = pid
+    for _ in 0..<64 {   // parent chain up to launchd
+        if includePIDs.contains(p) { return true }
+        guard p > 1, let pp = parentPID(p) else { return false }
+        p = pp
+    }
+    return false
+}
+
+// Every audio process object with its PID (kAudioHardwarePropertyProcessObjectList).
+func audioProcesses() -> [(AudioObjectID, pid_t)] {
+    var addr = AudioObjectPropertyAddress(mSelector: kAudioHardwarePropertyProcessObjectList,
+                                          mScope: kAudioObjectPropertyScopeGlobal,
+                                          mElement: kAudioObjectPropertyElementMain)
+    let sys = AudioObjectID(kAudioObjectSystemObject)
+    var size: UInt32 = 0
+    guard AudioObjectGetPropertyDataSize(sys, &addr, 0, nil, &size) == noErr else { return [] }
+    var ids = [AudioObjectID](repeating: 0, count: Int(size) / MemoryLayout<AudioObjectID>.size)
+    guard AudioObjectGetPropertyData(sys, &addr, 0, nil, &size, &ids) == noErr else { return [] }
+    addr.mSelector = kAudioProcessPropertyPID
+    return ids.compactMap { id in
+        var pid: pid_t = 0
+        var pidSize = UInt32(MemoryLayout<pid_t>.size)
+        return AudioObjectGetPropertyData(id, &addr, 0, nil, &pidSize, &pid) == noErr ? (id, pid) : nil
+    }
+}
+
+// Same contract as resolveExcluded, for --include-pid.
+func resolveIncluded() -> ([AudioObjectID], String?) {
+    let members = audioProcesses().filter { isIncluded($0.1) }.sorted { $0.0 < $1.0 }
+    let objs = members.map { $0.0 }
+    guard objs != tapProcesses || tapDesc == nil else { return (objs, nil) }
+    return (objs, "THEM include: \(members.count) process(es) [\(members.map { String($0.1) }.joined(separator: ","))]"
+                + " under [\(includePIDs.map(String.init).joined(separator: ","))]")
+}
+
+func resolveTapProcesses() -> ([AudioObjectID], String?) {
+    includePIDs.isEmpty ? resolveExcluded() : resolveIncluded()
+}
+
+func refreshTap() {
     guard let desc = tapDesc else { return }
-    let (objs, line) = resolveExcluded()
+    let (objs, line) = resolveTapProcesses()
     guard let line = line else { return }
     desc.processes = objs
     var addr = AudioObjectPropertyAddress(mSelector: kAudioTapPropertyDescription,
@@ -334,8 +398,8 @@ func refreshExcluded() {
     var ref = Unmanaged.passUnretained(desc).toOpaque()   // the property holds an object reference
     let status = AudioObjectSetPropertyData(tapID, &addr, 0, nil,
                                             UInt32(MemoryLayout<UnsafeMutableRawPointer>.size), &ref)
-    if status == noErr { tapExcluded = objs; note(line) }
-    else { note("THEM exclude: tap update failed (OSStatus \(status))") }
+    if status == noErr { tapProcesses = objs; note(line) }
+    else { note("THEM \(includePIDs.isEmpty ? "exclude" : "include"): tap update failed (OSStatus \(status))") }
 }
 
 func defaultOutputUID() -> String? {
@@ -358,12 +422,18 @@ func defaultOutputUID() -> String? {
 func startProcessTapCapture(streamId: UInt8) {
     let meter = Meter()
     meters.append(("THEM", meter))
-    let (objs, line) = resolveExcluded()
-    let desc = CATapDescription(stereoGlobalTapButExcludeProcesses: objs)
+    let (objs, line) = resolveTapProcesses()
+    let desc = includePIDs.isEmpty ? CATapDescription(stereoGlobalTapButExcludeProcesses: objs)
+                                   : CATapDescription(stereoMixdownOfProcesses: objs)
     desc.uuid = UUID(); desc.isPrivate = true; desc.muteBehavior = .unmuted
     guard AudioHardwareCreateProcessTap(desc, &tapID) == noErr else { fail("process tap: create") }
-    tapDesc = desc; tapExcluded = objs
+    tapDesc = desc; tapProcesses = objs
     if let l = line { note(l) }
+    let absent = includePIDs.filter { kill($0, 0) != 0 && errno == ESRCH }
+    if !absent.isEmpty {
+        note("THEM include: pid [\(absent.map(String.init).joined(separator: ","))] not running;"
+             + " stream 1 is silent until it appears")
+    }
     var addr = AudioObjectPropertyAddress(mSelector: kAudioTapPropertyFormat,
                                           mScope: kAudioObjectPropertyScopeGlobal,
                                           mElement: kAudioObjectPropertyElementMain)
@@ -419,7 +489,7 @@ case "single":
 case "stream-online":
     // law 8: Lark auto-preferred when worn, built-in is the standing rig
     if inputDeviceID(matching: "Wireless") == nil { needle = "MacBook" }
-    if excludePIDs.isEmpty {
+    if excludePIDs.isEmpty && includePIDs.isEmpty {
         startSystemCapture(streamId: 1)
         startEngineCapture(label: "ME", fileName: nil, streamId: 0)
     } else {  // mic first: starting the mic engine after the tap device deadlocks in the HAL
@@ -438,7 +508,7 @@ let timer = DispatchSource.makeTimerSource(queue: timerQueue)
 timer.schedule(deadline: .now() + 1, repeating: 1)
 timer.setEventHandler {
     elapsed += 1
-    if !excludePIDs.isEmpty && elapsed % 2 == 0 { refreshExcluded() }
+    if !includePIDs.isEmpty || (!excludePIDs.isEmpty && elapsed % 2 == 0) { refreshTap() }
     if elapsed % 5 == 0 {
         let parts = meters.map { (label, m) in
             String(format: "%@ %6.1f dBFS", label, m.drainDb())
