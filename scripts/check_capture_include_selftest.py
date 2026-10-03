@@ -465,6 +465,11 @@ if __name__ == "__main__":
     with tempfile.TemporaryDirectory() as d:
         results = []
         for leg in chosen:
-            results.append(LEGS[leg](Path(d)))
+            try:
+                results.append(LEGS[leg](Path(d)))
+            except RuntimeError as e:   # e.g. a binary without --include-pid prints usage
+                print(f"LEG {leg} FAIL: {str(e).splitlines()[0]}")
+                print("  " + " / ".join(str(e).splitlines()[1:]))
+                results.append(False)
             time.sleep(1)
     sys.exit(0 if all(results) else 1)
