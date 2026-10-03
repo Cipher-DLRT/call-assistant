@@ -3,7 +3,7 @@ FEATURE: The AI SE hears only the meeting. With `capture stream-online --include
 the audio of that Chrome and its helper processes, and nothing else the Mac plays: no Spotify, no notification sounds,
 no other Chrome. The check `scripts/check_capture_include.py` shows it, one PASS line per leg.
 
-STATUS: LAUNCHED 2026-10-03
+STATUS: CLOSED 2026-10-03 PASS e3dcc20ac3e0b5ecc81278bf54d2fa3b57307986
 
 **Category:** fix — needed by Cipher-DLRT/demo-agent#64 (voice turns; the 2026-10-03 re-sitting, demo-agent#81).
 BRANCH: Cipher-DLRT/ca-capture-include
