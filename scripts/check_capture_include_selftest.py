@@ -23,7 +23,7 @@ source frequency is an exact bin):
 Test tones only; no call audio is recorded or kept. Needs the display on and the screen
 unlocked (SCK path), and the TCC grants of the calling terminal.
 
-usage: spike/stt_bench/venv/bin/python scripts/check_capture_include.py [leg ...]
+usage: spike/stt_bench/venv/bin/python scripts/check_capture_include_selftest.py [leg ...]
 """
 import os
 import signal

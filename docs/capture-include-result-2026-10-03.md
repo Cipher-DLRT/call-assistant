@@ -3,7 +3,7 @@
 Lane ca-capture-include, issue Cipher-DLRT/call-assistant#4, brief `docs/lane-briefs/ca-capture-include.md`.
 Rig: MacBook Pro (M5 Max), macOS 26.7 (25G229), default output MacBook Pro Speakers, BlackHole 2ch; test tones only, no
 call audio recorded or kept. Measurement: stream 1, 0.5 s windows, one FFT per window, sine-peak dBFS at each source's
-bin (2 Hz resolution at 16 kHz; every source frequency is an exact bin) — `scripts/check_capture_include.py`.
+bin (2 Hz resolution at 16 kHz; every source frequency is an exact bin) — `scripts/check_capture_include_selftest.py`.
 
 ## Flag
 
@@ -49,7 +49,7 @@ did, and only it was tapped. The same probe with an empty process list created t
 
 Leg 3, build: `swiftc -O app/capture/main.swift -o app/bin/capture`, exit 0, no warnings.
 
-Legs 2 (re-run on the built binary), 4, 5 and 6 — final run, `scripts/check_capture_include.py`, exit 0:
+Legs 2 (re-run on the built binary), 4, 5 and 6 — final run, `scripts/check_capture_include_selftest.py`, exit 0:
 
     LEG 2 PASS: minimal include tap (capture) --include-pid <A browser pid>, sources playing before capture starts; A Chrome for Testing -50 dBFS -> stream 1 median -50.0 dB (pass: within 6 dB); B second Chrome for Testing -50 -> max -155.1 dB; C afplay -50 -> max -162.4 dB; M BlackHole -20 -> max -150.6 dB (pass: each >= 40 dB below played); 8 windows
       capture: THEM include: 1 process(es) [57953] under [57844] / THEM: system audio (Core Audio process tap) — 2 ch @ 48000 Hz → stream 1
