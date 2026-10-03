@@ -472,4 +472,5 @@ if __name__ == "__main__":
                 print("  " + " / ".join(str(e).splitlines()[1:]))
                 results.append(False)
             time.sleep(1)
+    print(f"check_capture_include_selftest: {sum(results)} passed, {len(results) - sum(results)} failed")
     sys.exit(0 if all(results) else 1)
