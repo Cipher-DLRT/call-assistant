@@ -91,7 +91,7 @@ question costs one request. A design built on a guess costs the build. §F cover
 about components the design INTRODUCES; this covers unknowns about the system that is
 already there, and it is the more common gap.
 
-Then check the banner — Fable 5, effort high, in-process Agent tool absent — and report the
+Then check the banner — Fable 5, effort high — and report the
 files read to whoever spawned the seat.
 
 THIS LIST IS CLOSED. It is an enumeration, not an example. A file is in the architect boot
@@ -134,8 +134,6 @@ stopped loading it.
 - Own Orca terminal and own worktree (ADVISOR §5, §43). A lane architect's worktree is
   the item's worktree or a sibling of it; the estate architect's is a child worktree off
   operator-sessions. An architect never writes in another seat's live checkout.
-- The in-process Agent tool is absent (ADVISOR §4: Fable subagents inherit Fable with no
-  override knob). Delegation is a separate Orca session with explicit model and effort.
 - On demand, not standing. A seat opens for an item and STAYS OPEN, IDLE, UNTIL ITS
   CLOSING LEG (§I) IS DONE — it does not fold when the brief lands, because §H callbacks
   and §I are legs of the same seat, resumed from the brief, not new items. An idle

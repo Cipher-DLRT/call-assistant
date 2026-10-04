@@ -127,6 +127,10 @@ scoring benchmarks, Muse is higher than Grok and even scores very closely to gpt
 (2026-09-18). Standing per-use approvals unchanged: codex-xhigh and codex6-xhigh (astra)
 still need his word per use; codex-medium and codex-high are released.
 
+**Amendments (operator, 2026-10-04).** An amendment is tiered on its own size; the lane's tier is a
+ceiling, not a default. His words: "opus 5.5 on XHIGH for such a tiny thing, seriously?" (2026-10-01)
+and "go for it" (2026-10-04) on this line.
+
 **Browser runs (operator, 2026-09-19, exclusive).** Muse is the ONLY family that holds a
 browser in a build lane. His words, verbatim: "Muse is to be used for browser runs. No
 other agent can be used for browser runs for building." A build brief whose lane opens a

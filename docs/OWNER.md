@@ -150,6 +150,8 @@ These exist because a seat once met a broken dependency and rebuilt it alone.
   (`$ESTATE` = `/Users/rami/dev/estate-tooling`, ADVISOR.md §D); send
   with `$ESTATE/scripts/lane.sh signal ... --to <handle>` or `orca terminal send --terminal <handle>
   --enter --text '...'`. Claude seats also answer to their session name in `ListAgents`.
+  A send is `orca terminal send` to a live handle. The orchestration mailbox is not delivery: a
+  seat that never reads it has not been told (operator, 2026-10-04).
 
 ## 7. Boot set, closed
 
