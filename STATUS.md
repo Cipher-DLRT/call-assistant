@@ -1,8 +1,8 @@
 # STATUS — call-assistant
 
-**Phase:** P1 LIVE — built, smoked, and shaken down on real operator test calls (2026-08-11, one session)
-**Now:** loop proven live: spoken questions → attribution (channel split + bleed guard online / voiceprint in-person, adaptive segmentation) → gate → canon-grounded 🔒 hints on a dismissable overlay; 8 live findings same-evening fixed (noise floor, 3-layer dedup, hint-v2 latest-utterance scope, no-absence-from-silence, card dismiss/TTL/hide, double-start guard, speakerless bleed guard); menu bar `○ CA` visible (Thaw manages the bar)
-**Next:** (1) OPERATOR (or advisor on his word): re-run scripts/export-canon.sh — verified 2026-08-17: pack manifest is 223/265 from 2026-08-11 19:15 while the live DB is 292/380; the pack does NOT auto-update (P2 adds calendar-triggered builds); (2) OPERATOR: state the hint precision bar (one number) before grading call 1; (3) real shadow calls on internal 1-2-1s — sheets accumulate toward the P1-exit bars (channel-split 98 w/ CUT rows graded, voiceprint 90, operator precision bar); (4) canon-gap list from misses so far: pricing model, banking customer counts; (5) UnifyApps knowledge endpoint: PARKED by operator ruling 2026-08-19 — unpark = authed operator-controlled retrieval endpoint on the GitHub Knowledge Set, then ONE shared `knowledge_ask` client built with work-automation; nothing calls the open gateway meanwhile (docs/ua-knowledge-endpoint-probe-2026-08-19.md §8)
+**Phase:** P2.5 BUILT — ears of demo-agent's control layer; retirement branch awaits landing.
+**Now:** August hint loop, overlay, prompts and canon export removed; capture/STT sources, exact-path audio/segmenter modules, attribution/voiceprint and leg tools retained. Kept modules are byte-identical; local ears suite passes. Menu launch changes belong to ca#6.
+**Next:** Owner runs demo-agent voice tests against this branch with CALL_ASSISTANT_PATH set to it; Rami reads and approves CLAUDE.md on #7; owner lands only after ca#6. Daily use remains menu-driven.
 
 ## Log
 - 2026-10-05 · **ca-retire-loop #7 BUILT:** retired August hint loop, overlay, prompts and canon export; kept ears unmoved. History: c4dc0295b0c25de60b54ccf25d6f04b0403d724b. Land only after ca#6, owner demo-agent voice tests and Rami CLAUDE.md approval on #7.
