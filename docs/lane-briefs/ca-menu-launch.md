@@ -1,6 +1,6 @@
 # build-brief ca-menu-launch — the ○ CA menu bar starts and stops demo-agent's demo modes with a click (2026-10-05)
 FEATURE: Rami starts a demo from the `○ CA` menu bar: he picks the account and clicks "Start demo (prompter)" or "Start demo (voice)". demo-agent's run starts in its own checkout, and in prompter mode its teleprompter window comes up. "Stop" ends the run the clean way, so its artifact gets its `run_end` row. "Open last run" opens that account's folder. If the run fails its own preflight (demo Chrome not up, not logged in), the menu says so in one line and names the log. No terminal. Shown by the menu and by `run-<ts>.jsonl` ending in `run_end` after a Stop.
-STATUS: LAUNCHED 2026-10-05 by owner-prompter-2 (demo-agent plan 3ee09d2; kickoff §3 amended feb9627, brief written by the owner); opus-medium, stop $6.
+STATUS: CLOSED 2026-10-05 PASS fcaf4bd0dfa318331db9014a918b61a26d023c4d LANDED-AS 3ee8e42
 
 **Category:** feature — milestone #1 (Prompter P2 — the control layer), design P2.4.
 ISSUE: #6
