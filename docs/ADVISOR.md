@@ -74,8 +74,11 @@ An advisor's reply to an owner carries the facts asked for. A decision inside th
 A clicked option is recorded as `approved option "<label>" offered by <seat>, <date>`, never as his words; quotation marks for his words are reserved for text he typed.
 
 The seat that holds an item, owner or advisor, is the client of any architect it spawns (ARCHITECT.md); the
-architect writes the design and every build brief, and the client writes none for an architected
-item (operator, 2026-09-15). A build brief whose HOSTS write to the box or name an external system
+architect writes the design and every build brief of an architected item, and the client writes
+none for it (operator, 2026-09-15). A build brief the client can state itself — one repo, one
+FEATURE line, no §F row engaged — it writes and launches without an architect (operator,
+2026-10-05: "Small things cannot need architects to write briefs", "agreed"). A build brief whose
+HOSTS write to the box or name an external system
 — Postgres other than read-only, HubSpot, Gmail, Telegram; the one list the lint fences on — carries
 a `BRIEF-REVIEW:` verdict line from ONE round of the architect's GPT-6 review (ARCHITECT.md §G)
 before the client, owner or advisor, launches it; no line, no launch (operator, 2026-09-16,

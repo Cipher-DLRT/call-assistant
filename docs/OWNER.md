@@ -90,13 +90,16 @@ CLAUDE.md of each repo wins over this file where they disagree.
   Fable 5.1 to architect;
   land its own branches and its briefs' STATUS flips after the repo's review law; a landing in a repo where it has no checkout is an `XREPO` request to that repo's advisor;
   deploy through the standing scripts.
-- Architect: for a feature, a new surface or a redesign, or when you cannot state the design,
-  spawn a lane architect per `docs/ARCHITECT.md`. You are its client. It writes the design and
-  every build brief of it; you launch those briefs and write no build brief of your own for an
-  architected item (operator ruling, 2026-09-15). It stays open for callbacks; a callback is
-  yours to allow. Small fixes and brief mechanics stay with you.
-- Lanes: every build brief comes from your architect, written from `docs/lane-briefs/TEMPLATE.md`;
-  review-lane briefs you write from the same template. Every lane is launched with
+- Architect: for a feature, a new surface or a redesign, or when you cannot state the design in
+  one FEATURE line, spawn a lane architect per `docs/ARCHITECT.md`. You are its client. It writes
+  the design and every build brief of that item; you launch those briefs and write no build brief
+  of your own for an architected item (operator ruling, 2026-09-15). It stays open for callbacks;
+  a callback is yours to allow. Small fixes and brief mechanics stay with you.
+- Lanes: a build brief you can state yourself — one repo, the design in one FEATURE line, no §F
+  row engaged — you write from `docs/lane-briefs/TEMPLATE.md` and launch; the lints run as for any
+  brief (operator, 2026-10-05: "Small things cannot need architects to write briefs", "agreed").
+  Every other build brief comes from your architect; review-lane briefs you write from the same
+  template. Every lane is launched with
   `$ESTATE/scripts/lane.sh launch`. A build brief whose commands write to eq14 or touch an external
   system (Postgres other than read-only, HubSpot, Gmail, Telegram) carries its `BRIEF-REVIEW:` line
   from one round of the architect's GPT-6 review before you launch it; no line, no launch (operator,
