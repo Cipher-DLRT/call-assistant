@@ -5,6 +5,7 @@
 **Next:** Owner runs demo-agent voice tests against this branch with CALL_ASSISTANT_PATH set to it; Rami reads and approves CLAUDE.md on #7; owner lands only after ca#6. Daily use remains menu-driven.
 
 ## Log
+- 2026-10-05 · **ca-retire-loop #7 CLAUDE.md law 6 revised:** follows demo-agent rule 6 as amended (c2afdb5); laws 1-5, 8-10 approved by Rami, law 7 awaits his nod.
 - 2026-10-05 · **ca-retire-loop #7 BUILT:** retired August hint loop, overlay, prompts and canon export; kept ears unmoved. History: c4dc0295b0c25de60b54ccf25d6f04b0403d724b. Land only after ca#6, owner demo-agent voice tests and Rami CLAUDE.md approval on #7.
 - 2026-10-05 · **PROMPTER P2 FILED: call-assistant becomes the ears of demo-agent's control layer (shape 1, demo-agent rule 18); #6 menu-bar launch, #7 retire loop/overlay/pack and rewrite CLAUDE.md (Rami approves the text). Call audio may go to a cloud transcriber (demo-agent rule 15).** Design: Cipher-DLRT/demo-agent docs/design-prompter-2026-10-04.md
 - 2026-10-04 · **ADVISOR: the demo-agent advisor takes over call-assistant (Rami, demo-agent advisor terminal: "you should take over the call assistant lane at this point since they are very merged").** Next: the teleprompter/sales-assist design with Rami.

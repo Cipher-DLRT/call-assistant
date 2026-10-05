@@ -19,7 +19,9 @@ This is the P2.5 draft for Rami's approval on call-assistant #7. That approval m
 3. Read-only against the spine; canon export: **retired with the loop** (design P2.5). Nothing here reads canon any more.
 4. Route by reader, Haiku gate / Sonnet hint: **off here**. Model routing belongs to demo-agent's CLAUDE.md model table (rule 15; design §8(b)).
 5. Cost ceiling per call: **moved**. Demo-agent rule 7 and the coach's per-call ceiling hold it (design §12); never raised silently.
-6. Shareability; the HDFC law live: **stays**, as demo-agent rule 6.
+6. Shareability; the HDFC law live: **changed**, to demo-agent rule 6 as amended 2026-10-05 (c2afdb5). A prompt to Rami
+   (teleprompter line, coach card) may show one customer's material, and Rami judges whether to say it; the agent's
+   own voice never says one customer's material to another.
 7. Staleness rendering: **retired with the loop** (design P2.5). No canon hints remain.
 8. Me/them attribution, voiceprint, bleed guard: **stays** (design §3.1, P4.3). The channel split runs in demo-agent's ears; the voiceprint here serves P4.3.
 9. Secrets: **stays**, as demo-agent rule 8. Secrets never enter git, chat or terminals.
