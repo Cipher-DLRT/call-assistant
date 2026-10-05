@@ -1,124 +1,102 @@
-# P1.5 menu-bar launcher (operator ruling: no terminal in daily use).
-# rumps (MIT). Start = spawn scripts/run_call.sh exactly as the runbook
-# command would; Stop = SIGINT to the process group (same clean path as
-# Ctrl-C: artifact + sheets finalize). Crash law: menubar dies -> loop
-# unaffected (own session); loop dies -> menu shows ○ stopped.
+# P2.4 menu-bar launcher (operator ruling: no terminal in daily use).
+# rumps (MIT). Start = demo-agent's run CLI in its own checkout
+# (DEMO_AGENT_PATH); Stop = `quit` on its stdin, so its artifact gets
+# run_end, then SIGINT / SIGTERM to its group (app/menubar/launch.py).
+# The child holds this process's stdin pipe: if the menu bar quits, the
+# child reads EOF and ends cleanly.
 #
 #   ./spike/stt_bench/venv/bin/python -m app.menubar.menubar
 
-import json
-import os
-import signal
 import subprocess
-from pathlib import Path
+import threading
 
 import rumps
 
-REPO = Path(__file__).resolve().parent.parent.parent
-RUN_CALL = REPO / "scripts/run_call.sh"
-CALLS = REPO / "calls"
-
-
-def newest_call_dir():
-    dirs = sorted(CALLS.glob("*"), key=lambda p: p.name, reverse=True)
-    return dirs[0] if dirs else None
+from app.menubar.launch import (Launcher, MODES, account_folders,
+                                context_file, demo_agent_path, status_line)
 
 
 class CallAssistant(rumps.App):
     def __init__(self):
         super().__init__("○ CA", quit_button="Quit")
-        self.proc = None
-        self.status_item = rumps.MenuItem("○ stopped")
-        self.status_item.set_callback(None)
-        self.item_online = rumps.MenuItem("Start Shadow (online)",
-                                          callback=self.start_online)
-        self.item_inperson = rumps.MenuItem("Start Shadow (in-person)",
-                                            callback=self.start_inperson)
+        self.agent = demo_agent_path()
+        self.launcher = Launcher(self.agent)
+        self.stopping = False
+        self.accounts = account_folders(self.agent / "demos")
+        self.account = self.accounts[0] if self.accounts else None
+        self.run_account = None
+        self.status_item = rumps.MenuItem("○ ready")
+        self.log_item = rumps.MenuItem("")
+        self.account_items = [rumps.MenuItem(p.name, callback=self.pick)
+                              for p in self.accounts]
+        if self.account_items:
+            self.account_items[0].state = 1
+        self.start_items = {title: rumps.MenuItem(title, callback=self.start)
+                            for title in MODES}
         self.item_stop = rumps.MenuItem("Stop", callback=self.stop)
         self.menu = [
             self.status_item,
+            self.log_item,
             None,
-            self.item_online,
-            self.item_inperson,
+            (rumps.MenuItem("Account"), self.account_items or ["(none)"]),
+            *self.start_items.values(),
             self.item_stop,
             None,
-            rumps.MenuItem("Open Last Call", callback=self.open_last),
+            rumps.MenuItem("Open last run", callback=self.open_last),
         ]
+        self.refresh(None)
         rumps.Timer(self.refresh, 2).start()
 
-    @staticmethod
-    def _any_call_running():
-        """True if ANY orchestrator runs on this Mac — including calls not
-        started by this menubar instance (double-capture guard)."""
-        r = subprocess.run(["pgrep", "-f", "app.loop.orchestrator"],
-                           capture_output=True)
-        return r.returncode == 0
-
     # -- actions ------------------------------------------------------------
-    def _start(self, mode):
-        if self._any_call_running():
-            return  # never start a second capture (double-overlay guard)
-        # own session so a menubar crash never takes the loop down
-        self.proc = subprocess.Popen([str(RUN_CALL), mode],
-                                     cwd=str(REPO), start_new_session=True,
-                                     stdout=subprocess.DEVNULL,
-                                     stderr=subprocess.DEVNULL)
+    def pick(self, item):
+        for i, it in enumerate(self.account_items):
+            it.state = int(it is item)
+            if it is item:
+                self.account = self.accounts[i]
+        self.refresh(None)
 
-    def start_online(self, _):
-        self._start("online")
-
-    def start_inperson(self, _):
-        self._start("inperson")
+    def start(self, item):
+        if self.account is None:
+            return
+        if self.launcher.start(MODES[item.title], context_file(self.account)):
+            self.run_account = self.account
+        self.refresh(None)
 
     def stop(self, _):
-        if self.proc and self.proc.poll() is None:
-            # SIGINT to the group = run_call.sh trap = orchestrator finalize
-            try:
-                os.killpg(os.getpgid(self.proc.pid), signal.SIGINT)
-                return
-            except (ProcessLookupError, PermissionError):
-                pass  # already gone / reaped between poll() and killpg()
-        # calls this instance didn't start: SIGINT the orchestrator directly
-        # (its handler finalizes artifact + sheets)
-        subprocess.run(["pkill", "-INT", "-f", "app.loop.orchestrator"],
-                       capture_output=True)
+        # up to 30 s of waits: off the main thread so the menu stays live
+        self.stopping = True
+        def run():
+            self.launcher.stop()
+            self.stopping = False
+        threading.Thread(target=run, daemon=True).start()
+        self.refresh(None)
 
     def open_last(self, _):
-        d = newest_call_dir()
-        if d:
-            subprocess.run(["open", str(d)], check=False)
+        if self.account is not None:
+            subprocess.run(["open", str(self.account)], check=False)
+        if self.launcher.log and self.status_item.title.startswith("○ ended ("):
+            subprocess.run(["open", "-R", str(self.launcher.log)], check=False)
 
     # -- status line --------------------------------------------------------
     def refresh(self, _timer):
-        running = self._any_call_running()
-        # grey Start while ANY call runs; Stop only lit while one does
-        self.item_online.set_callback(None if running else self.start_online)
-        self.item_inperson.set_callback(None if running else self.start_inperson)
-        self.item_stop.set_callback(self.stop if running else None)
-        d = newest_call_dir()
-        hints = 0
-        cost = None
-        if d:
-            feed = d / "feed.jsonl"
-            if feed.exists():
-                try:
-                    hints = sum(1 for line in feed.open()
-                                if '"type": "hint"' in line or '"type":"hint"' in line)
-                except OSError:
-                    pass
-            art = d / "artifact.json"
-            if art.exists():
-                try:
-                    cost = json.loads(art.read_text())["cost"]["total_usd"]
-                except (OSError, KeyError, json.JSONDecodeError):
-                    pass
-        if running:
-            self.title = "◉ CA"
-            self.status_item.title = f"◉ recording · {hints} hints"
+        running = self.launcher.running()
+        can_start = (not running and self.account is not None
+                     and self.launcher.python.exists())
+        for title, it in self.start_items.items():
+            it.set_callback(self.start if can_start else None)
+        self.item_stop.set_callback(
+            self.stop if running and not self.stopping else None)
+        self.title = "◉ CA" if running else "○ CA"
+        if self.account is None:
+            status = status_line("no_account")
+        elif not running and not self.launcher.python.exists():
+            status = status_line("no_python", python=self.launcher.python)
         else:
-            self.title = "○ CA"
-            tail = f" · ${cost}" if cost is not None else ""
-            self.status_item.title = f"○ stopped · {hints} hints{tail}"
+            status = self.launcher.status(
+                account=(self.run_account or self.account).name)
+        self.status_item.title = status
+        self.log_item.title = (f"log: {self.launcher.log}"
+                               if self.launcher.log else "log: no run yet")
 
 
 if __name__ == "__main__":
