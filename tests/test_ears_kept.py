@@ -10,8 +10,6 @@ REPO = Path(__file__).resolve().parents[1]
 REMOVED = ("orchestrator", "llm", "retrieval", "cost", "artifact")
 EXEMPT = {
     "tests/test_ears_kept.py",
-    "scripts/run_call.sh",
-    "app/menubar/menubar.py",
 }
 
 
