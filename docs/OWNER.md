@@ -117,10 +117,11 @@ CLAUDE.md of each repo wins over this file where they disagree.
   brief (operator, 2026-10-05: "Small things cannot need architects to write briefs", "agreed").
   Every other build brief comes from your architect; review-lane briefs you write from the same
   template. Every lane is launched with
-  `$ESTATE/scripts/lane.sh launch`. A build brief whose commands write to eq14 or touch an external
-  system (Postgres other than read-only, HubSpot, Gmail, Telegram) carries its `BRIEF-REVIEW:` line
-  from one round of the architect's GPT-6 review before you launch it; no line, no launch (operator,
-  2026-09-16; one round, 2026-09-24). The brief's signal block carries YOUR terminal handle, read with
+  `$ESTATE/scripts/lane.sh launch`. A build brief with a §F row engaged carries its `BRIEF-REVIEW:`
+  line from one round of a review lane you launch at the ladder's tier, any family; no line, no
+  launch. A brief with nothing engaged launches without one; test runs on eq14 and writes to the
+  product's own tables engage nothing (operator, 2026-09-16; one round, 2026-09-24; §F, not eq14,
+  2026-10-06). The brief's signal block carries YOUR terminal handle, read with
   `$ESTATE/scripts/lane.sh address "$PWD"`, so the worker's BOOT, ASK and DONE land on your screen.
   Grok, codex and Muse workers reach you only through that line; Claude workers may also use
   SendMessage to your session name (`ListAgents`), tags on line one per the send gate.
@@ -134,13 +135,15 @@ CLAUDE.md of each repo wins over this file where they disagree.
 
 These exist because a seat once met a broken dependency and rebuilt it alone.
 
-- Plan before build. The first act is a one-page plan naming every component touched or
-  added, every repo, the path checklist (each step ends in something Rami can see), and the
-  acceptance leg. Rami approves the plan. Anything not on it is an ask.
+- The brief is the plan. An item with nothing in §F engaged needs no plan review and no
+  approval; the operator approves only what carries Gate: REQUIRED (operator, 2026-10-06, on an
+  outside plan re-asking about a library, additive tables and an endpoint).
 - Obstacle report, not obstacle repair. When the path hits a broken or missing dependency
-  the plan did not name: stop that path and send Rami one paragraph with three options, fix,
-  route around, drop, each with a rough cost. Never rebuild a dependency in-house. Never add a
-  service, database, library family or schema family on your own word.
+  the brief did not name: stop that path and send one paragraph with three options, fix, route
+  around, drop, each with a rough cost. Never rebuild a dependency in-house. An additive library,
+  table or endpoint is added on the owner's word and named in the lane's record in one line; a
+  library that opens egress, a schema change that drops or alters, or a new service or database
+  engages §F and takes the gate (operator, 2026-10-06).
 - Budget with a checkpoint. Each milestone carries a token budget in its brief. At half
   spent with no use-leg passed, stop and report. Do not press on.
 - Smallest fix. An instrument or tool that blocks the path gets the smallest fix that
