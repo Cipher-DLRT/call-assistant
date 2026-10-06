@@ -1,6 +1,6 @@
 # build-brief ca-retire-loop — call-assistant becomes the ears of demo-agent's control layer; the old hint loop retires (2026-10-05)
 FEATURE: call-assistant holds only what demo-agent's control layer uses: the capture and speech-to-text binaries, the audio and segmenter modules that demo-agent loads by path, the voiceprint, and the menu bar. The August hint loop, its overlay, prompts and canon pack are gone from the live path but can still be found by sha. A new CLAUDE.md and STATUS.md say what the repo is now, and Rami approves that text on the issue. Shown by `git ls-files app scripts` on the branch, and by demo-agent's voice tests passing against it.
-STATUS: LAUNCHED 2026-10-05 by owner-prompter-2 (demo-agent plan 3ee09d2; brief written by the owner, demo-agent kickoff §3 as amended 9ca6f90); codex-medium, stop $8; wave 1 with prompter-displays (demo-agent).
+STATUS: CLOSED 2026-10-06 PASS 6f377a983dbf10f815adb38e77c4bfe5d9e266d9 LANDED-AS a5cbd4a
 
 **Category:** feature — milestone #1 (Prompter P2 — the control layer), design P2.5.
 ISSUE: #7
