@@ -69,6 +69,7 @@ USE: #<issue>
 ## Pins / Verdict line / PASS rule
 
 <Build/test pins or the review verdict form.>
+A review's verdict is never inside a fence; the report's last line is `verdict=<token>` (#406).
 Walks use `RESULT: PASS —`, `RESULT: FAIL —`, or `RESULT: FAIL-FIXED-PENDING — …; fixed by <ref>`.
 An undecidable visual question says `RESULT: PASS — not visually decidable from the rendered surface; <checks>`.
 A leg that cannot run says `NOT EXERCISABLE — <reason>`.

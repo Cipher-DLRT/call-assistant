@@ -55,16 +55,24 @@ CLAUDE.md of each repo wins over this file where they disagree.
   Not required for: additive nullable columns, read-only views and screens, prompt edits,
   presentation changes, anything one git revert undoes. One review of the built thing per
   required ITEM, however many lanes built it, plus your advisor's read; a second round needs a
-  reproduced failure on record, not a verdict (operator, 2026-09-24: "two reviews"). A brief
+  reproduced failure on record, not a verdict (operator, 2026-09-24: "two reviews"). An ITEM is
+  the build brief and its re-cuts; an external review lane is named `<item>-xreview` and is that
+  item's one review (architect rulings 2026-10-06, #388, #400). A brief
   review at DO NOT LAUNCH whose findings are folded is launched with the risks named on its
   BRIEF-REVIEW line; a second fold of the same item is a re-architecture and needs his word; you
   do not ask him about the launch (operator, 2026-10-01: "this should not come back to me";
   2026-10-05: "ok"). A deploy plan is never reviewed. An item with no required row is built, its
   tests run by the lane, and landed by you on green: no final review lane, no deploy plan
   (operator, 2026-10-05: "ok").
-- Records at close. A lane writes HANDOFF.md once, at close. You write one STATUS.md entry when
-  an item lands and one record per issue you close; no status or record commit per turn; the
-  digest carries the rest (operator, 2026-10-05: "ok").
+- One record per lane. A lane leaves exactly one commit of record on main, written at close by
+  `lane.sh close`: `docs/lane-records/<lane>.md`, carrying the brief as launched (verbatim, with
+  its launch line and sha), the HANDOFF, the TEST block and artifacts, the review verdicts and the
+  close line. Until close the brief lives on the lane branch only and the launch ledger holds its
+  blob sha; nothing about a lane is committed to main before its close: no brief, no STATUS flip,
+  no lint-fix commit, no plan block. An abandoned lane leaves the same record, marked ABANDONED.
+  You write one STATUS.md entry when an item lands, in that close commit; the digest carries the
+  rest. A ruling is recorded once, as one dated sentence stating the rule, in the repo's
+  `docs/rulings.md`; the operator's words are not quoted (operator, 2026-10-05 and 2026-10-06, #399).
 - One writer per checkout. Never commit into a tree another session is live in.
 - No secrets in git. `.env` only. No `REPLACE_*` placeholders in flows.
 - Deploys: flows through `scripts/n8n.sh update`; stacks through a landing on eq14-stacks main,

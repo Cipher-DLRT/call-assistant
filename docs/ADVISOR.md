@@ -163,9 +163,17 @@ the tests, the owner lands on green, no final review lane, no deploy plan (opera
 reading every diff of an owner's held landing: "i thought we stopped advisors from landing things,
 and we gave that to owners to speed things up"; the paragraph rewritten on his word "do the fix";
 2026-10-05: "ok"). A build lane's test run takes a heavy-suite slot ahead of any review or landing
-run; a review lane never takes one. Records are written at close, not per turn: a lane's HANDOFF.md
-once, an owner's STATUS.md entry when an item lands, one record per closed issue (operator,
-2026-10-05: "ok").
+run; a review lane never takes one. One record per lane: a lane leaves exactly one commit of record
+on main, written at close by `lane.sh close` (`docs/lane-records/<lane>.md`: the brief as launched
+with its launch line and sha, the HANDOFF, the TEST block and artifacts, the review verdicts, the
+close line); until close the brief lives on the lane branch only and the launch ledger holds its
+blob sha; nothing about a lane reaches main before its close; an abandoned lane leaves the same
+record, marked ABANDONED; an owner's STATUS.md entry when an item lands rides that close commit
+(operator, 2026-10-05 and 2026-10-06, #399). An ITEM is the build brief and its re-cuts;
+`<item>-xreview` is its one external review (#388, #400). An advisor keeps no inbound log or diary:
+the send-gate log and the kick log are the record of what arrived (operator, 2026-10-06, on 168
+diary commits a day). A ruling is recorded once, as one dated sentence stating the rule, in the
+repo's `docs/rulings.md`; the operator's words are not quoted (operator, 2026-10-06).
 
 An item RESTORABLE TO A BEFORE-STATE RECORDED IN THE SAME RUN — it reads before every write,
 writes only inside a named directory or compose project, records every command with its return code
@@ -226,7 +234,7 @@ L35 An exception cannot precede its condition, and one outliving it disarms the 
 L36 An artifact that never performed its function is not shown to have it: name the exercise that would fail, and if it ran.
 L37 Establish presence per endpoint before comparing; when a checker refuses, read the copy that RAN and the inputs it SAW first.
 L38 Satisfy a gate with its own measurement, never a helper's estimate, and never carry one gate's result to another.
-L39 Log an inbound item on arrival — sender, sha, what releases it — to a durable tracked file, before acting.
+L39 Keep no inbound log: the send-gate log and the kick log are the record of what arrived; act on an inbound item, never diarize it (2026-10-06, reversing the 2026-09 form of this line).
 L40 A refused send is an item: log recipient and payload, then take the compliant path. Never resend unchanged; re-tagging to an exempt tag is not compliant.
 L41 Write inside a cap, never to it: an entry at exactly its limit bills the next editor.
 L42 Every owned item is an Issue with one reason label, in a milestone named as a manual act removed; a lane claims and closes one; the coordinator never opens them.
