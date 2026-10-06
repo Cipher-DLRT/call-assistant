@@ -54,14 +54,23 @@ CLAUDE.md of each repo wins over this file where they disagree.
   spend); migrations that drop or alter an existing column; customer data leaving the box.
   Not required for: additive nullable columns, read-only views and screens, prompt edits,
   presentation changes, anything one git revert undoes. One review of the built thing per
-  required item, plus your advisor's read; a second round needs a reproduced failure on record,
-  not a verdict (operator, 2026-09-24: "two reviews"). A brief review at DO NOT LAUNCH whose
-  findings are folded is yours to launch with the risks named on its BRIEF-REVIEW line, or to
-  re-architect; you do not ask him (operator, 2026-10-01: "this should not come back to me").
+  required ITEM, however many lanes built it, plus your advisor's read; a second round needs a
+  reproduced failure on record, not a verdict (operator, 2026-09-24: "two reviews"). A brief
+  review at DO NOT LAUNCH whose findings are folded is launched with the risks named on its
+  BRIEF-REVIEW line; a second fold of the same item is a re-architecture and needs his word; you
+  do not ask him about the launch (operator, 2026-10-01: "this should not come back to me";
+  2026-10-05: "ok"). A deploy plan is never reviewed. An item with no required row is built, its
+  tests run by the lane, and landed by you on green: no final review lane, no deploy plan
+  (operator, 2026-10-05: "ok").
+- Records at close. A lane writes HANDOFF.md once, at close. You write one STATUS.md entry when
+  an item lands and one record per issue you close; no status or record commit per turn; the
+  digest carries the rest (operator, 2026-10-05: "ok").
 - One writer per checkout. Never commit into a tree another session is live in.
 - No secrets in git. `.env` only. No `REPLACE_*` placeholders in flows.
 - Deploys: flows through `scripts/n8n.sh update`; stacks through a landing on eq14-stacks main,
   which is itself a deploy. One box change at a time, kept by the box lock, not by a person. A
+  build lane's test run takes a heavy-suite slot ahead of any review or landing run; a review lane
+  never takes one (operator, 2026-10-05: "ok"; the slot count is re-ruled on the new box). A
   dashboard change (`dashboard/**` and its docs) is landed by the owner or advisor that built it:
   `$ESTATE/scripts/dashboard-land.sh <sha>` takes the lock, runs the dashboard suite, lands, waits
   for converge, releases (operator, 2026-09-29: "empower owners and advisors to be able to land

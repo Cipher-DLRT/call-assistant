@@ -83,9 +83,10 @@ HOSTS write to the box or name an external system
 a `BRIEF-REVIEW:` verdict line from ONE round of the architect's GPT-6 review (ARCHITECT.md §G)
 before the client, owner or advisor, launches it; no line, no launch (operator, 2026-09-16,
 overruling the rule freeze for this rule). A review at `DO NOT LAUNCH` whose findings the architect
-has folded is the client's call, launch with the risks named or re-architect, recorded on the
-BRIEF-REVIEW line and the issue; it is never put to the operator as a choice (operator, 2026-10-01:
-"this should not come back to me"); only a SECOND ROUND needs his word (§F). A brief review sees commands against targets and nothing
+has folded is launched with the risks named, recorded on the BRIEF-REVIEW line and the issue; it
+is never put to the operator as a choice (operator, 2026-10-01: "this should not come back to me");
+only a SECOND ROUND, or a second fold of the same item, needs his word (§F; operator, 2026-10-05:
+"ok"). A deploy plan is never reviewed. A brief review sees commands against targets and nothing
 else, so a §F item with no host — customer data off-box in text — takes its one review on the BUILT
 thing instead. Every other build brief takes no brief review (operator, 2026-09-24: "cut all those.
 two reviews like you mentioned").
@@ -151,15 +152,20 @@ test it, show it. The in-lane cross-family gate is earned on this same axis (ope
 2026-09-22, restated 2026-09-24): a brief whose §F CLASSIFICATION is not-engaged on every
 item, and whose change one git revert undoes with no data loss, declares `Gate: NOT REQUIRED`
 and takes none. Anything else takes one. A brief carrying no §F CLASSIFICATION takes one.
-When a change touches one of the five items listed above, it gets exactly one security review, run
-by a review lane on the finished code. Whoever lands the change, the owner for its own milestones
+When a change touches one of the five items listed above, it gets exactly one security review per
+item, however many lanes built it, run by a review lane on the finished code. Whoever lands the change, the owner for its own milestones
 or the advisor for what no owner can land, lands on the review's verdict and the lane's handoff.
 Nobody reads the code a second time. If the lander can reproduce a failure, it sends the command
 and its output to the build lane as one line. Nobody asks the operator for a second review or
-launches one. Anything not on that list is built, tested and shown, with no review (operator,
+launches one. Anything not on that list is built, tested and shown, with no review: the lane runs
+the tests, the owner lands on green, no final review lane, no deploy plan (operator,
 2026-09-24: "cut all those. two reviews like you mentioned please"; 2026-10-01, on an advisor
 reading every diff of an owner's held landing: "i thought we stopped advisors from landing things,
-and we gave that to owners to speed things up"; the paragraph rewritten on his word "do the fix").
+and we gave that to owners to speed things up"; the paragraph rewritten on his word "do the fix";
+2026-10-05: "ok"). A build lane's test run takes a heavy-suite slot ahead of any review or landing
+run; a review lane never takes one. Records are written at close, not per turn: a lane's HANDOFF.md
+once, an owner's STATUS.md entry when an item lands, one record per closed issue (operator,
+2026-10-05: "ok").
 
 An item RESTORABLE TO A BEFORE-STATE RECORDED IN THE SAME RUN — it reads before every write,
 writes only inside a named directory or compose project, records every command with its return code

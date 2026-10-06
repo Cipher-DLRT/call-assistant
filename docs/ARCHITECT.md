@@ -146,8 +146,8 @@ stopped loading it.
 Either gate fires it, and either is sufficient:
 
 1. **CLASS.** A feature build, a new feature, or a full redesign.
-2. **KNOWLEDGE.** The client cannot state the design from what it already knows —
-   whatever the size of the item.
+2. **KNOWLEDGE.** The client cannot state the design in one FEATURE line from what it
+   already knows — whatever the size of the item.
 
 It does NOT run for: bug fixes, dashboard fixes, n8n flow modifications, copy and
 presentation changes, and small fixes generally. The client designs those itself and
@@ -268,11 +268,13 @@ the architect on its own branch. It carries, in this order:
    brief as its last line before the signal block:
    `BRIEF-REVIEW: <verdict> | <lane>-briefreview | round <n> | <date>`. A brief still at
    `DO NOT LAUNCH` after the architect's fold goes to the client with the fold against each finding;
-   the client — the owner for its lanes, the repo advisor for an estate lane — decides re-architect
-   or launch, and a launch is recorded on the line as `LAUNCH WITH RISKS: fold not re-reviewed; <n>
-   findings folded` and on the issue. That decision never goes to the operator (operator, 2026-10-01:
-   "launch them, and file this with the estate, this should not come back to me"). A second review
-   round is a different thing and stays operator-only. There is no third round.
+   the client — the owner for its lanes, the repo advisor for an estate lane — launches it, recorded
+   on the line as `LAUNCH WITH RISKS: fold not re-reviewed; <n> findings folded` and on the issue.
+   The architect folds a `DO NOT LAUNCH` once; a second fold of the same item is a re-architecture
+   and needs the operator's word (operator, 2026-10-05: "ok"). The launch never goes to the
+   operator (operator, 2026-10-01: "launch them, and file this with the estate, this should not
+   come back to me"). A second review round is a different thing and stays operator-only. There
+   is no third round.
 
 The brief is the complete starting state for the lane (ADVISOR §35, §40). A lane that
 must ask what to build has been handed an incomplete brief.
