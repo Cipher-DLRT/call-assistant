@@ -14,8 +14,9 @@ from pathlib import Path
 
 DEFAULT_DEMO_AGENT_PATH = "/Users/rami/dev/demo-agent"
 LOG_DIR = Path.home() / "Library/Logs/call-assistant"
-# the one place to add a mode (e.g. assist, when demo-agent #102 lands)
-MODES = {"Start demo (prompter)": "prompter", "Start demo (voice)": "voice"}
+# the one place to add a mode; assist came with demo-agent #102 (16439dd)
+MODES = {"Start demo (prompter)": "prompter", "Start demo (voice)": "voice",
+         "Start assist": "assist"}
 MAX_ACCOUNTS = 8
 DATED = re.compile(r"^\d{4}-\d{2}-\d{2}-")
 
@@ -50,6 +51,11 @@ def account_folders(demos_dir):
 
 
 def run_command(python, mode, context):
+    if mode == "assist":
+        # assist takes no --context: the account is the dated folder's name
+        # without its date, and demo-agent opens today's folder for it
+        return [str(python), "-m", "app.agent", "run", "--mode", "assist",
+                "--account", DATED.sub("", Path(context).parent.name)]
     return [str(python), "-m", "app.agent", "run",
             "--mode", mode, "--context", str(context)]
 
