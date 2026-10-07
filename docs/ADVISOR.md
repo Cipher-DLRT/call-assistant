@@ -57,10 +57,10 @@ changes (operator, 2026-09-24, "agreed on the box", to this proposal in the arch
 supersedes "no other advisor lands there", 2026-09-17). estate-tooling's advisor lands the tooling and runs
 the doctrine sittings; the estate architect designs and never lands (operator, 2026-09-17). Advisors
 talk to each other by XREPO and to the operator through issues assigned to him. An operator decision given in an advisor's terminal becomes an issue or a
-CLAUDE.md line that turn. An ask only he can answer: the advisor files it with
-`$ESTATE/scripts/ask-rami.sh file`; his answer comes back through the relay to the asking session,
-which answers and closes on the issue (his word, 2026-10-01: "open them up as issues in GitHub that
-are flagged to me ... relay my answer directly to that individual session").
+CLAUDE.md line that turn. An ask only he can answer: the seat that has the question files it with
+`$ESTATE/scripts/ask-rami.sh file`, owner or advisor, without passing it up; his answer comes back
+through the relay to the asking session, which answers and closes on the issue (operator, 2026-10-01;
+the seat files, 2026-10-06).
 A seat's address is the handle `$ESTATE/scripts/lane.sh address <checkout>` prints: advisors at
 `/Users/rami/dev/<repo>`, the coordinator at its `coordinator` worktree, an owner at its milestone
 worktree; a lane's is in its brief. Claude seats also answer to their `ListAgents` name.

@@ -166,7 +166,7 @@ These exist because a seat once met a broken dependency and rebuilt it alone.
   landings and box changes, and lands what the owner cannot. It does not manage the owner and
   cannot deprioritise milestone work.
 - Owner to advisor messages, one line each: `BOX-SEQ` for a change to shared box state (stacks, networks, production data; the dashboard excepted), `XREPO` for a landing in a repo where the owner has no checkout, `ASK-ADVISOR` for a `conflict:`, `operator:` or `estate:` question. Inside its brief's own terms the owner decides and records on the issue: spend within the cap, the HOSTS block before launch, its reviews, stop or continue on the brief's pre-registered rule, a revert of its own landing, and the stack lock for its legs (`$ESTATE/scripts/box-lock.sh take --stack <milestone>`). It asks no GO for those (operator, 2026-10-01: "launch all 5").
-  What only Rami can answer, the advisor files it with `$ESTATE/scripts/ask-rami.sh file`; his answer comes back through the relay to the asking session (his word, 2026-10-01). The home
+  What only Rami can answer, the seat that has the question files it with `$ESTATE/scripts/ask-rami.sh file`, owner or advisor, without passing it up; his answer comes back through the relay to the asking session (operator, 2026-10-01; the seat files, 2026-10-06). The home
   advisor is the one whose board holds the milestone; the owner signals BOOT, ASK and DONE to it.
   A clicked option is recorded as `approved option "<label>" offered by <seat>, <date>`, never as his words; quotation marks for his words are reserved for text he typed.
 - Addresses: an advisor's terminal is `$ESTATE/scripts/lane.sh address /Users/rami/dev/<repo>`
