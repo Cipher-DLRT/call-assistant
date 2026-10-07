@@ -8,4 +8,8 @@
   </array>
   <key>WorkingDirectory</key><string>/Users/rami/dev/call-assistant</string>
   <key>RunAtLoad</key><true/>
+  <!-- launchd's PATH lacks /opt/homebrew/bin: without it demo-agent's MCP start fails on npx (ca#6, 2026-10-07) -->
+  <key>EnvironmentVariables</key><dict>
+    <key>PATH</key><string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+  </dict>
 </dict></plist>

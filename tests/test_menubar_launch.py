@@ -72,7 +72,16 @@ def test_run_command_argv(mode):
 
 def test_modes_map_items_to_modes():
     assert launch.MODES == {"Start demo (prompter)": "prompter",
-                            "Start demo (voice)": "voice"}
+                            "Start demo (voice)": "voice",
+                            "Start assist": "assist"}
+
+
+def test_assist_passes_the_account_slug_not_the_context():
+    argv = launch.run_command("/d/.venv/bin/python", "assist",
+                              "/d/demos/2026-07-21-fujairah-backtest/context.md")
+    assert argv == ["/d/.venv/bin/python", "-m", "app.agent", "run",
+                    "--mode", "assist", "--account", "fujairah-backtest"]
+    assert "--context" not in argv
 
 
 def test_demo_agent_path_env_and_default():
