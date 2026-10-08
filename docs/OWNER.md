@@ -54,8 +54,11 @@ CLAUDE.md of each repo wins over this file where they disagree.
   spend); migrations that drop or alter an existing column; customer data leaving the box.
   Not required for: additive nullable columns, read-only views and screens, prompt edits,
   presentation changes, anything one git revert undoes. One review of the built thing per
-  required ITEM, however many lanes built it, plus your advisor's read; a second round needs a
-  reproduced failure on record, not a verdict (operator, 2026-09-24: "two reviews"). An ITEM is
+  required ITEM, however many lanes built it, plus your advisor's read; after it the build lane fixes every
+  finding inside its own files before close, RED before, GREEN after, one mutation per fix, with no
+  second review; a finding outside its files or a design question becomes an issue, and a blocking
+  finding goes to you and to him as today; a second round needs a reproduced failure on record, not
+  a verdict (operator, 2026-09-24, two reviews; 2026-10-08, the lane fixes its findings, #446). An ITEM is
   the build brief and its re-cuts; an external review lane is named `<item>-xreview` and is that
   item's one review (architect rulings 2026-10-06, #388, #400). A brief
   review at DO NOT LAUNCH whose findings are folded is launched with the risks named on its

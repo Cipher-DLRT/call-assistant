@@ -155,8 +155,10 @@ and takes none. Anything else takes one. A brief carrying no §F CLASSIFICATION 
 When a change touches one of the five items listed above, it gets exactly one security review per
 item, however many lanes built it, run by a review lane on the finished code. Whoever lands the change, the owner for its own milestones
 or the advisor for what no owner can land, lands on the review's verdict and the lane's handoff.
-Nobody reads the code a second time. If the lander can reproduce a failure, it sends the command
-and its output to the build lane as one line. Nobody asks the operator for a second review or
+Nobody reads the code a second time: the build lane fixes the review's findings inside its own
+files before close, RED, GREEN and one mutation per fix, and its record lists the fix commits after
+the reviewed sha; a finding outside its files becomes an issue (operator, 2026-10-08, #446). If the
+lander can reproduce a failure, it sends the command and its output to the build lane as one line. Nobody asks the operator for a second review or
 launches one. Anything not on that list is built, tested and shown, with no review: the lane runs
 the tests, the owner lands on green, no final review lane, no deploy plan (operator,
 2026-09-24: "cut all those. two reviews like you mentioned please"; 2026-10-01, on an advisor

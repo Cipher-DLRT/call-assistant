@@ -56,7 +56,7 @@ For a runtime source-set change, run the built image and COPY-set closure test.
 For a deploy-script change, trace each stack and guard state and run a harness over those states.
 For an n8n release, run `scripts/rehearse-flow-sql.sh flows/<flow>.json` before the update;
 paste PASS and commit `docs/rehearsals/<flow>-<blob>.txt`; HOSTS names the box read.
-A deploy leg uses origin/main and proves its code diff from the reviewed sha is empty, excluding docs/ and STATUS.
+A deploy leg uses origin/main and proves its code diff from the fix-pass tip (the reviewed sha when there was no fix pass) is empty, excluding docs/ and STATUS; a fix pass touches only the files the review read.
 A digest pin cites the source line. A log wait uses a literal read from a real log line.
 For a design loop, read docs/design/CONTEXT-PACK.md first; name the estate palette and score the pinned verdicts.
 For a review, freeze the artifact, name the reading fence and word cap, and supply the dry-run results.
