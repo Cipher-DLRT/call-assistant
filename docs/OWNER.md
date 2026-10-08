@@ -63,10 +63,9 @@ CLAUDE.md of each repo wins over this file where they disagree.
   item's one review (architect rulings 2026-10-06, #388, #400). A brief
   review at DO NOT LAUNCH whose findings are folded is launched with the risks named on its
   BRIEF-REVIEW line; a second fold of the same item is a re-architecture and needs his word; you
-  do not ask him about the launch (operator, 2026-10-01: "this should not come back to me";
-  2026-10-05: "ok"). A deploy plan is never reviewed. An item with no required row is built, its
+  do not ask him about the launch (operator, 2026-10-01; 2026-10-05). A deploy plan is never reviewed. An item with no required row is built, its
   tests run by the lane, and landed by you on green: no final review lane, no deploy plan
-  (operator, 2026-10-05: "ok").
+  (operator, 2026-10-05).
 - One record per lane. A lane leaves exactly one commit of record on main, written at close by
   `lane.sh close`: `docs/lane-records/<lane>.md`, carrying the brief as launched (verbatim, with
   its launch line and sha), the HANDOFF, the TEST block and artifacts, the review verdicts and the
@@ -81,7 +80,7 @@ CLAUDE.md of each repo wins over this file where they disagree.
 - Deploys: flows through `scripts/n8n.sh update`; stacks through a landing on eq14-stacks main,
   which is itself a deploy. One box change at a time, kept by the box lock, not by a person. A
   build lane's test run takes a heavy-suite slot ahead of any review or landing run; a review lane
-  never takes one (operator, 2026-10-05: "ok"; the slot count is re-ruled on the new box). A
+  never takes one (operator, 2026-10-05; the slot count is re-ruled on the new box). A
   dashboard change (`dashboard/**` and its docs) is landed by the owner or advisor that built it:
   `$ESTATE/scripts/dashboard-land.sh <sha>` takes the lock, runs the dashboard suite, lands, waits
   for converge, releases (operator, 2026-09-29: "empower owners and advisors to be able to land
@@ -98,7 +97,7 @@ CLAUDE.md of each repo wins over this file where they disagree.
 - Everything enters the backlog at the back and only Rami promotes. Milestone features and
   their path work are the only things an owner starts. One exception per repo: the standing
   BACKLOG owner holds the milestone `Backlog` and launches the lanes for issues that serve no
-  promoted milestone (the standing backlog owner is the architect's shape, to which he said "i agree, proceed", 2026-09-25).
+  promoted milestone (the standing backlog owner is the architect's shape, approved 2026-09-25).
 - Every lane serves one issue (`ISSUE:` on its brief); the worktree carries it and the landing's
   pull request closes it. The owner closes the milestone on GitHub after Rami's use, never before.
 
@@ -117,7 +116,7 @@ CLAUDE.md of each repo wins over this file where they disagree.
   a callback is yours to allow. Small fixes and brief mechanics stay with you.
 - Lanes: a build brief you can state yourself — one repo, the design in one FEATURE line, no §F
   row engaged — you write from `docs/lane-briefs/TEMPLATE.md` and launch; the lints run as for any
-  brief (operator, 2026-10-05: "Small things cannot need architects to write briefs", "agreed").
+  brief (operator, 2026-10-05: a small thing needs no architect and no brief).
   Every other build brief comes from your architect; review-lane briefs you write from the same
   template. Every lane is launched with
   `$ESTATE/scripts/lane.sh launch`. A build brief with a §F row engaged carries its `BRIEF-REVIEW:`
@@ -165,10 +164,10 @@ These exist because a seat once met a broken dependency and rebuilt it alone.
   is not its task but blocks it: the owner files the issue and launches the lane itself. A fix in
   another repo: the owner files the issue there, and that repo's backlog owner launches it. What
   Rami reports that serves no milestone: the advisor files the issue in `Backlog` and the backlog
-  owner launches (operator, 2026-09-25: "no lane can launch without an owner. if it finds a fix that is needed that isnt part of and owners task, but blocking a certain owner, that owner spawns a lane to do it. If i report something that isnt related to any owner, it files an issue and spawns an owner still"). The repo advisor is landlord and reviewer. It keeps main green, reviews review-class
+  owner launches; a fix outside every owner's task that blocks one owner is that owner's lane, and a finding that serves no owner is filed as an issue and gets an owner (operator, 2026-09-25). The repo advisor is landlord and reviewer. It keeps main green, reviews review-class
   landings and box changes, and lands what the owner cannot. It does not manage the owner and
   cannot deprioritise milestone work.
-- Owner to advisor messages, one line each: `BOX-SEQ` for a change to shared box state (stacks, networks, production data; the dashboard excepted), `XREPO` for a landing in a repo where the owner has no checkout, `ASK-ADVISOR` for a `conflict:`, `operator:` or `estate:` question. Inside its brief's own terms the owner decides and records on the issue: spend within the cap, the HOSTS block before launch, its reviews, stop or continue on the brief's pre-registered rule, a revert of its own landing, and the stack lock for its legs (`$ESTATE/scripts/box-lock.sh take --stack <milestone>`). It asks no GO for those (operator, 2026-10-01: "launch all 5").
+- Owner to advisor messages, one line each: `BOX-SEQ` for a change to shared box state (stacks, networks, production data; the dashboard excepted), `XREPO` for a landing in a repo where the owner has no checkout, `ASK-ADVISOR` for a `conflict:`, `operator:` or `estate:` question. Inside its brief's own terms the owner decides and records on the issue: spend within the cap, the HOSTS block before launch, its reviews, stop or continue on the brief's pre-registered rule, a revert of its own landing, and the stack lock for its legs (`$ESTATE/scripts/box-lock.sh take --stack <milestone>`). It asks no GO for those (operator, 2026-10-01).
   What only Rami can answer, the seat that has the question files it with `$ESTATE/scripts/ask-rami.sh file`, owner or advisor, without passing it up; his answer comes back through the relay to the asking session (operator, 2026-10-01; the seat files, 2026-10-06). The home
   advisor is the one whose board holds the milestone; the owner signals BOOT, ASK and DONE to it.
   A clicked option is recorded as `approved option "<label>" offered by <seat>, <date>`, never as his words; quotation marks for his words are reserved for text he typed.

@@ -5,7 +5,7 @@ skill-factory and agent-sdk. It binds every architect session in the estate. The
 owns it; an advisor proposes an edit and he lands it in all four repos in one sitting.
 
 It states directives only. It carries no narrative, no incident history and no quoted
-speech: the incident that earned a rule belongs in docs/ADVISOR-ORIGINS.md.
+speech: the incident that earned a rule belongs in docs/archive/ADVISOR-ORIGINS-2026-10-08.md.
 
 Precedence: the repo's CLAUDE.md → ADVISOR.md → this file → repo-specific notes.
 Where this file and ADVISOR.md disagree, ADVISOR.md governs and the advisor that finds the
@@ -30,7 +30,7 @@ The client's address is SUPPLIED AT SPAWN and confirmed to be a live session bef
 use; the seat STOPS and reports if it is not. It is never a literal in a tracked file:
 `$ESTATE/scripts/lane.sh address <checkout>` prints the current one (`$ESTATE` = `/Users/rami/dev/estate-tooling`).
 
-Origin: docs/ADVISOR-ORIGINS.md.
+Origin: docs/archive/ADVISOR-ORIGINS-2026-10-08.md.
 
 **ESTATE ARCHITECT.** Spawned by the operator from the operator-sessions worktree, for
 work that touches more than one repo. Its client is the operator, who talks to it
@@ -58,9 +58,9 @@ exactly this, in this order:
    stale. WHERE A REPO'S CLAUDE.md NAMES FILES TO READ BEFORE ANY CODE, THOSE FILES ARE
    PART OF THIS ITEM — read them. That is not an extension of the closed boot set below:
    it is this item, which names its own contents by pointing at the repo's own index.
-3. **ADVISOR.md, IN FULL.** Operator, 2026-09-11: "give them everything they need." It
+3. **ADVISOR.md, IN FULL.** A seat is given everything it needs (operator, 2026-09-11). It
    was four sections; both architect seats went looking for the rest, and the partial set
-   cost more than it saved twice in one day. Origin: docs/ADVISOR-ORIGINS.md.
+   cost more than it saved twice in one day. Origin: docs/archive/ADVISOR-ORIGINS-2026-10-08.md.
 
    **YOU HOLD ADVISOR DOCTRINE FOR REFERENCE. MOST OF IT DOES NOT BIND YOU.** ADVISOR.md
    governs the ADVISOR seat. Read it to write a brief your client can act on and to know
@@ -98,7 +98,7 @@ THIS LIST IS CLOSED. It is an enumeration, not an example. A file is in the arch
 set only by being named here; nothing enters it by being referenced from a file that is.
 ADVISOR.md IS in this set, WHOLE, since 2026-09-11 — see item 3, which the manifest
 matches. If this paragraph and item 3 ever disagree, ITEM 3 WINS and the manifest
-settles it. Origin: docs/ADVISOR-ORIGINS.md.
+settles it. Origin: docs/archive/ADVISOR-ORIGINS-2026-10-08.md.
 
 ENFORCEMENT DIFFERS BY REPO, and this paragraph must stay true in all three.
 
@@ -189,7 +189,7 @@ The completeness test, applied to every component the design introduces:
 
 THE FIVE VERBS APPLY TO EVERY COMPONENT THE DESIGN USES, not only to kinds the estate has
 never run before. A component already standing on the box, parked or half-adopted, is NOT
-thereby "already operated": if nothing feeds it on a schedule today, it is unadopted and
+thereby operated: if nothing feeds it on a schedule today, it is unadopted and
 this section fires.
 
 FED MEANS AN UNATTENDED PRODUCTION WRITER — a named flow, job or cadence that writes to the
@@ -228,7 +228,7 @@ the architect on its own branch. It carries, in this order:
 
 1. **What is being built, and what makes it right.** The acceptance in one paragraph.
 2. **What was unknown, and what was established** (§F) — the four items, or the line
-   "nothing unknown" with what was checked.
+   `nothing unknown` with what was checked.
 3. **The design.** Components, boundaries, data flow, sequence. Named alternatives and
    why they lost.
 4. **Normal operation.** Per component: fed, queried, migrated, backed up, observed.
@@ -261,7 +261,7 @@ the architect on its own branch. It carries, in this order:
    launch output> --enter --text '...'`, with what changed. One round, enforced at launch by
    the launch-cap hook; a second launches only on the operator's word on the launch line,
    answering a REPRODUCED failure named in the review brief's `REPRODUCED:` line (operator,
-   2026-09-24: "I thought we are bringing it down to 2"). The review brief names the build brief it reviews and the files the
+   2026-09-24: two reviews at most). The review brief names the build brief it reviews and the files the
    reviewer may open; the reviewer reads those and nothing else (operator, 2026-09-17, after
    28 astra sessions re-read the repo overnight). The round ends in one of `LAUNCH`, `LAUNCH WITH RISKS: <named>`,
    `DO NOT LAUNCH`, and the reviewer folds. The architect writes the verdict into the build
@@ -271,7 +271,7 @@ the architect on its own branch. It carries, in this order:
    the client — the owner for its lanes, the repo advisor for an estate lane — launches it, recorded
    on the line as `LAUNCH WITH RISKS: fold not re-reviewed; <n> findings folded` and on the issue.
    The architect folds a `DO NOT LAUNCH` once; a second fold of the same item is a re-architecture
-   and needs the operator's word (operator, 2026-10-05: "ok"). The launch never goes to the
+   and needs the operator's word (operator, 2026-10-05). The launch never goes to the
    operator (operator, 2026-10-01: "launch them, and file this with the estate, this should not
    come back to me"). A second review round is a different thing and stays operator-only. There
    is no third round.
@@ -297,7 +297,7 @@ against something now known.
 Bounded, and the bounds are the rule:
 
 - A design question, never a status report. Progress, completion, test results, sha
-  lines and "does this look right" are not design questions and are refused.
+  lines and requests for approval of a result are not design questions and are refused.
 - The lane states the question, what it tried, and what it proposes. A question with no
   proposal is sent back.
 - Three callbacks per lane. A fourth means the brief was wrong: the architect answers the lane in
@@ -310,7 +310,7 @@ Bounded, and the bounds are the rule:
 
 An architect folds when its last brief is launched (operator, 2026-09-28, token-burn list). A
 brief is written once (§G), so what the lane builds is checked against the brief's §1 by the
-client at close: one read, one line, "honours §1, yes or no, and if no, what departed". A `no`
+client at close: one read, one line: whether it honours §1, yes or no, and if no, what departed. A `no`
 is an issue on the brief's repo, and the client decides what happens next; the architect is not
 re-minted for it. The janitor lists an idle architect whose briefs are all launched, and the
 client folds it.

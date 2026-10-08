@@ -46,15 +46,15 @@ next; a hold covers an item, never the session. **An advisor launches owners, ar
 lanes, and no build lane: every build lane launches from an owner's worktree.** **No lane launches without an owner.** Each product repo has one standing BACKLOG owner holding
 the milestone `Backlog`: what the operator reports that serves no promoted milestone, the advisor
 files as an issue there and the backlog owner launches it; a fix that blocks an owner in ANOTHER
-repo is filed in that repo and launched by its backlog owner (operator, 2026-09-25: "no lane can launch without an owner. if it finds a fix that is needed that isnt part of and owners task, but blocking a certain owner, that owner spawns a lane to do it. If i report something that isnt related to any owner, it files an issue and spawns an owner still"; the standing backlog owner is the architect's shape, to which he said "i agree, proceed", 2026-09-25). The estate-tooling
-advisor alone builds and lands the tooling the estate architect briefs (operator, 2026-09-24: "the change you wanna do to make the owners work better is approved. check if modifications are needed for the boot files too", to the architect's proposal of that day). The advisor owns its repo; the box lock
+repo is filed in that repo and launched by its backlog owner (operator, 2026-09-25: no lane launches without an owner; a fix outside every owner's task that blocks one owner is that owner's lane; a finding that serves no owner is filed and gets an owner; the standing backlog owner is the architect's shape, approved 2026-09-25). The estate-tooling
+advisor alone builds and lands the tooling the estate architect briefs (operator, 2026-09-24, approving the architect's proposal of that day, boot files included). The advisor owns its repo; the box lock
 (`$ESTATE/scripts/box-lock.sh`) keeps one box change at a time, and a question for the operator is a
 GitHub issue assigned to him (`$ESTATE/scripts/ask-rami.sh`). eq14-stacks is the box: the lock, not a seat, serialises it. The seat that holds a
 reviewed box item — an owner or an advisor, its brief carrying its box `BRIEF-REVIEW:` verdict — takes
 the lock, lands its change and its BOX-SEQ, and releases; the eq14-stacks advisor owns the box repo,
 lands that repo's own work, clears stale locks, and is no longer the funnel for other repos' box
-changes (operator, 2026-09-24, "agreed on the box", to this proposal in the architect's words; it
-supersedes "no other advisor lands there", 2026-09-17). estate-tooling's advisor lands the tooling and runs
+changes (operator, 2026-09-24, on the architect's proposal; it
+supersedes the 2026-09-17 rule that no other advisor lands there). estate-tooling's advisor lands the tooling and runs
 the doctrine sittings; the estate architect designs and never lands (operator, 2026-09-17). Advisors
 talk to each other by XREPO and to the operator through issues assigned to him. An operator decision given in an advisor's terminal becomes an issue or a
 CLAUDE.md line that turn. An ask only he can answer: the seat that has the question files it with
@@ -77,22 +77,21 @@ The seat that holds an item, owner or advisor, is the client of any architect it
 architect writes the design and every build brief of an architected item, and the client writes
 none for it (operator, 2026-09-15). A build brief the client can state itself — one repo, one
 FEATURE line, no §F row engaged — it writes and launches without an architect (operator,
-2026-10-05: "Small things cannot need architects to write briefs", "agreed"). A build brief whose
+2026-10-05: a small thing needs no architect and no brief). A build brief whose
 HOSTS write to the box or name an external system
 — Postgres other than read-only, HubSpot, Gmail, Telegram; the one list the lint fences on — carries
 a `BRIEF-REVIEW:` verdict line from ONE round of the architect's GPT-6 review (ARCHITECT.md §G)
 before the client, owner or advisor, launches it; no line, no launch (operator, 2026-09-16,
 overruling the rule freeze for this rule). A review at `DO NOT LAUNCH` whose findings the architect
 has folded is launched with the risks named, recorded on the BRIEF-REVIEW line and the issue; it
-is never put to the operator as a choice (operator, 2026-10-01: "this should not come back to me");
+is never put to the operator as a choice (operator, 2026-10-01);
 only a SECOND ROUND, or a second fold of the same item, needs his word (§F; operator, 2026-10-05:
-"ok"). A deploy plan is never reviewed. A brief review sees commands against targets and nothing
+2026-10-05). A deploy plan is never reviewed. A brief review sees commands against targets and nothing
 else, so a §F item with no host — customer data off-box in text — takes its one review on the BUILT
 thing instead. Every other build brief takes no brief review (operator, 2026-09-24: "cut all those.
 two reviews like you mentioned").
 
-**A small fix takes no architect and no brief** (operator, 2026-09-27, in the estate architect's
-terminal: "ok i agree, do that fix"). A fix is small when all four hold: one repo, and no doctrine
+**A small fix takes no architect and no brief** (operator, 2026-09-27). A fix is small when all four hold: one repo, and no doctrine
 file; one `git revert` undoes it with no data loss; the issue carries a measured red, the command
 and its output; and the issue leaves one reading only, no design question. The seat that holds
 the repo builds it from the issue in a worktree — the tooling advisor in estate-tooling, the
@@ -121,19 +120,14 @@ Always the explicit model id, never an alias; read the banner before the first p
 **Builder spread (operator, 2026-09-19; ladder 2026-10-01).** The estate builds with Opus 5.5,
 Codex, Grok and Muse by the ladder above: Opus 5.5 for the hardest work, Codex for hard work, Grok
 or Muse for the rest, and the TIER line says in one line why the work sits on its rung. Mechanical
-and simple lanes go to grok or muse first. His words, verbatim (2026-10-01): "hardest work, opus 5.5
-(effort level can be varied but not above xhigh, xhigh for really complex stuff) hard work work codex
-(move to 6.1 sol med, high, or xhigh), the rest the rules stay the same for grok and muse, but effort
-level rules i put for grok need to be matched"; and earlier: "I'm seeing a lot of focus on the owners just
-using Codex to build all their lanes, even the relatively simpler ones, even though, on
-scoring benchmarks, Muse is higher than Grok and even scores very closely to gpt"
-(2026-09-19); "Dont just use codex for building, you can use muse and grok as well"
-(2026-09-18). Standing per-use approvals unchanged: codex-xhigh and codex6-xhigh (astra)
+and simple lanes go to grok or muse first. Opus 5.5 effort varies and never exceeds xhigh, which is
+for the most complex work only; Codex takes 6.1 at medium, high or xhigh; Grok and Muse keep their
+effort rules; Codex is not the default builder for simple lanes, since Muse scores above Grok and
+close to Codex on the benchmarks (operator, 2026-09-18, 2026-09-19, 2026-10-01). Standing per-use approvals unchanged: codex-xhigh and codex6-xhigh (astra)
 still need his word per use; codex-medium and codex-high are released.
 
 **Amendments (operator, 2026-10-04).** An amendment is tiered on its own size; the lane's tier is a
-ceiling, not a default. His words: "opus 5.5 on XHIGH for such a tiny thing, seriously?" (2026-10-01)
-and "go for it" (2026-10-04) on this line.
+ceiling, not a default: a tiny amendment never runs at xhigh (operator, 2026-10-01; 2026-10-04).
 
 **Browser runs (operator, 2026-09-19, exclusive).** Muse is the ONLY family that holds a
 browser in a build lane. His words, verbatim: "Muse is to be used for browser runs. No
@@ -161,10 +155,8 @@ the reviewed sha; a finding outside its files becomes an issue (operator, 2026-1
 lander can reproduce a failure, it sends the command and its output to the build lane as one line. Nobody asks the operator for a second review or
 launches one. Anything not on that list is built, tested and shown, with no review: the lane runs
 the tests, the owner lands on green, no final review lane, no deploy plan (operator,
-2026-09-24: "cut all those. two reviews like you mentioned please"; 2026-10-01, on an advisor
-reading every diff of an owner's held landing: "i thought we stopped advisors from landing things,
-and we gave that to owners to speed things up"; the paragraph rewritten on his word "do the fix";
-2026-10-05: "ok"). A build lane's test run takes a heavy-suite slot ahead of any review or landing
+2026-09-24: two reviews at most, nothing else; 2026-10-01: advisors do not land what owners can
+land, and do not read an owner's held diffs; 2026-10-05). A build lane's test run takes a heavy-suite slot ahead of any review or landing
 run; a review lane never takes one. One record per lane: a lane leaves exactly one commit of record
 on main, written at close by `lane.sh close` (`docs/lane-records/<lane>.md`: the brief as launched
 with its launch line and sha, the HANDOFF, the TEST block and artifacts, the review verdicts, the
@@ -182,7 +174,7 @@ writes only inside a named directory or compose project, records every command w
 and output, and restores to the recorded digest — may be run live under a one-paragraph brief the
 OWNER writes: what changes, and how you will know it worked. No RED legs, no gate, no HANDOFF; the
 run's own record is the deliverable. The REQUIRED list above is not narrowed by it. (Operator,
-2026-09-24: "run it live, no more briefs".)
+2026-09-24: a run is run live, with no brief.)
 
 ## §G. Acceptance
 
@@ -199,7 +191,7 @@ L2 Source design from an architect seat for a feature, new surface or redesign, 
 L3 A subagent is for a MICROTASK and never writes to the repo; all else is a visible Orca session.
 L4 A launched lane is watched by the wake and the digest, not by its advisor: no BACKSTOP tail, no
 `orca terminal wait` on the lane, no monitor of any kind after `lane.sh launch` returns (operator,
-2026-09-28, "approved everything, except the autocompact", to the token-burn list). The lane's
+2026-09-28, the token-burn list approved except its autocompact item). The lane's
 DONE, ASK and STOP signals reach the advisor's terminal; a quiet lane appears in the digest
 (#113).
 L5 Re-read a waiting lane at most once per 20 minutes; only a wake or your own send's read-back is exempt.
