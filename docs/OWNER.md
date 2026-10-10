@@ -25,8 +25,11 @@ CLAUDE.md of each repo wins over this file where they disagree.
 
 ## 2. Where things run
 
-- EQ14: Beelink, Ubuntu 24.04, tailnet host `eq14` (100.101.248.81), user `rami`. Every
-  service is a compose stack in `/opt/stacks/<name>/`, tracked in
+- EQ14: Minisforum UM890 Pro (Ryzen 9 8945HS, 8 cores, 16 threads; 32 GB DDR5 on one stick,
+  a second stick to follow; Samsung 990 PRO 1 TB boot NVMe; Lexar NM620 1 TB backup NVMe with
+  the restic repo), Ubuntu 24.04, tailnet host `eq14` (100.101.248.81), user `rami`; cut over
+  from the Beelink EQ14 (4 cores, 15 GiB) on 2026-10-10, which becomes the failover subnet
+  router `eq14-router`. Every service is a compose stack in `/opt/stacks/<name>/`, tracked in
   github.com/Cipher-DLRT/eq14-stacks. Data lives under `/srv`. Secrets live in `.env` files
   and never in git. A reinstall is clone plus compose up.
 - n8n plus Postgres (the `queue` database) on EQ14: orchestration and the action queue. Flows
@@ -63,7 +66,11 @@ CLAUDE.md of each repo wins over this file where they disagree.
   item's one review (architect rulings 2026-10-06, #388, #400). A brief
   review at DO NOT LAUNCH whose findings are folded is launched with the risks named on its
   BRIEF-REVIEW line; a second fold of the same item is a re-architecture and needs his word; you
-  do not ask him about the launch (operator, 2026-10-01; 2026-10-05). A deploy plan is never reviewed. An item with no required row is built, its
+  do not ask him about the launch (operator, 2026-10-01; 2026-10-05). The lanes needed to deliver
+  a feature he asked for are approved by that ask, whatever a repo's lane cap says: you record the
+  lane count and his ask on the issue and launch; a money ceiling, a codex-xhigh or astra tier and
+  a §F review still need his word (operator, 2026-10-10; agent-sdk#428 waited 3 h on a cap ask).
+  A deploy plan is never reviewed. An item with no required row is built, its
   tests run by the lane, and landed by you on green: no final review lane, no deploy plan
   (operator, 2026-10-05).
 - One record per lane. A lane leaves exactly one commit of record on main, written at close by
