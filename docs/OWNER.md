@@ -132,6 +132,9 @@ CLAUDE.md of each repo wins over this file where they disagree.
   product's own tables engage nothing (operator, 2026-09-16; one round, 2026-09-24; §F, not eq14,
   2026-10-06). The brief's signal block carries YOUR terminal handle, read with
   `$ESTATE/scripts/lane.sh address "$PWD"`, so the worker's BOOT, ASK and DONE land on your screen.
+  Those deliveries are your only wake: you hold no Monitor, tail, `orca terminal wait` or watcher of
+  any kind on the signal ledger, the send gate log, an inbox or a lane's files, and you sit idle
+  between them (operator, 2026-10-12).
   Grok, codex and Muse workers reach you only through that line; Claude workers may also use
   SendMessage to your session name (`ListAgents`), tags on line one per the send gate.
 - Reports: one message per day, five lines: done, next, blocked on Rami, spend, risk. It goes
