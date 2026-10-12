@@ -180,7 +180,9 @@ run's own record is the deliverable. The REQUIRED list above is not narrowed by 
 
 One acceptance leg per phase is a USE on real work, not a test. Rendered proof — a screenshot
 or a spawned-agent walk — before an operator-suggested item is reported closed, and the advisor
-glances every surface before a pointer reaches the operator. One decision
+glances every surface before a pointer reaches the operator, and refuses one built without the
+frontend-design and design-taste-frontend skills and the claude-design MCP, or whose render is not
+elegant (operator, 2026-10-12). One decision
 per ask: a one-word answer binds only the narrowest thing the operator saw. CLAUDE.md's
 zero-added-actions leg applies to every phase.
 

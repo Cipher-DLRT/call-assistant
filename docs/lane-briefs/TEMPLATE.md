@@ -59,6 +59,7 @@ paste PASS and commit `docs/rehearsals/<flow>-<blob>.txt`; HOSTS names the box r
 A deploy leg uses origin/main and proves its code diff from the fix-pass tip (the reviewed sha when there was no fix pass) is empty, excluding docs/ and STATUS; a fix pass touches only the files the review read.
 A digest pin cites the source line. A log wait uses a literal read from a real log line.
 For a design loop, read docs/design/CONTEXT-PACK.md first; name the estate palette and score the pinned verdicts.
+For a user surface, load the frontend-design and design-taste-frontend skills and the claude-design MCP before the first render; a render that is not elegant is refused at close.
 For a review, freeze the artifact, name the reading fence and word cap, and supply the dry-run results.
 For a walk, compare the prior render; name every permitted write and its REVERSAL with before/after proofs.
 An unlisted walk write is an incident: reverse and verify it before attest.
