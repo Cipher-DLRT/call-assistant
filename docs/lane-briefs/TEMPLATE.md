@@ -15,6 +15,9 @@ REVIEWS: <path of the brief or artifact reviewed> — review briefs only.
 REPRODUCED: <record of the command and output> — repeat review briefs only.
 FILES: <path> [<path>...] — the reviewer's reading fence, besides the build brief.
 
+## Facts
+- <fact the owner already gathered> — <source: path:line, sha, #<n> or measured <date>>; one line per fact, the lint checks it; a lane re-checks a fact and never rediscovers it (#497).
+
 BOUNDARY: No writes outside this worktree.
 Commit only here with explicit paths, plus <any explicitly named sibling worktree>. **PUSH YOUR OWN LANE BRANCH, never main**, and name the pushed sha in DONE.
 
@@ -80,7 +83,7 @@ A leg that cannot run says `NOT EXERCISABLE — <reason>`.
 0. A file called new has `git ls-files <path>` empty at the base sha.
 1. Commits `<lane>:` with explicit paths; HANDOFF.md in the worktree root carries the diff summary,
    before/after suite exit lines, required gate RESULT, and `Removed behaviour` (list or none).
-   HANDOFF.md carries a `TEST:` block with indented `COMMAND: <test command>`, `RED: exit <non-zero>` (fix only, before change), and `GREEN: exit 0` and, for a surface, `WALK: <walk close record or fresh screenshot under worktree>`; close refuses either missing block.
+   HANDOFF.md carries `TEST:` blocks pasted from `$ESTATE/scripts/lane-test.sh [--tag RED-PARENT|GREEN-TIP|MUTATION-RED|CONTROL] <command>` (indented `COMMAND:`, `GREEN: exit 0` or `RED: exit <non-zero>`, and `ARTIFACT: <path> md5=<hex> bytes=<n>`; a hand-written block with no ARTIFACT line is refused at close) and, for a surface, `WALK: <walk close record or fresh screenshot under worktree>`; close refuses either missing block.
    COST line: `COST <lane>: model=<id> effort=<e> wall=<h:mm> rounds=<review rounds> spend≈$<usd or n/a (subscription)> saves≈<h/month or n/a>`.
    For a changed existing surface, cite the prior walk and compare before/after renders.
    For a spending lane, state what survives interruption without repeating completed spend.
