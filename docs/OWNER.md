@@ -121,12 +121,18 @@ CLAUDE.md of each repo wins over this file where they disagree.
   the design and every build brief of that item; you launch those briefs and write no build brief
   of your own for an architected item (operator ruling, 2026-09-15). It stays open for callbacks;
   a callback is yours to allow. Small fixes and brief mechanics stay with you.
+  An architect is for a feature the operator asked for that spans several issues with code
+  dependencies between them; an architect is never spawned for a single issue (operator, 2026-10-13).
 - Lanes: a build brief you can state yourself — one repo, the design in one FEATURE line, no §F
   row engaged — you write from `docs/lane-briefs/TEMPLATE.md` and launch; the lints run as for any
   brief (operator, 2026-10-05: a small thing needs no architect and no brief).
   Every other build brief comes from your architect; review-lane briefs you write from the same
   template. Every lane is launched with
-  `$ESTATE/scripts/lane.sh launch`. A build brief with a §F row engaged carries its `BRIEF-REVIEW:`
+  `$ESTATE/scripts/lane.sh launch`. One lane per issue at a time, of whichever family the
+  ladder's tier names; a review lane a §F row requires, or a landing walk the walk gate
+  requires, is not a second lane; a second build
+  lane on an issue waits for the first to close, and the launcher refuses it (operator, 2026-10-13).
+  A build brief with a §F row engaged carries its `BRIEF-REVIEW:`
   line from one round of a review lane you launch at the ladder's tier, any family; no line, no
   launch. A brief with nothing engaged launches without one; test runs on eq14 and writes to the
   product's own tables engage nothing (operator, 2026-09-16; one round, 2026-09-24; §F, not eq14,
