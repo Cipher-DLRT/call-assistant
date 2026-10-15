@@ -107,23 +107,23 @@ Always the explicit model id, never an alias; read the banner before the first p
 - Architect seat: `claude --model claude-fable-5-1 --effort high`, on demand, per ARCHITECT.md
   (operator, 2026-09-28, token-burn list); Opus 5 also architects.
 - Lanes: the tier ladder, built and launched by `$ESTATE/scripts/lane.sh launch` —
-  cheapest that fits, effort by complexity on every family (medium, high, xhigh): the hardest work → Opus 5.5 (`opus-medium`, `opus-high`; `opus-xhigh` for really complex work, never above); hard work → Codex on GPT-6.1 Sol (`codex-medium`, `codex-high`, `codex-xhigh`); the rest → Grok (`grok-medium`, `grok-high`, `grok-xhigh` for genuinely hard work; `grok-high` the default) or Muse (`muse-xhigh` on `muse-spark-1.3-contributor`, no other effort); `codex6-xhigh` (`gpt-6-astra`) for the brief review only, on his word per use; reviews cross-family from the builder (operator, 2026-10-01).
+  cheapest that fits, effort by complexity on every family (medium, high, xhigh): the hardest work → Opus 5.5 (`opus-medium`, `opus-high`; `opus-xhigh` for really complex work, never above); hard work → Codex on GPT-6.1 Sol (`codex-medium`, `codex-high`, `codex-xhigh`); the rest → Gemini 4 Argon on agy (`agy-medium`, `agy-high` the default; Grok retired 2026-10-18, no `grok-*` tier launches after it) or Muse (`muse-xhigh` on `muse-wonder-1.0`, no other effort); `codex6-xhigh` (`gpt-6-astra`) for the brief review only, on his word per use; reviews cross-family from the builder (operator, 2026-10-01).
 - Reviewer: a separate visible session, cross-family from the builder, read-only; its round cap
   is named before round one.
 - Fable runs only in architect seats and the judge and synthesizer legs; no other seat takes it.
 - Every spawn names its effort, since an unflagged one inherits the parent's; reviews default
   medium; high only for a brief on the OWNER §3 list (a box change, an external system), and xhigh
   says why (operator, 2026-09-28, token-burn list).
-- Walks: a spawned Muse session at `muse-xhigh` (`muse-spark-1.3-contributor`) on the Orca
-  per-worktree browser (operator, 2026-09-19; replaces Grok at HIGH).
+- Walks: a spawned Muse session at `muse-xhigh` (`muse-wonder-1.0`) on the Orca
+  per-worktree browser (operator, 2026-09-19).
 
 **Builder spread (operator, 2026-09-19; ladder 2026-10-01).** The estate builds with Opus 5.5,
-Codex, Grok and Muse by the ladder above: Opus 5.5 for the hardest work, Codex for hard work, Grok
+Codex, Gemini and Muse by the ladder above: Opus 5.5 for the hardest work, Codex for hard work, Gemini
 or Muse for the rest, and the TIER line says in one line why the work sits on its rung. Mechanical
-and simple lanes go to grok or muse first. Opus 5.5 effort varies and never exceeds xhigh, which is
-for the most complex work only; Codex takes 6.1 at medium, high or xhigh; Grok and Muse keep their
-effort rules; Codex is not the default builder for simple lanes, since Muse scores above Grok and
-close to Codex on the benchmarks (operator, 2026-09-18, 2026-09-19, 2026-10-01). Standing per-use approvals unchanged: codex-xhigh and codex6-xhigh (astra)
+and simple lanes go to agy or muse first. Opus 5.5 effort varies and never exceeds xhigh, which is
+for the most complex work only; Codex takes 6.1 at medium, high or xhigh; Gemini runs at high by default and Muse keeps its
+effort rule; Codex is not the default builder for simple lanes; Gemini 4 sits above the retired Grok
+(operator, 2026-10-13) and Muse scores close to Codex on the benchmarks (operator, 2026-09-18, 2026-09-19, 2026-10-01). Standing per-use approvals unchanged: codex-xhigh and codex6-xhigh (astra)
 still need his word per use; codex-medium and codex-high are released.
 
 **Amendments (operator, 2026-10-04).** An amendment is tiered on its own size; the lane's tier is a

@@ -112,7 +112,7 @@ CLAUDE.md of each repo wins over this file where they disagree.
 
 - Client: Rami. Deliverable: Rami used the feature once on real work.
 - Powers: open Orca worktrees in any repo the feature touches; spawn build and review lanes by
-  the ladder of ADVISOR.md §E — cheapest that fits, effort by complexity on every family (medium, high, xhigh): the hardest work → Opus 5.5 (`opus-medium`, `opus-high`; `opus-xhigh` for really complex work, never above); hard work → Codex on GPT-6.1 Sol (`codex-medium`, `codex-high`, `codex-xhigh`); the rest → Grok (`grok-medium`, `grok-high`, `grok-xhigh` for genuinely hard work; `grok-high` the default) or Muse (`muse-xhigh` on `muse-spark-1.3-contributor`, no other effort); `codex6-xhigh` (`gpt-6-astra`) for the brief review only, on his word per use; reviews cross-family from the builder (operator, 2026-10-01); Opus 5 or
+  the ladder of ADVISOR.md §E — cheapest that fits, effort by complexity on every family (medium, high, xhigh): the hardest work → Opus 5.5 (`opus-medium`, `opus-high`; `opus-xhigh` for really complex work, never above); hard work → Codex on GPT-6.1 Sol (`codex-medium`, `codex-high`, `codex-xhigh`); the rest → Gemini 4 Argon on agy (`agy-medium`, `agy-high` the default; Grok retired 2026-10-18, no `grok-*` tier launches after it) or Muse (`muse-xhigh` on `muse-wonder-1.0`, no other effort); `codex6-xhigh` (`gpt-6-astra`) for the brief review only, on his word per use; reviews cross-family from the builder (operator, 2026-10-01); Opus 5 or
   Fable 5.1 to architect;
   land its own branches and its briefs' STATUS flips after the repo's review law; a landing in a repo where it has no checkout is an `XREPO` request to that repo's advisor;
   deploy through the standing scripts.
@@ -141,7 +141,7 @@ CLAUDE.md of each repo wins over this file where they disagree.
   Those deliveries are your only wake: you hold no Monitor, tail, `orca terminal wait` or watcher of
   any kind on the signal ledger, the send gate log, an inbox or a lane's files, and you sit idle
   between them (operator, 2026-10-12).
-  Grok, codex and Muse workers reach you only through that line; Claude workers may also use
+  Gemini, codex and Muse workers reach you only through that line; Claude workers may also use
   SendMessage to your session name (`ListAgents`), tags on line one per the send gate.
 - Reports: one message per day, five lines: done, next, blocked on Rami, spend, risk. It goes
   to the advisor of every repo the feature touches, the same text to each, so no advisor relays
