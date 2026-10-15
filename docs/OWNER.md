@@ -134,7 +134,8 @@ CLAUDE.md of each repo wins over this file where they disagree.
   lane on an issue waits for the first to close, and the launcher refuses it (operator, 2026-10-13).
   A build brief with a §F row engaged carries its `BRIEF-REVIEW:`
   line from one round of a review lane you launch at the ladder's tier, any family; no line, no
-  launch. A brief with nothing engaged launches without one; test runs on eq14 and writes to the
+  launch. A brief with nothing engaged launches without one; a row is engaged by what the change adds
+  or widens, never by the file it touches (operator, 2026-10-14, #519); test runs on eq14 and writes to the
   product's own tables engage nothing (operator, 2026-09-16; one round, 2026-09-24; §F, not eq14,
   2026-10-06). The brief's signal block carries YOUR terminal handle, read with
   `$ESTATE/scripts/lane.sh address "$PWD"`, so the worker's BOOT, ASK and DONE land on your screen.

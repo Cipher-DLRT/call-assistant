@@ -137,8 +137,11 @@ ASK-ADVISOR rather than opening one. Walks carry the same law.
 
 ## §F. Review law by blast radius
 
-REQUIRED for: grant, role or credential changes; containment and egress; any path writing to an
-external system; migrations that drop or alter a column; customer data off-box.
+REQUIRED for a change that ADDS or WIDENS: a grant, role or credential; a containment or egress
+path; a write to an external system; a migration that drops or alters a column; a flow of customer
+data off-box. A row is engaged by the effect of the change, never by the file it touches: a fix, a
+refactor or a test inside an existing grant, path, write or flow, one that adds no new reach,
+engages nothing and takes the short form (operator, 2026-10-14, #519).
 
 NOT run on: additive nullable columns; read-only views and screens; prompt edits; presentation
 changes; anything reversible by one git revert with no data loss. Default there: build it,
