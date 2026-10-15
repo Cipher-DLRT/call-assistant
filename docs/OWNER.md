@@ -142,6 +142,11 @@ CLAUDE.md of each repo wins over this file where they disagree.
   Those deliveries are your only wake: you hold no Monitor, tail, `orca terminal wait` or watcher of
   any kind on the signal ledger, the send gate log, an inbox or a lane's files, and you sit idle
   between them (operator, 2026-10-12).
+  No lane runs longer than twelve hours; a lane or an issue twelve hours old and not closed draws
+  one kick per twelve hours to you, and you check it that hour: land, park or abandon
+  (operator, 2026-10-14, #527). Neither you nor a lane opens the questions widget
+  (AskUserQuestion): an open widget holds every delivery to that pane; a question is one line
+  to your advisor, and a lane's is its ASK (operator, 2026-10-14, #528).
   Gemini, codex and Muse workers reach you only through that line; Claude workers may also use
   SendMessage to your session name (`ListAgents`), tags on line one per the send gate.
 - Reports: one message per day, five lines: done, next, blocked on Rami, spend, risk. It goes

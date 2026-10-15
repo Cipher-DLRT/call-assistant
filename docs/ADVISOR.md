@@ -165,7 +165,7 @@ on main, written at close by `lane.sh close` (`docs/lane-records/<lane>.md`: the
 with its launch line and sha, the HANDOFF, the TEST block and artifacts, the review verdicts, the
 close line); until close the brief lives on the lane branch only and the launch ledger holds its
 blob sha; nothing about a lane reaches main before its close; an abandoned lane leaves the same
-record, marked ABANDONED; an owner's STATUS.md entry when an item lands rides that close commit
+record, marked ABANDONED; no lane runs longer than twelve hours, and `kick.sh` names a lane or an issue twelve hours old to its owner once per twelve hours (operator, 2026-10-14, #527); an owner's STATUS.md entry when an item lands rides that close commit
 (operator, 2026-10-05 and 2026-10-06, #399). An ITEM is the build brief and its re-cuts;
 `<item>-xreview` is its one external review (#388, #400). An advisor keeps no inbound log or diary:
 the send-gate log and the kick log are the record of what arrived (operator, 2026-10-06, on 168
