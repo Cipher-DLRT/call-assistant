@@ -20,7 +20,8 @@ universal.
 
 At every launch, resume and context compaction, before the next action: read this file, the
 repo CLAUDE.md, the repo's advisor notes and the top of STATUS.md; check the banner — model,
-effort, permission mode — and report the shas read, the banner and the open lane. A seat that
+effort, permission mode — and print the shas read, the banner and the open lane on your own
+screen, never in a send (#540). A seat that
 skipped this is NOT BOOTED. THE LIST IS CLOSED: only the repo CLAUDE.md extends it, and a file
 joins the set on the operator's word with the budget re-measured in that commit. STATUS.md opens
 with a RESURRECT block of at most 15 lines — role, live work, pending operator words, live
@@ -70,7 +71,7 @@ Every milestone Rami has promoted is held by one owner seat per `docs/OWNER.md`:
 board holds it launches the owner in a worktree named for the milestone, relaunches it when it
 folds, and is its landlord and reviewer; the advisor opens no build lane itself.
 
-An advisor's reply to an owner carries the facts asked for. A decision inside the owner's brief is returned as the owner's: 'yours to decide; record it on the issue'. A ruling is Rami's word, carried verbatim with its date; the advisor's own numbering (rb<n>) is for inbound items, not for decisions about an owner's item. The advisor issues no per-leg GO; the owner's own stack lock is the gate (operator, 2026-10-01).
+An advisor's reply to an owner carries the facts asked for. A decision inside the owner's brief is returned as the owner's: 'yours to decide; record it on the issue'. A ruling is recorded once, as a dated `docs/rulings.md` line or an issue comment, and is never typed to every owner; it reaches an owner as one NEEDS ACT line only when it changes that owner's live item (#540); the advisor's own numbering (rb<n>) is for inbound items, not for decisions about an owner's item. The advisor issues no per-leg GO; the owner's own stack lock is the gate (operator, 2026-10-01).
 A clicked option is recorded as `approved option "<label>" offered by <seat>, <date>`, never as his words; quotation marks for his words are reserved for text he typed.
 
 The seat that holds an item, owner or advisor, is the client of any architect it spawns (ARCHITECT.md); the
@@ -130,8 +131,7 @@ still need his word per use; codex-medium and codex-high are released.
 ceiling, not a default: a tiny amendment never runs at xhigh (operator, 2026-10-01; 2026-10-04).
 
 **Browser runs (operator, 2026-09-19, exclusive).** Muse is the ONLY family that holds a
-browser in a build lane. His words, verbatim: "Muse is to be used for browser runs. No
-other agent can be used for browser runs for building." A build brief whose lane opens a
+browser in a build lane; no other agent runs a browser for building. A build brief whose lane opens a
 browser is a Muse brief; a non-Muse lane that finds it needs a browser stops and
 ASK-ADVISOR rather than opening one. Walks carry the same law.
 
@@ -197,8 +197,9 @@ L3 A subagent is for a MICROTASK and never writes to the repo; all else is a vis
 L4 A launched lane is watched by the wake and the digest, not by its advisor: no BACKSTOP tail, no
 `orca terminal wait` on the lane, no monitor of any kind after `lane.sh launch` returns (operator,
 2026-09-28, the token-burn list approved except its autocompact item). The lane's
-DONE, ASK and STOP signals reach the advisor's terminal; a quiet lane appears in the digest
-(#113).
+DONE, ASK and STOP signals reach the seat that launched it, the owner for an owner's lane and the
+advisor for its own; an advisor re-relays no signal the lane already sent; a quiet lane appears in
+the digest (#113, #540).
 L5 Re-read a waiting lane at most once per 20 minutes; only a wake or your own send's read-back is exempt.
 L6 A completion message declares STARTING <item>, BLOCKED on <thing>, IDLE with <n> queued, or IDLE with none.
 L7 Claude-written code gets an adversarial worker pass before handoff; new machinery is smoked on tiny inputs.

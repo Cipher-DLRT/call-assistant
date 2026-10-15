@@ -3,7 +3,7 @@ FEATURE: <one or two sentences: what someone can do or see when this lands that 
 <!-- It describes the result, never the change list; it names no file the lane must open. -->
 
 <!-- Every build, review, walk, diag and apply brief in work-automation starts from this file
-     (ADVISOR.md Part II §35, formerly ADVISOR-ESTATE §35). The two header sentences below are copied VERBATIM; a brief without
+     (ADVISOR.md Part II §35, formerly ADVISOR-ESTATE §35). The two header sentences below are copied unchanged; a brief without
      them is returned before launch. Fill every <…>; delete nothing above the Legs/Do section. -->
 
 <!-- CORE BEGIN — byte-identical in all eight endpoints. Edit ONLY in estate-tooling, the original; an edit anywhere else is drift the identity checker will refuse. -->
@@ -91,8 +91,9 @@ A leg that cannot run says `NOT EXERCISABLE — <reason>`.
 2. `touch <worktree>/HANDOFF-READY`, then signal the advisor handle read at launch with
    `orca terminal send --terminal <advisor handle> --enter --text 'LANE-SIGNAL <lane> | DONE | <one line, pushed sha>'`.
 3. For a question unanswered by source, write ASK-ADVISOR in the worktree root and signal ASK.
-   Signal before every approval request, blocker, question or finish; never stop silently.
-   Accepted signal verbs: DONE, ASK, STOP, BLOCKED. No `$<digit>` in signal text; write arg 1 or field 2.
+   Signal DONE when finished, ASK when stopped on a question, STOP when stopped for good; no progress,
+   INFO or UPDATE signal; never stop silently (#540).
+   Accepted signal verbs: DONE, ASK, STOP. No `$<digit>` in signal text; write arg 1 or field 2.
 <!-- CORE END -->
 
 ## Waiting on a lane (walk coordinators especially — ADVISOR.md 48, 8 rule 2b/6)

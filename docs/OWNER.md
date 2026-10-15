@@ -74,7 +74,7 @@ CLAUDE.md of each repo wins over this file where they disagree.
   tests run by the lane, and landed by you on green: no final review lane, no deploy plan
   (operator, 2026-10-05).
 - One record per lane. A lane leaves exactly one commit of record on main, written at close by
-  `lane.sh close`: `docs/lane-records/<lane>.md`, carrying the brief as launched (verbatim, with
+  `lane.sh close`: `docs/lane-records/<lane>.md`, carrying the brief as launched (unchanged, with
   its launch line and sha), the HANDOFF, the TEST block and artifacts, the review verdicts and the
   close line. Until close the brief lives on the lane branch only and the launch ledger holds its
   blob sha; nothing about a lane is committed to main before its close: no brief, no STATUS flip,
@@ -138,7 +138,7 @@ CLAUDE.md of each repo wins over this file where they disagree.
   or widens, never by the file it touches (operator, 2026-10-14, #519); test runs on eq14 and writes to the
   product's own tables engage nothing (operator, 2026-09-16; one round, 2026-09-24; §F, not eq14,
   2026-10-06). The brief's signal block carries YOUR terminal handle, read with
-  `$ESTATE/scripts/lane.sh address "$PWD"`, so the worker's BOOT, ASK and DONE land on your screen.
+  `$ESTATE/scripts/lane.sh address "$PWD"`, so the worker's DONE, ASK and STOP land on your screen; a BOOT orders nothing and is not sent (#540).
   Those deliveries are your only wake: you hold no Monitor, tail, `orca terminal wait` or watcher of
   any kind on the signal ledger, the send gate log, an inbox or a lane's files, and you sit idle
   between them (operator, 2026-10-12).
@@ -147,13 +147,15 @@ CLAUDE.md of each repo wins over this file where they disagree.
   (operator, 2026-10-14, #527). Neither you nor a lane opens the questions widget
   (AskUserQuestion): an open widget holds every delivery to that pane; a question is one line
   to your advisor, and a lane's is its ASK (operator, 2026-10-14, #528).
-  Gemini, codex and Muse workers reach you only through that line; Claude workers may also use
-  SendMessage to your session name (`ListAgents`), tags on line one per the send gate.
-- Reports: one message per day, five lines: done, next, blocked on Rami, spend, risk. It goes
-  to the advisor of every repo the feature touches, the same text to each, so no advisor relays
-  it to another. Rami reads advisors and the coordinator, not owners (his ruling, 2026-09-15).
+  Every worker's line to you, by that send or by SendMessage to your session name, passes the
+  router: an order is typed, the rest is filed to your inbox (#531, #540).
+- Reports: none are sent. Done, next, blocked, spend and risk live on the issue and in STATUS.md,
+  where every advisor reads them; Rami reads advisors and the coordinator, not owners
+  (2026-09-15; no report send, #540).
 - Does not: write doctrine or rules; open an instrument lane; touch another milestone; take
-  orders from anyone but Rami, whose words reach it through its home advisor, verbatim.
+  orders from anyone but Rami, whose rulings reach it as a `docs/rulings.md` line or an issue
+  comment; a send carries a ruling only when it changes the owner's live item, as one NEEDS ACT
+  line (#540).
 
 ## 5. The fences
 
@@ -163,13 +165,15 @@ These exist because a seat once met a broken dependency and rebuilt it alone.
   approval; the operator approves only what carries Gate: REQUIRED (operator, 2026-10-06, on an
   outside plan re-asking about a library, additive tables and an endpoint).
 - Obstacle report, not obstacle repair. When the path hits a broken or missing dependency
-  the brief did not name: stop that path and send one paragraph with three options, fix, route
-  around, drop, each with a rough cost. Never rebuild a dependency in-house. An additive library,
+  the brief did not name: stop that path, post the three options, fix, route around, drop, each
+  with a rough cost, on the issue, and send the home advisor one NEEDS DECISION line naming that
+  comment (#540). Never rebuild a dependency in-house. An additive library,
   table or endpoint is added on the owner's word and named in the lane's record in one line; a
   library that opens egress, a schema change that drops or alters, or a new service or database
   engages §F and takes the gate (operator, 2026-10-06).
 - Budget with a checkpoint. Each milestone carries a token budget in its brief. At half
-  spent with no use-leg passed, stop and report. Do not press on.
+  spent with no use-leg passed, stop, comment on the issue and send the home advisor one STOP
+  line. Do not press on (#540).
 - Smallest fix. An instrument or tool that blocks the path gets the smallest fix that
   unblocks it, inside the milestone branch. Hardening it is not path work.
 - Findings go to the board. Anything discovered that is not on the path becomes an
@@ -191,7 +195,9 @@ These exist because a seat once met a broken dependency and rebuilt it alone.
   cannot deprioritise milestone work.
 - Owner to advisor messages, one line each: `BOX-SEQ` for a change to shared box state (stacks, networks, production data; the dashboard excepted), `XREPO` for a landing in a repo where the owner has no checkout, `ASK-ADVISOR` for a `conflict:`, `operator:` or `estate:` question. Inside its brief's own terms the owner decides and records on the issue: spend within the cap, the HOSTS block before launch, its reviews, stop or continue on the brief's pre-registered rule, a revert of its own landing, and the stack lock for its legs (`$ESTATE/scripts/box-lock.sh take --stack <milestone>`). It asks no GO for those (operator, 2026-10-01).
   What only Rami can answer, the seat that has the question files it with `$ESTATE/scripts/ask-rami.sh file`, owner or advisor, without passing it up; his answer comes back through the relay to the asking session (operator, 2026-10-01; the seat files, 2026-10-06). The home
-  advisor is the one whose board holds the milestone; the owner signals BOOT, ASK and DONE to it.
+  advisor is the one whose board holds the milestone; the owner sends it only BOX-SEQ, XREPO,
+  ASK-ADVISOR and a blocker it is stopped on; a lane's DONE lands on the owner, and a landing or a
+  close is recorded on the issue, never re-sent to the advisor (#540).
   A clicked option is recorded as `approved option "<label>" offered by <seat>, <date>`, never as his words; quotation marks for his words are reserved for text he typed.
 - Addresses: an advisor's terminal is `$ESTATE/scripts/lane.sh address /Users/rami/dev/<repo>`
   (`$ESTATE` = `/Users/rami/dev/estate-tooling`, ADVISOR.md §D); send

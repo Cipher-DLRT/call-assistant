@@ -243,10 +243,9 @@ the architect on its own branch. It carries, in this order:
 10. **Cost trade-offs, each an ask.** Every place the design chose the cheaper option over the
    more capable one — model, effort, frequency, scope, retention, what is computed rather than
    stored — is listed with the function it gives up. Function is the default. A cost cut binds
-   only when the operator approved it: the list goes to him through the client's advisor as one
-   ASK-OPERATOR before the brief is final, and a brief that bakes in an unapproved cut is
-   returned. Operator, 2026-09-16, verbatim: "designs seem to emphasize cost saving at the
-   expense of function. I should be told about cost cutting measures and I need to approve them."
+   only when the operator approved it: the client files the list with `$ESTATE/scripts/ask-rami.sh file`
+   before the brief is final, and a brief that bakes in an unapproved cut is returned (operator,
+   2026-09-16: cost cuts are told to him and approved by him; #540).
    A build brief whose HOSTS write to the box or name an external system (ADVISOR.md §D's
    list, the one the lint fences on) is read by a reviewer before the client sees it (operator,
    2026-09-16, overruling the rule freeze for this rule; one round, operator, 2026-09-24): a
@@ -257,8 +256,8 @@ the architect on its own branch. It carries, in this order:
    (`$ESTATE/scripts/lane.sh address "$PWD"`) in its signal block. The reviewer checks every command
    against the target it runs on and reports on the architect's screen as
    `LANE-SIGNAL <lane>-briefreview | ROUND <n> | <findings>`; the architect amends the brief
-   and answers on the reviewer's terminal, `orca terminal send --terminal <handle from the
-   launch output> --enter --text '...'`, with what changed. One round, enforced at launch by
+   and records what changed on the issue; nothing is sent to the reviewer, which folds after its
+   round (#540). One round, enforced at launch by
    the launch-cap hook; a second launches only on the operator's word on the launch line,
    answering a REPRODUCED failure named in the review brief's `REPRODUCED:` line (operator,
    2026-09-24: two reviews at most). The review brief names the build brief it reviews and the files the
@@ -279,9 +278,8 @@ the architect on its own branch. It carries, in this order:
 The brief is the complete starting state for the lane (ADVISOR §35, §40). A lane that
 must ask what to build has been handed an incomplete brief.
 
-**Written once** (operator, 2026-09-27, in the estate architect's terminal, verbatim: "ok i
-agree, do that fix, and check to make sure it works so we dont repeat the update fix issue
-again", to the architect's three changes). A build brief is not edited after its launch commit;
+**Written once** (operator, 2026-09-27: a fix is made once and checked so the update-fix fault
+does not repeat). A build brief is not edited after its launch commit;
 the pre-commit refuses an edit to a launched brief other than its `STATUS:` line. A correction
 reaches the lane as one line on its terminal from the seat that found the fault, and the close
 record carries what was built. Before a brief names a source a predicate reads — a file, a
@@ -310,7 +308,7 @@ Bounded, and the bounds are the rule:
 
 An architect folds when its last brief is launched (operator, 2026-09-28, token-burn list). A
 brief is written once (§G), so what the lane builds is checked against the brief's §1 by the
-client at close: one read, one line: whether it honours §1, yes or no, and if no, what departed. A `no`
+client at close: one read, one comment on the issue: whether it honours §1, yes or no, and if no, what departed (#540). A `no`
 is an issue on the brief's repo, and the client decides what happens next; the architect is not
 re-minted for it. The janitor lists an idle architect whose briefs are all launched, and the
 client folds it.
