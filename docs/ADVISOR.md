@@ -124,8 +124,8 @@ or Muse for the rest, and the TIER line says in one line why the work sits on it
 and simple lanes go to agy or muse first. Opus 5.5 effort varies and never exceeds xhigh, which is
 for the most complex work only; Codex takes 6.1 at medium, high or xhigh; Gemini runs at high by default and Muse keeps its
 effort rule; Codex is not the default builder for simple lanes; Gemini 4 sits above the retired Grok
-(operator, 2026-10-13) and Muse scores close to Codex on the benchmarks (operator, 2026-09-18, 2026-09-19, 2026-10-01). Standing per-use approvals unchanged: codex-xhigh and codex6-xhigh (astra)
-still need his word per use; codex-medium and codex-high are released.
+(operator, 2026-10-13) and Muse scores close to Codex on the benchmarks (operator, 2026-09-18, 2026-09-19, 2026-10-01). codex-xhigh is released with codex-medium and codex-high, on every repo (operator, 2026-10-15,
+#543); only codex6-xhigh (astra) still needs his word per use.
 
 **Amendments (operator, 2026-10-04).** An amendment is tiered on its own size; the lane's tier is a
 ceiling, not a default: a tiny amendment never runs at xhigh (operator, 2026-10-01; 2026-10-04).
