@@ -9,91 +9,64 @@ FEATURE: <one or two sentences: what someone can do or see when this lands that 
 <!-- CORE BEGIN — byte-identical in all eight endpoints. Edit ONLY in estate-tooling, the original; an edit anywhere else is drift the identity checker will refuse. -->
 **Category:** <feature — milestone #<n> | path towards feature — #<issue> | fix | instrument | estate>.
 ISSUE: #<issue>
-DESIGN: <for a feature, docs/<design>.md on origin/main; facts with file:line, at most 120 words, no discovery history>.
-BRIEF-REVIEW: <LAUNCH | LAUNCH WITH RISKS: <named> | DO NOT LAUNCH> | <lane>-briefreview | round <n> | <date>
+DESIGN: <feature only: docs/<design>.md on origin/main; facts with file:line, at most 120 words>.
+BRIEF-REVIEW: <LAUNCH | LAUNCH WITH RISKS: <named> | DO NOT LAUNCH> | <lane>-briefreview | round <n> | <date> — only when a §F row is engaged.
 REVIEWS: <path of the brief or artifact reviewed> — review briefs only.
 REPRODUCED: <record of the command and output> — repeat review briefs only.
-FILES: <path> [<path>...] — the reviewer's reading fence, besides the build brief.
+FILES: <path> [<path>...] — review briefs only: the reviewer reads these and the build brief, nothing else.
+PRIOR LANES: <none | <lane> failed because <cause, one line>; this brief fixes it by <change>> — when a lane on this issue ran before.
 
 ## Facts
-- <fact the owner already gathered> — <source: path:line, sha, #<n> or measured <date>>; one line per fact, the lint checks it; a lane re-checks a fact and never rediscovers it (#497).
+- <fact the owner already gathered> — <source: path:line, sha, #<n> or measured <date>>. One line per fact. Re-check a fact if you doubt it; never rediscover it. Name in HANDOFF anything you had to find that this list should have carried (#497).
 
-BOUNDARY: No writes outside this worktree.
-Commit only here with explicit paths, plus <any explicitly named sibling worktree>. **PUSH YOUR OWN LANE BRANCH, never main**, and name the pushed sha in DONE.
+## Scope
+Build what FEATURE says, at that size. Add no cap, limit, fence, allow-list, time window, refusal or fail-closed default that this brief does not list below with its origin. If you think one is needed, ASK; do not add it.
+LIMITS: <none | each limit — origin: operator ask #<n> comment | docs/rulings.md <date> | vendor documented limit <link>>.
 
-HOSTS: <none | host — exact path/command — purpose, read-only|write>.
-An unlisted read or connection is an incident: stop, record the read and copy location, and ASK.
-Declare each stub with `STUB: <tool>` and `FIXTURE: <tool> docs/fixtures/<tool>-<date>.txt`;
-its answers use those bytes or a fixture derived by a named edit.
-Secrets: none appear in chat, reports, git or terminals; report key names, byte lengths or sha256 prefixes.
-Customer content stays on the box: report ids, counts and file names.
+## Boundaries
+Write only inside this worktree, plus <any named sibling worktree>. Commit with explicit paths. **Push your own lane branch, never main**, and name the pushed sha in DONE.
+HOSTS: <none | host — exact path or command — purpose — read-only|write>. An unlisted read or connection is an incident: stop, record it, and ASK.
+Stubs: declare each with `STUB: <tool>` and `FIXTURE: <tool> docs/fixtures/<tool>-<date>.txt`; its answers use those bytes.
+Secrets never appear in chat, reports, git or terminals; report key names, byte lengths or sha256 prefixes. Customer content stays on the box; report ids, counts and file names.
 
-REASON: <one clause naming the manual act removed, defect fixed, decision informed or builder friction removed>.
-TIER: <tier>. TIER-REASON: <one clause explaining why this effort fits>.
+REASON: <one clause naming the manual act removed, defect fixed or decision informed>.
+TIER: <tier>. TIER-REASON: <one clause: why this effort fits>.
 Gate: <in-lane cross-family gate REQUIRED | NOT REQUIRED — §F all not-engaged, one revert restores with no data loss>.
 External review: <NOT required — class | REQUIRED — class and review record>.
+PREREQUISITES: <none | dependency — seat creating it — command — check before the dependent step>. A DSN-dependent step names its provisioning script, admin role and test role.
+§F CLASSIFICATION: grants/roles/credentials — <not-engaged | engaged>; containment/egress — <not-engaged | engaged>; external writes — <not-engaged | engaged>; column drop/alter — <not-engaged | engaged>; customer data off-box — <not-engaged | engaged>. A row is engaged only by what the change adds or widens (#519).
 
-PREREQUISITES: <none | dependency — seat creating it — command — check before the dependent step>.
-A DSN-dependent step names its committed provisioning script, admin role and test role.
+## Rulings carried
+<Each ruling this work must honour: docs/rulings.md <date> or the issue comment. Do not quote the operator. Do not restate doctrine here.>
 
-§F CLASSIFICATION: grants/roles/credentials — <not-engaged | engaged, review record>;
-containment/egress — <not-engaged | engaged, review record>; external writes — <not-engaged | engaged, review record>;
-column drop/alter — <not-engaged | engaged, review record>; customer data off-box — <not-engaged | engaged, review record>.
+## Legs
+1. RED: <the failure at base, and a passing control>.
+2. Implement: <paths and commit prefix>.
+3. GREEN: <checks, with pasted exit lines>.
+4. BREAK — gate, hook or lint briefs only: <probes that try to get past the rule>.
+5. USE: <the real-work use that shows FEATURE, or who runs it and when>.
+A leg you cannot run means STOP before building; never report an unrun leg as absent.
 
-## The rules
-
-<Rules in plain sentences with file:line. Cite rulings as docs/rulings.md <date> <heading>; do not quote the operator.>
-Keep the chosen tier on its TIER line; only a STATUS writeback may repeat it.
-Rewrite a brief after review; put review history and runbooks in the review record or issue.
-
-## The change / The question / Legs
-
-<Exact scope and numbered legs; include each applicable gate's command and artifact.>
-1. RED: <failure at base and passing control>.
-2. BREAK: <probes that try to evade the rule>.
-3. Implement: <paths and commit prefix>.
-4. Green: <checks and pasted exit lines>.
-A gate leg this lane cannot run requires STOP before building; never report an unrun leg as absent.
-For a provider-facing schema change, run a zero-spend acceptance call before spending.
-For a runtime source-set change, run the built image and COPY-set closure test.
-For a deploy-script change, trace each stack and guard state and run a harness over those states.
-For an n8n release, run `scripts/rehearse-flow-sql.sh flows/<flow>.json` before the update;
-paste PASS and commit `docs/rehearsals/<flow>-<blob>.txt`; HOSTS names the box read.
-A deploy leg uses origin/main and proves its code diff from the fix-pass tip (the reviewed sha when there was no fix pass) is empty, excluding docs/ and STATUS; a fix pass touches only the files the review read.
-A digest pin cites the source line. A log wait uses a literal read from a real log line.
-For a design loop, read docs/design/CONTEXT-PACK.md first; name the estate palette and score the pinned verdicts.
-For a user surface, load the frontend-design and design-taste-frontend skills and the claude-design MCP before the first render; a render that is not elegant is refused at close.
-For a review, freeze the artifact, name the reading fence and word cap, and supply the dry-run results.
-For a walk, compare the prior render; name every permitted write and its REVERSAL with before/after proofs.
-An unlisted walk write is an incident: reverse and verify it before attest.
-
-USE: #<issue>
-<!-- The architect or owner posts the USE leg as an issue comment headed USE-LEG. -->
-
-## Pins / Verdict line / PASS rule
-
-<Build/test pins or the review verdict form.>
-A review's verdict is never inside a fence; the report's last line is `verdict=<token>` (#406).
-Walks use `RESULT: PASS —`, `RESULT: FAIL —`, or `RESULT: FAIL-FIXED-PENDING — …; fixed by <ref>`.
-An undecidable visual question says `RESULT: PASS — not visually decidable from the rendered surface; <checks>`.
-A leg that cannot run says `NOT EXERCISABLE — <reason>`.
+Apply the lines below that match this lane; ignore the rest:
+- Provider-facing schema change: a zero-spend acceptance call before spending.
+- Runtime source-set change: run the built image and the COPY-set closure test.
+- Deploy-script change: trace each stack and guard state and run a harness over those states.
+- n8n release: `scripts/rehearse-flow-sql.sh flows/<flow>.json` before the update; paste PASS; commit `docs/rehearsals/<flow>-<blob>.txt`; HOSTS names the box read.
+- Deploy leg: uses origin/main and proves its code diff from the fix-pass tip (or the reviewed sha) is empty, excluding docs/ and STATUS.
+- User surface: load the frontend-design and design-taste-frontend skills and the claude-design MCP before the first render; a render that is not elegant is refused at close (2026-10-12).
+- Design loop: read docs/design/CONTEXT-PACK.md first.
+- Review: freeze the artifact, name the reading fence and word cap, supply the dry-run results. The report's last line is `verdict=<token>`, outside any fence (#406).
+- Walk: compare the prior render; name every permitted write and its reversal with before/after proofs. An unlisted walk write is an incident: reverse and verify it before attesting. Results read `RESULT: PASS —`, `RESULT: FAIL —` or `RESULT: FAIL-FIXED-PENDING — …; fixed by <ref>`. A leg that cannot run says `NOT EXERCISABLE — <reason>`.
+- Digest pin: cite the source line. Log wait: use a literal read from a real log line.
 
 ## Deliverables
-
-0. A file called new has `git ls-files <path>` empty at the base sha.
-1. Commits `<lane>:` with explicit paths; HANDOFF.md in the worktree root carries the diff summary,
-   before/after suite exit lines, required gate RESULT, and `Removed behaviour` (list or none).
-   HANDOFF.md carries `TEST:` blocks pasted from `$ESTATE/scripts/lane-test.sh [--tag RED-PARENT|GREEN-TIP|MUTATION-RED|CONTROL] <command>` (indented `COMMAND:`, `GREEN: exit 0` or `RED: exit <non-zero>`, and `ARTIFACT: <path> md5=<hex> bytes=<n>`; a hand-written block with no ARTIFACT line is refused at close) and, for a surface, `WALK: <walk close record or fresh screenshot under worktree>`; close refuses either missing block.
-   COST line: `COST <lane>: model=<id> effort=<e> wall=<h:mm> rounds=<review rounds> spend≈$<usd or n/a (subscription)> saves≈<h/month or n/a>`.
-   For a changed existing surface, cite the prior walk and compare before/after renders.
-   For a spending lane, state what survives interruption without repeating completed spend.
-   Commit artifacts as lane-specific paths under docs/. Never commit HANDOFF.md, BRIEF.md or flag files.
-2. `touch <worktree>/HANDOFF-READY`, then signal the advisor handle read at launch with
-   `orca terminal send --terminal <advisor handle> --enter --text 'LANE-SIGNAL <lane> | DONE | <one line, pushed sha>'`.
-3. For a question unanswered by source, write ASK-ADVISOR in the worktree root and signal ASK.
-   Signal DONE when finished, ASK when stopped on a question, STOP when stopped for good; no progress,
-   INFO or UPDATE signal; never stop silently (#540).
-   Accepted signal verbs: DONE, ASK, STOP. No `$<digit>` in signal text; write arg 1 or field 2.
+1. Commits `<lane>:` with explicit paths. A file called new has `git ls-files <path>` empty at the base sha.
+2. HANDOFF.md in the worktree root (never committed): diff summary; `Removed behaviour` (list or none); the `TEST:` blocks pasted from `$ESTATE/scripts/lane-test.sh [--tag RED-PARENT|GREEN-TIP|MUTATION-RED|CONTROL] <command>` with their `ARTIFACT:` lines; for a surface, `WALK: <walk record or fresh screenshot>`; and one line:
+   `COST <lane>: model=<id> effort=<e> wall=<h:mm> rounds=<n> spend≈$<usd or n/a> saves≈<h/month or n/a>`.
+3. Commit artifacts under docs/ at lane-specific paths. Never commit HANDOFF.md, BRIEF.md or flag files.
+4. Run the close verifier on this worktree, `touch HANDOFF-READY`, then signal the handle in this brief's signal block:
+   `orca terminal send --terminal <launcher handle> --enter --text 'LANE-SIGNAL <lane> | DONE | <one line, pushed sha>'`.
+5. A question the source cannot answer: write ASK-ADVISOR in the worktree root and signal ASK. Signal STOP when stopped for good. Send no other signal: no progress, INFO, UPDATE or BOOT (#540). No `$<digit>` in signal text.
 <!-- CORE END -->
 
 ## Waiting on a lane (walk coordinators especially — ADVISOR.md 48, 8 rule 2b/6)
