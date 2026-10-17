@@ -158,14 +158,20 @@ Use the explicit model id, never an alias. Read the banner before the first prom
 
 ## §H. Review law by blast radius
 
-A change engages a row only when it ADDS or WIDENS one of these (2026-10-14, #519):
+A change engages §F when, after it lands, a person, process, host or vendor can reach a credential,
+an account, a customer's data, money or a production host that it could not reach before, beyond what
+Rami's ask or a ruling already grants; estate tooling that runs on a production host is engaged like
+any other change there (2026-10-16, #554; by effect, not by file, 2026-10-14, #519). The six rows
+are examples of that reach:
 1. a grant, role or credential;
 2. a containment or egress path;
 3. a write to an external system;
 4. a migration that drops or alters a column;
-5. a flow of customer data off-box.
+5. a flow of customer data off-box;
+6. money.
 
-A fix, refactor or test inside an existing grant, path, write or flow engages nothing.
+A change that stays on the Mac inside a lane's own worktree, its own settings or its own box dir and
+opens no new path to a production host is never engaged.
 
 - **Nothing engaged** (additive nullable columns, read-only views and screens, prompt edits,
   presentation changes, anything one git revert undoes with no data loss): build it, test it, show it.
@@ -187,7 +193,7 @@ A fix, refactor or test inside an existing grant, path, write or flow engages no
   only inside a named directory or compose project, records every command with return code and
   output, and restores to the recorded digest) runs live under a one-paragraph brief the owner writes:
   what changes, and how you will know it worked. No RED legs, gate or HANDOFF (2026-09-24). This does
-  not narrow the five rows.
+  not narrow the six rows.
 
 ### Records
 

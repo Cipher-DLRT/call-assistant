@@ -34,7 +34,8 @@ TIER: <tier>. TIER-REASON: <one clause: why this effort fits>.
 Gate: <in-lane cross-family gate REQUIRED | NOT REQUIRED — §F all not-engaged, one revert restores with no data loss>.
 External review: <NOT required — class | REQUIRED — class and review record>.
 PREREQUISITES: <none | dependency — seat creating it — command — check before the dependent step>. A DSN-dependent step names its provisioning script, admin role and test role.
-§F CLASSIFICATION: grants/roles/credentials — <not-engaged | engaged>; containment/egress — <not-engaged | engaged>; external writes — <not-engaged | engaged>; column drop/alter — <not-engaged | engaged>; customer data off-box — <not-engaged | engaged>. A row is engaged only by what the change adds or widens (#519).
+A change engages a §F row when, after it lands, a person, process, host or vendor can reach a credential, an account, a customer's data, money or a production host that it could not reach before, beyond what the operator's ask or a ruling already grants; a change that stays on the Mac inside a lane's own worktree, its own settings or its own box dir and opens no new path to a production host is never engaged (#554).
+§F CLASSIFICATION: grants/roles/credentials — <not-engaged | engaged>; containment/egress — <not-engaged | engaged>; external writes — <not-engaged | engaged>; column drop/alter — <not-engaged | engaged>; customer data off-box — <not-engaged | engaged>; money — <not-engaged | engaged>.
 
 ## Rulings carried
 <Each ruling this work must honour: docs/rulings.md <date> or the issue comment. Do not quote the operator. Do not restate doctrine here.>
