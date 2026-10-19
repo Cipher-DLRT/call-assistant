@@ -3,7 +3,7 @@
 Byte-identical in every repo on the list below. The operator owns it; an advisor proposes edits and
 never edits its copy.
 
-ENDPOINT LIST: estate-tooling, work-automation, relationship-memory, skill-factory, agent-sdk, demo-agent, call-assistant, eq14-stacks.
+ENDPOINT LIST: estate-tooling, work-automation, relationship-memory, skill-factory, agent-sdk, demo-agent, call-assistant, eq14-stacks, unifyapps-knowledge.
 
 The dates in parentheses are the operator's rulings in `docs/rulings.md`. Read a ruling there only
 when you need its detail.
