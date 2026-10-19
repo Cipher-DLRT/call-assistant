@@ -50,8 +50,7 @@ died with its state unwritten; headless runs start from a neutral cwd.
 - **Backlog owner.** One per product repo, holding milestone `Backlog`. What Rami reports that serves
   no promoted milestone, you file there and the backlog owner launches. A fix that blocks an owner in
   another repo is filed in that repo and launched by its backlog owner (2026-09-25).
-- **Estate tooling.** The estate-tooling advisor builds and lands what the estate architect briefs
-  (2026-09-24). The estate architect designs and never lands (2026-09-17).
+- **Estate tooling.** The estate architect designs and never lands (2026-09-17).
 - **The box (eq14-stacks).** The box lock (`$ESTATE/scripts/box-lock.sh`) keeps one box change at a
   time. The seat that holds a reviewed box item takes the lock, lands its change and its BOX-SEQ, and
   releases. The eq14-stacks advisor lands that repo's own work and clears stale locks (2026-09-24).
@@ -138,15 +137,21 @@ Use the explicit model id, never an alias. Read the banner before the first prom
 - Architect: `claude --model claude-fable-5-1 --effort high`, on demand, per ARCHITECT.md (2026-09-28).
   Opus 5 also architects. Fable runs only in architect seats and the judge and synthesizer legs.
 - Lanes: built and launched by `$ESTATE/scripts/lane.sh launch`, cheapest tier that fits, effort by
-  complexity (2026-10-01):
-  - hardest work: Opus 5.5 (`opus-medium`, `opus-high`; `opus-xhigh` for really complex work, never above);
-  - hard work: Codex on GPT-6.1 Sol (`codex-medium`, `codex-high`, `codex-xhigh`; codex-xhigh needs no
-    per-use word, 2026-10-15, #543);
+  complexity on every family (2026-10-01). The estate builds on Opus 5.5, Codex, Gemini and Muse by
+  this ladder. Start at the lowest rung and go up only when the rung below does not fit (2026-09-19,
+  2026-10-01, 2026-10-13):
   - the rest, mechanical and simple lanes first: Gemini 4 Argon on agy (`agy-high` default, `agy-medium`
     for mechanical work) or Muse (`muse-xhigh` on `muse-wonder-1.0`) (2026-10-13). Grok is retired on
     2026-10-18; no `grok-*` tier launches from that day.
+  - hard work: Codex on GPT-6.1 Sol (`codex-medium`, `codex-high`, `codex-xhigh`; codex-xhigh needs no
+    per-use word, 2026-10-15, #543). Codex is not the default builder for simple lanes (2026-10-01).
+  - hardest work: Opus 5.5 (`opus-medium`, `opus-high`; `opus-xhigh` for really complex work, never above).
+    A lane that renders a user surface sits on this rung and ends at its pushed sha, with the page check
+    as a Muse walk (2026-10-16, #552).
   - `codex6-xhigh` (`gpt-6-astra`) for a brief review only, on his word per use.
-  - The TIER line says in one clause why the work sits on its rung.
+  - The TIER line names the rung and says in one clause why the rung below does not fit.
+  - The launching seat's own family is not a reason for a rung. A reason that names a harness limit
+    of another family cites the issue or record that measured it (2026-10-16, #552).
 - An amendment is tiered on its own size; the lane's tier is a ceiling. A tiny amendment never runs at
   xhigh (2026-10-04).
 - Every spawn names its effort. Reviews default to medium; high only for a brief on the OWNER §3 list
@@ -154,7 +159,8 @@ Use the explicit model id, never an alias. Read the banner before the first prom
 - Reviewers are a separate visible session, cross-family from the builder, read-only, with the round
   cap named before round one.
 - Muse is the only family that holds a browser in a build lane or a walk. A non-Muse lane that needs a
-  browser stops and asks (2026-09-19).
+  browser stops and asks (2026-09-19). A non-Muse lane that builds a page ends at its pushed sha; the
+  page check at both widths is a Muse walk on that sha (2026-10-16, #552).
 
 ## §H. Review law by blast radius
 
@@ -184,9 +190,9 @@ opens no new path to a production host is never engaged.
   (2026-10-08, #446). If the lander reproduces a failure, it sends the command and output to the lane
   as one line.
 - An ITEM is a build brief and its re-cuts; `<item>-xreview` is its one external review (#388, #400).
-- Whoever lands the change (the owner for its milestones, the advisor for what no owner can land)
-  lands on the review's verdict and the lane's handoff. Advisors do not land what owners can land and
-  do not read an owner's held diffs (2026-10-01).
+- Whoever lands the change lands on the review's verdict and the lane's handoff. The advisor lands only
+  what a refusal or a conflict stops a lane or owner from landing (2026-10-16, #553), and does not read
+  an owner's held diffs (2026-10-01).
 - A build lane's test run takes a heavy-suite slot ahead of any review or landing run; a review lane
   never takes one (2026-10-05).
 - An item restorable to a before-state recorded in the same run (it reads before every write, writes

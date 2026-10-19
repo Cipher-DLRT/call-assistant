@@ -24,13 +24,13 @@ Build what FEATURE says, at that size. Add no cap, limit, fence, allow-list, tim
 LIMITS: <none | each limit — origin: operator ask #<n> comment | docs/rulings.md <date> | vendor documented limit <link>>.
 
 ## Boundaries
-Write only inside this worktree, plus <any named sibling worktree>. Commit with explicit paths. **Push your own lane branch, never main**, and name the pushed sha in DONE.
+Write only inside this worktree, plus <any named sibling worktree>. Commit with explicit paths; land your own branch with lane.sh land when your close verifier is green, and name the landed sha in DONE.
 HOSTS: <none | host — exact path or command — purpose — read-only|write>. An unlisted read or connection is an incident: stop, record it, and ASK.
 Stubs: declare each with `STUB: <tool>` and `FIXTURE: <tool> docs/fixtures/<tool>-<date>.txt`; its answers use those bytes.
 Secrets never appear in chat, reports, git or terminals; report key names, byte lengths or sha256 prefixes. Customer content stays on the box; report ids, counts and file names.
 
 REASON: <one clause naming the manual act removed, defect fixed or decision informed>.
-TIER: <tier>. TIER-REASON: <one clause: why this effort fits>.
+TIER: <tier>. TIER-REASON: <one clause: the rung (hardest, hard, the rest) and why the rung below it does not fit; then why this effort fits>.
 Gate: <in-lane cross-family gate REQUIRED | NOT REQUIRED — §F all not-engaged, one revert restores with no data loss>.
 External review: <NOT required — class | REQUIRED — class and review record>.
 PREREQUISITES: <none | dependency — seat creating it — command — check before the dependent step>. A DSN-dependent step names its provisioning script, admin role and test role.

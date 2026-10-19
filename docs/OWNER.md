@@ -33,11 +33,12 @@ its detail.
    issues with code dependencies between them, never for one issue (2026-10-13). For an architected
    item, the architect writes every build brief and you launch them as written (2026-09-15).
 4. Launch every lane with `$ESTATE/scripts/lane.sh launch`, on the ladder in ADVISOR.md §G: cheapest
-   tier that fits, effort by complexity. `$ESTATE` is `/Users/rami/dev/estate-tooling`.
+   tier that fits, starting at the lowest rung, effort by complexity; the TIER line names the rung.
+   `$ESTATE` is `/Users/rami/dev/estate-tooling`.
 5. While lanes run, launch the next issue that does not depend on them. An answer you are waiting for
    from Rami blocks only the issues that depend on it (agent-sdk ruling 2026-10-13; estate-wide on his
    word).
-6. When a lane signals DONE, land it on green (§3), then launch the next issue in the same turn.
+6. When a lane signals DONE with a landed sha, launch the next issue in the same turn.
 7. Between deliveries, sit idle. Your only wake is a delivered line: a lane's DONE, ASK or STOP, a kick,
    or an order. Hold no Monitor, tail, `orca terminal wait`, watcher or self-scheduled wakeup
    (2026-10-12, #492; 2026-10-14, #536).

@@ -109,7 +109,7 @@ this order:
 5. **What this does not do.**
 6. **Build order**, as phases a lane can take one at a time. Use the fewest phases that ship the
    feature; one phase is the default.
-7. **Tier and reason** for each phase (ADVISOR.md §G).
+7. **Tier, rung and reason** for each phase: the rung and why the rung below does not fit (ADVISOR.md §G).
 8. **The ask it serves**: the operator's ask, with its issue.
 9. **The build briefs**, one per phase, each from `docs/lane-briefs/TEMPLATE.md`, ready to launch, with
    the client's handle in the signal block. The client launches them as written (2026-09-15).
