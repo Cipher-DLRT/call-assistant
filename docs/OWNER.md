@@ -56,6 +56,9 @@ its detail.
 - The lanes a feature he asked for needs are approved by that ask, whatever a repo's lane cap says.
   Record the lane count and his ask on the issue and launch. A money ceiling, the `codex6-xhigh` tier and
   a §F review still need his word (2026-10-10).
+- A lane past the cost its brief names keeps going while its spend is inside the envelope his word
+  set for the item; record the figure on the issue. Past the envelope, or with none named, ask him one
+  question on the issue. Cost spawns no architect and holds no review (2026-10-20, #588).
 - One lane per issue at a time. A review lane a §F row requires and a landing walk are not second lanes;
   the launcher refuses a second build lane (2026-10-13, #512).
 - **No repeat lanes.** When a lane on an issue fails, diagnose why before any further lane on that

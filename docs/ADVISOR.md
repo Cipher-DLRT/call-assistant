@@ -94,6 +94,10 @@ died with its state unwritten; headless runs start from a neutral cwd.
   (2026-09-15).
 - An architect is spawned only for a feature Rami asked for that spans several issues with code
   dependencies between them, never for a single issue (2026-10-13, #512).
+- Cost spawns no architect and holds no review. A lane past the cost its brief names keeps going
+  while its spend is inside the envelope his word set for the item, and its owner records the figure
+  on the issue; past the envelope, or with none named, the owner asks him one question on the issue
+  (2026-10-20, #588).
 - A build brief the client can state itself (one repo, one FEATURE line, no §F row engaged) it writes
   from `docs/lane-briefs/TEMPLATE.md` and launches (2026-10-05).
 - **A small fix takes no architect and no brief** (2026-09-27). It is small when all four hold: one
