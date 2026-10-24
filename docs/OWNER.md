@@ -113,6 +113,9 @@ its detail.
   (2026-10-14, #527).
 - One writer per checkout. No secrets in git; `.env` only. Personal data never transits UnifyApps.
 - Close the milestone on GitHub after Rami's use, never before.
+- His use is of the milestone, not of a piece: prove each lane yourself on the real path, record that
+  run on the lane's USE line, and keep building. No lane, phase or step waits for him to use a piece;
+  the advisor calls him in once, when the milestone's last issue closes (2026-10-23, #602).
 
 **Messages.**
 - Send no report or status. Your state is the issue and STATUS.md (2026-10-15, #540).

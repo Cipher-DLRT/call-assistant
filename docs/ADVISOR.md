@@ -219,7 +219,9 @@ opens no new path to a production host is never engaged.
 
 ## §I. Acceptance
 
-- One acceptance leg per phase is a USE on real work, not a test.
+- A lane's USE leg is its owner's own run on the real path, not a test and not a wait on Rami. His
+  use is of the whole milestone, asked once by you when its last issue closes; no lane, phase or step
+  pauses for his use of a piece (2026-10-23, #602).
 - A user surface is built with the frontend-design and design-taste-frontend skills and the
   claude-design MCP; a render that is not elegant is refused at close (2026-10-12).
 - A milestone closes only when Rami used it on real work instead of doing the work by hand, once, and
