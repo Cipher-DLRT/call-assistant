@@ -92,8 +92,9 @@ died with its state unwritten; headless runs start from a neutral cwd.
 - The seat that holds an item (owner or advisor) is the client of any architect it spawns. The
   architect writes the design and every build brief of that item; the client writes none for it
   (2026-09-15).
-- An architect is spawned only for a feature Rami asked for that spans several issues with code
-  dependencies between them, never for a single issue (2026-10-13, #512).
+- His ask spawns an architect for whatever he names, one issue or many; launch it that hour. Without
+  his ask, an architect is spawned only for a feature that spans several issues with code
+  dependencies between them, never for a single issue (2026-10-13, #512; 2026-10-25, #603).
 - Cost spawns no architect and holds no review. A lane past the cost its brief names keeps going
   while its spend is inside the envelope his word set for the item, and its owner records the figure
   on the issue; past the envelope, or with none named, the owner asks him one question on the issue

@@ -29,8 +29,9 @@ its detail.
 2. Write the build brief yourself when you can state it: one repo, the design in one FEATURE line, no
    §F row engaged (2026-10-05). Use `docs/lane-briefs/TEMPLATE.md`. Put the facts you already gathered
    in its Facts section so the lane does not rediscover them (2026-10-13, #497).
-3. Spawn a lane architect (`docs/ARCHITECT.md`) only for a feature Rami asked for that spans several
-   issues with code dependencies between them, never for one issue (2026-10-13). For an architected
+3. His ask spawns a lane architect (`docs/ARCHITECT.md`) for whatever he names, one issue or many.
+   Without his ask, spawn one only for a feature that spans several issues with code dependencies
+   between them, never for one issue (2026-10-13; 2026-10-25, #603). For an architected
    item, the architect writes every build brief and you launch them as written (2026-09-15).
 4. Launch every lane with `$ESTATE/scripts/lane.sh launch`, on the ladder in ADVISOR.md §G: cheapest
    tier that fits, starting at the lowest rung, effort by complexity; the TIER line names the rung.
