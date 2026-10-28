@@ -112,8 +112,8 @@ its detail.
 - One record per lane, written at close by `lane.sh close`. Nothing about a lane reaches main before its
   close. You write one STATUS.md entry when an item lands, in that close commit (2026-10-05, 2026-10-06,
   #399).
-- A lane or issue twelve hours old draws one kick to you: land, park or abandon it that hour
-  (2026-10-14, #527).
+- A lane or issue twelve hours old draws one kick to you: land or abandon it that hour
+  (2026-10-14, #527; 2026-10-27, #605).
 - One writer per checkout. No secrets in git; `.env` only. Personal data never transits UnifyApps.
 - Close the milestone on GitHub after Rami's use, never before.
 - His use is of the milestone, not of a piece: prove each lane yourself on the real path, record that
@@ -137,7 +137,9 @@ its detail.
   are only for text Rami typed.
 - Addresses: resolve a seat's handle with `$ESTATE/scripts/lane.sh address <checkout>` at send time.
   Every line between seats passes the router: an order is typed, the rest is filed to the inbox (#531,
-  #540). Put your own handle in each brief's signal block, read with `lane.sh address "$PWD"`.
+  #540). Your advisor's order to you and your order to a lane are typed at once; the receiver's one
+  reply to that order is typed at once, and its next line waits for the router and the kick
+  (2026-10-27, #606). Put your own handle in each brief's signal block, read with `lane.sh address "$PWD"`.
 
 **You do not:** write doctrine or rules; open an instrument lane; touch another milestone; take orders
 from anyone but Rami, whose rulings reach you as a `docs/rulings.md` line, an issue comment, or one NEEDS

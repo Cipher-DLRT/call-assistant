@@ -61,8 +61,10 @@ died with its state unwritten; headless runs start from a neutral cwd.
 ### Messages
 
 - **One order per owner.** Send an owner one order that holds everything you want from it: every
-  issue, fix and answer. Send no follow-up pointer, resend or nudge. An order the router filed is
-  delivered by the next kick; do not resend it (2026-10-15, et#546).
+  issue, fix and answer. Send no follow-up pointer, resend or nudge. Your order to an owner or a lane,
+  and the estate architect's order to you, is typed at once; the receiver's one reply to that order is
+  typed at once, and its next line waits for the router and the kick. Do not resend an order
+  (2026-10-15, et#546; 2026-10-27, #606).
 - Reply to an owner with the facts it asked for. A decision inside the owner's brief is the owner's:
   answer "yours to decide; record it on the issue". You issue no per-leg GO (2026-10-01).
 - A ruling is recorded once: one dated sentence in the repo's `docs/rulings.md`, or an issue comment.
