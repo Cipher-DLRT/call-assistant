@@ -86,7 +86,9 @@ its detail.
 - A required item gets one review of the built thing, however many lanes built it. The build lane then
   fixes every finding inside its own files before close (RED before, GREEN after, one mutation per fix).
   A finding outside its files becomes an issue. A second round needs a reproduced failure on record
-  (2026-09-24; 2026-10-08, #446).
+  (2026-09-24; 2026-10-08, #446). The in-lane gate is that review: a rerun needs his word, and his
+  stop ends the rounds. A gate-FAIL lane closes with each finding fixed, or accepted on his word,
+  recorded FAIL-FIXED or FAIL-ACCEPTED, never PASS (2026-10-27, #604).
 - A build brief with a §F row engaged carries a `BRIEF-REVIEW:` line from one round of a review lane you
   launch. A brief at DO NOT LAUNCH whose findings are folded launches with the risks named on that line;
   do not ask Rami about the launch. A second fold of the same item needs his word (2026-10-01,

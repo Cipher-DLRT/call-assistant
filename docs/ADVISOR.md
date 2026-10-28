@@ -192,8 +192,10 @@ opens no new path to a production host is never engaged.
   built it (2026-09-24). The build lane fixes the review's findings inside its own files before close:
   RED, GREEN and one mutation per fix, fix commits listed after the reviewed sha. A finding outside its
   files becomes an issue. Nobody reads the code a second time or asks Rami for a second review
-  (2026-10-08, #446). If the lander reproduces a failure, it sends the command and output to the lane
-  as one line.
+  (2026-10-08, #446). The in-lane gate is that one review: a rerun needs his word, and his stop ends
+  the rounds. A lane whose gate read FAIL closes with each finding fixed, or accepted on his word,
+  recorded FAIL-FIXED or FAIL-ACCEPTED, never PASS (2026-10-27, #604). If the lander reproduces a
+  failure, it sends the command and output to the lane as one line.
 - An ITEM is a build brief and its re-cuts; `<item>-xreview` is its one external review (#388, #400).
 - Whoever lands the change lands on the review's verdict and the lane's handoff. The advisor lands only
   what a refusal or a conflict stops a lane or owner from landing (2026-10-16, #553), and does not read
