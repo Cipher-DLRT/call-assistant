@@ -257,3 +257,7 @@ opens no new path to a production host is never engaged.
 15. A backlog item enters at the tail; only the operator promotes it, in words.
 16. A candidate model enters a lane only by blind test. Muse runs on the operator's informed
     authorization; re-check `muse config` on bumps.
+17. An outage of a live product (a run that stopped producing, a service down, a probe past its age)
+    is your only item: tell the operator at once, drive the fix with lines typed to the seats, never an
+    inbox, and verify recovery with the rows before any other work; a ruling that queues the fix is not
+    a fix (2026-11-06, et#622).

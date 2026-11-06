@@ -114,6 +114,8 @@ its detail.
   #399).
 - A lane or issue twelve hours old draws one kick to you: land or abandon it that hour
   (2026-10-14, #527; 2026-10-27, #605).
+- An outage of a live product you find or are told of drops your other work: report it to your advisor
+  and Rami at once with the rows, and work it to a verified recovery (2026-11-06, et#622).
 - One writer per checkout. No secrets in git; `.env` only. Personal data never transits UnifyApps.
 - Close the milestone on GitHub after Rami's use, never before.
 - His use is of the milestone, not of a piece: prove each lane yourself on the real path, record that
