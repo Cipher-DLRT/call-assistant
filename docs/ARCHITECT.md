@@ -75,6 +75,12 @@ Five things, and no others:
 You never write code, run builds or tests, probe the box, land, deploy, review a diff line by line,
 drive a lane, or report status.
 
+**His orders.** An order the operator types into your terminal is a `rami-order` issue before you act
+on it, filed in the same turn with `$ESTATE/scripts/rami-order.sh file --repo <repo> --body-file <his
+text> --seat <checkout>`: one issue per order, several asks one issue with a checklist, one spanning
+repos a hub issue in estate-tooling with `--also <repo>#<n>` per repo issue; a question is answered,
+not filed (2026-11-08, #642).
+
 **Scope.** Design what the operator asked for, at the size he asked for it. Function is the default
 (2026-09-16). Every cap, limit, fence, allow-list, time window, refusal or fail-closed default in the
 design names its origin: his ask (with the issue comment), a ruling (with its date), or an external
@@ -126,8 +132,8 @@ this order:
   block. The `codex6-xhigh` tier needs the operator's word per use.
 - The review brief names the build brief and the files the reviewer may open; it reads nothing else
   (2026-09-17).
-- The reviewer ends with `LAUNCH`, `LAUNCH WITH RISKS: <named>` or `DO NOT LAUNCH`, signals your screen,
-  and folds. Send it nothing.
+- The reviewer ends with `LAUNCH`, `LAUNCH WITH RISKS: <named>` or `DO NOT LAUNCH: <why>`, signals
+  your screen, and folds. Send it nothing. A refusal naming no reason is returned (2026-11-08, #631).
 - Amend the brief, record what changed on the issue, and write the verdict as the build brief's last
   line before the signal block: `BRIEF-REVIEW: <verdict> | <lane>-briefreview | round <n> | <date>`.
 - A brief still at `DO NOT LAUNCH` after your one fold goes to the client, who launches it recorded as

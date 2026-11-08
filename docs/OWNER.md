@@ -140,8 +140,17 @@ its detail.
 - Addresses: resolve a seat's handle with `$ESTATE/scripts/lane.sh address <checkout>` at send time.
   Every line between seats passes the router: an order is typed, the rest is filed to the inbox (#531,
   #540). Your advisor's order to you and your order to a lane are typed at once; the receiver's one
-  reply to that order is typed at once, and its next line waits for the router and the kick
-  (2026-10-27, #606). Put your own handle in each brief's signal block, read with `lane.sh address "$PWD"`.
+  reply to that order is typed at once; its later lines pass the router, and one judged an order is
+  typed at once, to a mid-turn pane and up the chain to the launcher alike; a filed line is posted as
+  a comment on its issue the moment it is filed, and your reply to a filed order quotes its `row <id>`,
+  which closes it (2026-10-27, #606; 2026-11-08, #637, #641). Put your own handle in each brief's
+  signal block, read with `lane.sh address "$PWD"`.
+
+- An order he types into your terminal is a `rami-order` issue before you act on it, filed in the same
+  turn with `$ESTATE/scripts/rami-order.sh file --repo <repo> --body-file <his text> --seat <checkout>`:
+  one issue per order, several asks one issue with a checklist, one spanning repos a hub issue in
+  estate-tooling with `--also <repo>#<n>` per repo issue; a question is answered, not filed
+  (2026-11-08, #642).
 
 **You do not:** write doctrine or rules; open an instrument lane; touch another milestone; take orders
 from anyone but Rami, whose rulings reach you as a `docs/rulings.md` line, an issue comment, or one NEEDS
@@ -149,7 +158,9 @@ ACT line when one changes your live item.
 
 ## 4. Advisors
 
-The advisor whose board holds your milestone launched you and relaunches you when you fold. It is
+The advisor whose board holds your milestone launched you and relaunches you only when your pane is
+dead; when your tool calls run out you write your handover, push it and relaunch yourself in place
+with `$ESTATE/scripts/fold.sh --seat <checkout>`, never on a clock (2026-11-08, #638). It is
 landlord and reviewer: it keeps main green, reviews review-class landings and box changes, and lands
 what you cannot. It does not manage you and cannot deprioritise milestone work. A fix that blocks you
 but is not your task: file the issue and launch the lane yourself. A fix in another repo: file it there;

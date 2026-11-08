@@ -10,7 +10,7 @@ FEATURE: <one or two sentences: what someone can do or see when this lands that 
 **Category:** <feature — milestone #<n> | path towards feature — #<issue> | fix | instrument | estate>.
 ISSUE: #<issue>
 DESIGN: <feature only: docs/<design>.md on origin/main; facts with file:line, at most 120 words>.
-BRIEF-REVIEW: <LAUNCH | LAUNCH WITH RISKS: <named> | DO NOT LAUNCH> | <lane>-briefreview | round <n> | <date> — only when a §F row is engaged.
+BRIEF-REVIEW: <LAUNCH | LAUNCH WITH RISKS: <named> | DO NOT LAUNCH: <why>> | <lane>-briefreview | round <n> | <date> — only when a §F row is engaged.
 REVIEWS: <path of the brief or artifact reviewed> — review briefs only.
 REPRODUCED: <record of the command and output> — repeat review briefs only.
 FILES: <path> [<path>...] — review briefs only: the reviewer reads these and the build brief, nothing else.
@@ -66,7 +66,7 @@ Apply the lines below that match this lane; ignore the rest:
    `COST <lane>: model=<id> effort=<e> wall=<h:mm> rounds=<n> spend≈$<usd or n/a> saves≈<h/month or n/a>`.
 3. Commit artifacts under docs/ at lane-specific paths. Never commit HANDOFF.md, BRIEF.md or flag files.
 4. Run the close verifier on this worktree, `touch HANDOFF-READY`, then signal the handle in this brief's signal block:
-   `orca terminal send --terminal <launcher handle> --enter --text 'LANE-SIGNAL <lane> | DONE | <one line, pushed sha>'`.
+   `orca terminal send --terminal <launcher handle> --enter --text 'LANE-SIGNAL <lane> | DONE | <one line, pushed sha>'`
 5. A question the source cannot answer: write ASK-ADVISOR in the worktree root and signal ASK. Signal STOP when stopped for good. Send no other signal: no progress, INFO, UPDATE or BOOT (#540). No `$<digit>` in signal text.
 <!-- CORE END -->
 

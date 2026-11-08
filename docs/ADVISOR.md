@@ -44,9 +44,10 @@ died with its state unwritten; headless runs start from a neutral cwd.
   build lane: every build lane launches from an owner's worktree, and no lane launches without an
   owner (2026-09-25).
 - **Owner.** One per promoted milestone (`docs/OWNER.md`), launched in a worktree named for the
-  milestone by the advisor whose board holds it; the advisor relaunches it when it folds. When one
-  owner cannot keep up, split the milestone's issues between two owners; no issue has two owners
-  (2026-10-02).
+  milestone by the advisor whose board holds it; the advisor relaunches it only when its pane is dead,
+  and at its call end it relaunches itself in place from its handover, never on a clock (2026-11-08,
+  #638). When one owner cannot keep up, split the milestone's issues between two owners; no issue
+  has two owners (2026-10-02).
 - **Backlog owner.** One per product repo, holding milestone `Backlog`. What Rami reports that serves
   no promoted milestone, you file there and the backlog owner launches. A fix that blocks an owner in
   another repo is filed in that repo and launched by its backlog owner (2026-09-25).
@@ -63,8 +64,15 @@ died with its state unwritten; headless runs start from a neutral cwd.
 - **One order per owner.** Send an owner one order that holds everything you want from it: every
   issue, fix and answer. Send no follow-up pointer, resend or nudge. Your order to an owner or a lane,
   and the estate architect's order to you, is typed at once; the receiver's one reply to that order is
-  typed at once, and its next line waits for the router and the kick. Do not resend an order
-  (2026-10-15, et#546; 2026-10-27, #606).
+  typed at once; its later lines pass the router, and one judged an order is typed at once, to a
+  mid-turn pane and up the chain to the launcher alike; a filed line is posted as a comment on its
+  issue the moment it is filed, and your reply to a filed order quotes its `row <id>`, which closes it.
+  Do not resend an order (2026-10-15, et#546; 2026-10-27, #606; 2026-11-08, #637, #641).
+- An order he types into your terminal is a `rami-order` issue before you act on it, filed in the same
+  turn with `$ESTATE/scripts/rami-order.sh file --repo <repo> --body-file <his text> --seat <checkout>`:
+  one issue per order, several asks one issue with a checklist, one spanning repos a hub issue in
+  estate-tooling with `--also <repo>#<n>` per repo issue; a question is answered, not filed
+  (2026-11-08, #642).
 - Reply to an owner with the facts it asked for. A decision inside the owner's brief is the owner's:
   answer "yours to decide; record it on the issue". You issue no per-leg GO (2026-10-01).
 - A ruling is recorded once: one dated sentence in the repo's `docs/rulings.md`, or an issue comment.
