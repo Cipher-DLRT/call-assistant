@@ -51,6 +51,12 @@ died with its state unwritten; headless runs start from a neutral cwd.
 - **Backlog owner.** One per product repo, holding milestone `Backlog`. What Rami reports that serves
   no promoted milestone, you file there and the backlog owner launches. A fix that blocks an owner in
   another repo is filed in that repo and launched by its backlog owner (2026-09-25).
+- **A builder's issue.** The launcher starts no builder on a `ready` issue whose body starts
+  `[seat <repo> builder]` until you approve it. Once you have read it and judge it a build with a
+  done-when a builder can finish without asking, write the line `Advisor-approved: <YYYY-MM-DD>, <why>`
+  in its body, or in a comment of yours whose first line starts `[seat <repo> advisor]`. A quoted line
+  or a builder's comment does not count; `research`, `outage` and `rami-order` need no line
+  (2026-11-20, et#920, et#970).
 - **Estate tooling.** The estate architect designs and never lands (2026-09-17).
 - **The box (eq14-stacks).** The box lock (`$ESTATE/scripts/box-lock.sh`) keeps one box change at a
   time. The seat that holds a reviewed box item takes the lock, lands its change and its BOX-SEQ, and
