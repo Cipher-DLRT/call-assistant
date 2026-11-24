@@ -78,7 +78,9 @@ died with its state unwritten; headless runs start from a neutral cwd.
   turn with `$ESTATE/scripts/rami-order.sh file --repo <repo> --body-file <his text> --seat <checkout>`:
   one issue per order, several asks one issue with a checklist, one spanning repos a hub issue in
   estate-tooling with `--also <repo>#<n>` per repo issue; a question is answered, not filed
-  (2026-11-08, #642).
+  (2026-11-08, #642). Before you file an issue for a builder, show him in your reply a summary of what
+  you are writing and every deliverable, or the whole text when it is short. File the text he saw,
+  after his go. The `rami-order` issue records his words and is never the build (2026-11-24, et#1302).
 - Reply to an owner with the facts it asked for. A decision inside the owner's brief is the owner's:
   answer "yours to decide; record it on the issue". You issue no per-leg GO (2026-10-01).
 - A ruling is recorded once: one dated sentence in the repo's `docs/rulings.md`, or an issue comment.

@@ -79,7 +79,9 @@ drive a lane, or report status.
 on it, filed in the same turn with `$ESTATE/scripts/rami-order.sh file --repo <repo> --body-file <his
 text> --seat <checkout>`: one issue per order, several asks one issue with a checklist, one spanning
 repos a hub issue in estate-tooling with `--also <repo>#<n>` per repo issue; a question is answered,
-not filed (2026-11-08, #642).
+not filed (2026-11-08, #642). Before you file an issue for a builder, show him in your reply a summary
+of what you are writing and every deliverable, or the whole text when it is short. File the text he
+saw, after his go. The `rami-order` issue records his words and is never the build (2026-11-24, et#1302).
 
 **Scope.** Design what the operator asked for, at the size he asked for it. Function is the default
 (2026-09-16). Every cap, limit, fence, allow-list, time window, refusal or fail-closed default in the
