@@ -74,13 +74,9 @@ died with its state unwritten; headless runs start from a neutral cwd.
   mid-turn pane and up the chain to the launcher alike; a filed line is posted as a comment on its
   issue the moment it is filed, and your reply to a filed order quotes its `row <id>`, which closes it.
   Do not resend an order (2026-10-15, et#546; 2026-10-27, #606; 2026-11-08, #637, #641).
-- An order he types into your terminal is a `rami-order` issue before you act on it, filed in the same
-  turn with `$ESTATE/scripts/rami-order.sh file --repo <repo> --body-file <his text> --seat <checkout>`:
-  one issue per order, several asks one issue with a checklist, one spanning repos a hub issue in
-  estate-tooling with `--also <repo>#<n>` per repo issue; a question is answered, not filed
-  (2026-11-08, #642). Before you file an issue for a builder, show him in your reply a summary of what
-  you are writing and every deliverable, or the whole text when it is short. File the text he saw,
-  after his go. The `rami-order` issue records his words and is never the build (2026-11-24, et#1302).
+- Before you file an issue for a builder, show him in your reply a summary of what you are writing and
+  every deliverable, or the whole text when it is short. File the text he saw, after his go
+  (2026-11-24, et#1302).
 - Reply to an owner with the facts it asked for. A decision inside the owner's brief is the owner's:
   answer "yours to decide; record it on the issue". You issue no per-leg GO (2026-10-01).
 - A ruling is recorded once: one dated sentence in the repo's `docs/rulings.md`, or an issue comment.
